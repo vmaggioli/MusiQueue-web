@@ -26,4 +26,5 @@ export class AppComponent {
   loginWithGoogle() {
     this.auth.loginWithGoogle();
   }
+
 }

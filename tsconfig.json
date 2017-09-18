@@ -15,5 +15,6 @@
       "es2017",
       "dom"
     ]
-  }
+  },
+  "files": [ "node_modules/@types/youtube/index.d.ts" ]
 }

@@ -5,12 +5,17 @@ import { HubMainComponent } from './hub-main/hub-main.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HubUsersComponent } from './hub-users/hub-users.component';
-
+import { CreateJoinComponent } from './create-join/create-join.component';
+import { CreateHubComponent } from './create-hub/create-hub.component';
+import { JoinHubComponent } from './join-hub/join-hub.component';
 
 const appRoutes: Routes = [
+  { path: '', component: HomeComponent }
   { path: 'hub-main', component: HubMainComponent },
   { path: 'hub-main/users', component: HubUsersComponent },
-  { path: '', component: HomeComponent }
+  { path: 'create-join', component: CreateJoinComponent },
+  { path: 'create-hub', component: CreateHubComponent },
+  { path: 'join-hub', component: JoinHubComponent }
 ]
 @NgModule({
   imports: [

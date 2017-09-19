@@ -18,6 +18,9 @@ import { HubMainComponent } from './hub-main/hub-main.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { HubUsersComponent } from './hub-users/hub-users.component';
+import { CreateJoinComponent } from './create-join/create-join.component';
+import { CreateHubComponent } from './create-hub/create-hub.component';
+import { JoinHubComponent } from './join-hub/join-hub.component';
 
 
 @NgModule({
@@ -26,6 +29,9 @@ import { HubUsersComponent } from './hub-users/hub-users.component';
     HubMainComponent,
     HomeComponent,
     HubUsersComponent,
+    CreateJoinComponent,
+    CreateHubComponent,
+    JoinHubComponent
   ],
   imports: [
     BrowserModule,

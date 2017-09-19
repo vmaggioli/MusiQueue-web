@@ -24,12 +24,6 @@
   margin-top: -47.6px;
 }
 
-#addButton {
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-}
-
 .right {
 	position: relative;
 	z-index: 1;

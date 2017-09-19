@@ -1,0 +1,22 @@
+<!--<div style="display:block; margin: auto; width:50%; text-align: center;">-->
+
+<h1 id="hubTitle">Hub Name</h1>
+<div id="container">
+  <div id="hubConsole">
+    <div id="video">
+      <youtube-player [videoId]="id" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
+    </div>
+    <div id="songList">
+      <div id="tabList">
+        <nav class="right">
+        	<a  class="selected" routerLink="/hub-main/users" routerLinkActive="active" [routerLinkActiveOptions]="{exact: tru}">Users</a>
+        	<a routerLink="/hub-main" routerLinkActive="active" [routerLinkActiveOptions]="{exact: tru}">Songs</a>
+        </nav>
+        <main>
+        	Content area
+        </main>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

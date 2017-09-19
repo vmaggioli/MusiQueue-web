@@ -17,6 +17,7 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { HubMainComponent } from './hub-main/hub-main.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
+import { HubUsersComponent } from './hub-users/hub-users.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     HubMainComponent,
     HomeComponent,
+    HubUsersComponent,
   ],
   imports: [
     BrowserModule,

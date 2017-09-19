@@ -4,6 +4,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 
+import { User } from '../objects/user';
+
 @Injectable()
 export class AuthService {
   private authState: Observable<firebase.User>

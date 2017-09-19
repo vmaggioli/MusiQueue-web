@@ -30,11 +30,11 @@ constructor(public afAuth: AngularFireAuth) {
         var user = result.user;
         var usersRef = firebase.database().ref('Users');
         usersRef.child(user.uid).set({
-        active: true,
-        email: user.email,
-        kicked: false,
-        last_active: Date.now(),
-        username: "guest"
+          active: true,
+          email: user.email,
+          kicked: false,
+          last_active: Date.now(),
+          username: "guest"
         });
       });
   }

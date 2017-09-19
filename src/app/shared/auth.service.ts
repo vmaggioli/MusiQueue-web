@@ -12,31 +12,10 @@ constructor(public afAuth: AngularFireAuth) {
     this.authState = this.afAuth.authState;
     this.authState.subscribe(user => {
       if (user) {
-				console.log("setting current user\n");
         this.currentUser = user;
-        this.createUser();
       } else {
         this.currentUser = null;
       }
-    });
-  }
-
-  /**
-   *  This function will create a user in the database and set his/her key
-   *  equal to the unique id that firebase generates after siging up
-   *  general default values are also set, but the username will need to be
-   *  updated later
-   */
-  createUser() {
-    var usersRef = firebase.database().ref('Users');
-    var userRef = usersRef.push(this.currentUser.uid);
-    console.log("creating User\n");
-    userRef.set({
-      'username': 'guest',
-      'active': true,
-      'kicked': false,
-      'last_active': new Date(),
-      'email': this.currentUser.email
     });
   }
 
@@ -46,6 +25,18 @@ constructor(public afAuth: AngularFireAuth) {
 
   loginWithGoogle() {
     return this.afAuth.auth.signInWithPopup(
-      new firebase.auth.GoogleAuthProvider());
+      new firebase.auth.GoogleAuthProvider()).then((result) => {
+        var token = result.credential.accessToken;
+        var user = result.user;
+        var usersRef = firebase.database().ref('Users');
+        usersRef.child(user.uid).set({
+          active: true,
+          email: user.email,
+          kicked: false,
+          last_active: Date.now(),
+          username: "guest"
+        });
+      });
   }
+
 }

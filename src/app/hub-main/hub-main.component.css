@@ -51,6 +51,11 @@ li {
   line-height: 20px;
 }
 
+.selectable:hover {
+  background: #ddd;
+  cursor: pointer;
+}
+
 .right p {
 	position: relative;
 	display: inline-block;

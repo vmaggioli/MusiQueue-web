@@ -2,7 +2,7 @@
 <div id="container">
   <div id="hubConsole">
     <div id="video">
-      <youtube-player [videoId]="id" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
+      <youtube-player id="youtube-player" [videoId]="id" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
     </div>
     <div id="itemList">
       <div id="tabList">
@@ -23,7 +23,7 @@
         </div>
         <main>
         	<ul class="list-group">
-            <li class="list-group-item" *ngFor="let item of itemList">
+            <li (click)="onItemClicked( item )" [ngClass]="{ 'selectable' : isSongs }" class="list-group-item" *ngFor="let item of itemList">
               <span class="pull-right button-group">
                 <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Remove</button>
               </span>
@@ -34,9 +34,6 @@
           </ul>
         </main>
       </div>
-    </div>
-    <div  *ngIf="isQueue" id="addButton">
-      <button>Add Song</button>
     </div>
   </div>
 </div>

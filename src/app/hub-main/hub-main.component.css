@@ -30,13 +30,17 @@
   bottom: 5px;
 }
 
+.list-group {
+  line-height: 30px;
+}
+
 .right {
 	position: relative;
 	z-index: 1;
 	white-space: nowrap;
 }
 
-.right a {
+.right p {
 	position: relative;
 	display: inline-block;
 	/*padding: 1.5em 1.5em 1em;*/
@@ -45,7 +49,7 @@
 	/*margin: 0 -7px;*/
 }
 
-.right a::before {
+.right p::before {
 	content: ''; /* To generate the box */
 	position: absolute;
 	top: 0; right: 0; bottom: .5em; left: 0;
@@ -58,20 +62,25 @@
 	transform-origin: bottom;
 }
 
-.right a {
+.right p {
 	padding: 1.5em 1em 1em 2em;
 }
 
-.right a::before {
+.right p::before {
 	transform-origin: bottom right;
 }
 
-.right a.selected {
+.right p.selected {
 	z-index: 2;
 }
 
-.right a.selected::before {
+.right p.selected::before {
 	background: #ddd;
+}
+
+.right p:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 main {

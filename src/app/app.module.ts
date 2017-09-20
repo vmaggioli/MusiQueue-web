@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import {MdTabsModule} from '@angular/material';
+
 
 import { AppComponent } from './app.component';
 import * as firebase from "firebase";
@@ -41,6 +43,7 @@ import { JoinHubComponent } from './join-hub/join-hub.component';
     AngularFireAuthModule,
     YoutubePlayerModule,
     AppRoutingModule,
+    MdTabsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

@@ -7,11 +7,21 @@
     <div id="songList">
       <div id="tabList">
         <nav class="right">
-        	<a routerLink="/hub-main/users" routerLinkActive="active" [routerLinkActiveOptions]="{exact: tru}">Users</a>
-        	<a href="/hub-main" class="selected">Songs</a>
+          <p (click)="onSelected('queue')" [ngClass]="{ 'selected' : isQueue }">Queue</p>
+        	<p (click)="onSelected('songs')" [ngClass]="{ 'selected' : isSongs }">Songs</p>
+          <p (click)="onSelected('users')" [ngClass]="{ 'selected' : isUsers }">Users</p>
         </nav>
         <main>
-        	Content area
+        	<ul class="list-group">
+            <li class="list-group-item" *ngFor="let item of itemList">
+              <span *ngIf="isUsers">{{ item.username }}</span>
+              <span *ngIf="isQueue">{{ item.song_name }}</span>
+
+              <span class="pull-right button-group">
+                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+              </span>
+            </li>
+          </ul>
         </main>
       </div>
     </div>

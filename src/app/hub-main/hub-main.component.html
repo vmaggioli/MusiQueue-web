@@ -2,31 +2,38 @@
 <div id="container">
   <div id="hubConsole">
     <div id="video">
-      <youtube-player [videoId]="id" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
+      <youtube-player id="youtube-player" [videoId]="id" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
     </div>
-    <div id="songList">
+    <div id="itemList">
       <div id="tabList">
         <nav class="right">
           <p (click)="onSelected('queue')" [ngClass]="{ 'selected' : isQueue }">Queue</p>
         	<p (click)="onSelected('songs')" [ngClass]="{ 'selected' : isSongs }">Songs</p>
           <p (click)="onSelected('users')" [ngClass]="{ 'selected' : isUsers }">Users</p>
         </nav>
+        <div id="custom-search-input" *ngIf="isSongs">
+          <div class="input-group col-sm-12">
+            <input #searchInput type="text" class="form-control input-sm" placeholder="Search" />
+            <span class="input-group-btn">
+                <button (click)="onSearch(searchInput.value)"class="btn btn-info btn-lg" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+          </div>
+        </div>
         <main>
         	<ul class="list-group">
-            <li class="list-group-item" *ngFor="let item of itemList">
-              <span *ngIf="isUsers">{{ item.username }}</span>
-              <span *ngIf="isQueue">{{ item.song_name }}</span>
-
+            <li (click)="onItemClicked( item )" [ngClass]="{ 'selectable' : isSongs }" class="list-group-item" *ngFor="let item of itemList">
               <span class="pull-right button-group">
                 <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Remove</button>
               </span>
+              <span *ngIf="isUsers">{{ item.username }}</span>
+              <span *ngIf="isQueue">{{ item.song_name }}</span>
+              <span *ngIf="isSongs">{{ item.snippet.title }}</span>
             </li>
           </ul>
         </main>
       </div>
-    </div>
-    <div id="addButton">
-      <button>Add Song</button>
     </div>
   </div>
 </div>

@@ -26,4 +26,18 @@ export class QueueService {
     return this.retQueue;
   }
 
+  addSong(title: string, thumbnail: string, videoId: string, hubId: string) {
+    var songsRef = firebase.database().ref('Songs/');
+    songsRef.child(videoId).set({
+      down_votes: 0,
+      hub_id: hubId,
+      playing: false,
+      song_name: title,
+      time_added: Date.now(),
+      up_votes: 0,
+      user_id: "not implemented yet",
+      thumbnail: thumbnail
+    });
+  }
+
 }

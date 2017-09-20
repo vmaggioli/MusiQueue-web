@@ -30,6 +30,7 @@ constructor(public afAuth: AngularFireAuth) {
       new firebase.auth.GoogleAuthProvider()).then((result) => {
         var token = result.credential.accessToken;
         var user = result.user;
+        this.currentUser = user;
         var usersRef = firebase.database().ref('Users');
         usersRef.child(user.uid).set({
           active: true,
@@ -40,5 +41,13 @@ constructor(public afAuth: AngularFireAuth) {
         });
       });
   }
+  
+  logoutWithGoogle() {
+    return this.afAuth.auth.signOut().then((result) => {
+      this.currentUser = null;
+    });
+  }
+  
+  getCurrentUser() { return this.currentUser; }
 
 }

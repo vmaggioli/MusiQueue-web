@@ -10,6 +10,7 @@
   left:50%;
   transform: translateX(-50%);
   background-color: Gainsboro;
+  margin-bottom: 50px;
 }
 
 #video {
@@ -18,10 +19,11 @@
   padding: 20px;
 }
 
-#songList {
+#itemList {
   float: right;
   width: 50%;
   margin-top: -47.6px;
+  margin-bottom: 25px;
 }
 
 #addButton {
@@ -34,10 +36,19 @@
   line-height: 30px;
 }
 
+.list-group-item {
+  display: inline-block;
+  width: 100%;
+}
+
 .right {
 	position: relative;
 	z-index: 1;
 	white-space: nowrap;
+}
+
+li {
+  line-height: 20px;
 }
 
 .right p {
@@ -81,6 +92,40 @@
 .right p:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+    margin-right: 20px;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+    font-size: 18px;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 18px;
 }
 
 main {

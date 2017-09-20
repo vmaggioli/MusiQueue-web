@@ -2,13 +2,14 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { User } from '../objects/user';
 import { UsersService } from '../shared/users.service';
 import { QueueService } from '../shared/queue.service';
+import { YoutubeService } from '../shared/youtube.service';
 
 @Component({
   selector: 'hub-main',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './hub-main.component.html',
   styleUrls: ['./hub-main.component.css'],
-  providers: [UsersService, QueueService]
+  providers: [UsersService, QueueService, YoutubeService]
 })
 
 export class HubMainComponent  {
@@ -19,10 +20,13 @@ export class HubMainComponent  {
   public isQueue: boolean = true;
   public isSongs: boolean = false;
   public isUsers: boolean = false;
+  public songs: object[] = [];
 
   constructor(
     public usersService: UsersService,
-    public queueService: QueueService) {
+    public queueService: QueueService,
+    public youtubeService: YoutubeService) {
+      this.itemList = this.queueService.getQueue(this.name);
    }
 
   ngOnInit() {
@@ -42,7 +46,6 @@ export class HubMainComponent  {
       this.isQueue = false;
       this.isSongs = false;
       this.isUsers = true;
-      console.log("logging: " this.usersService.getHubUsers(this.name));
       this.itemList = this.usersService.getHubUsers(this.name);
     }
     else if (tab == "songs") {
@@ -55,9 +58,18 @@ export class HubMainComponent  {
       this.isUsers = false;
       this.isSongs = false;
       this.isQueue = true;
-      console.log("logging: " this.queueService.getQueue(this.name));
       this.itemList = this.queueService.getQueue(this.name);
-
     }
   }
+  
+  onSearch(input: string) {
+    this.songs = this.youtubeService.search(input);
+    this.songs.forEach(song => {
+      this.itemList = [];
+      song.items.forEach(item => {
+        this.itemList.push(item);
+      });
+    });
+  }
+
 }

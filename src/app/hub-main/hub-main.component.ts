@@ -3,7 +3,7 @@ import { User } from '../objects/user';
 import { UsersService } from '../shared/users.service';
 import { QueueService } from '../shared/queue.service';
 import { YoutubeService } from '../shared/youtube.service';
-import YouTubePlayer from 'youtube-player';
+import { YouTubePlayer } from 'youtube-player';
 import { Song } from '../objects/song';
 
 @Component({
@@ -11,12 +11,13 @@ import { Song } from '../objects/song';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './hub-main.component.html',
   styleUrls: ['./hub-main.component.css'],
-  providers: [UsersService, QueueService, YoutubeService]
+  providers: [UsersService, QueueService, YoutubeService],
 })
 
 export class HubMainComponent  {
   player: YT.Player;
-  private id: string = 'qDuKsiwS5xw';
+  private id: string = '';
+  private state: number;
   public itemList: FirebaseListObservable<any[]>;
   name: string = "UniqueHub"
   public isQueue: boolean = true;
@@ -44,14 +45,17 @@ export class HubMainComponent  {
         else return 0;
       });
       this.itemList = this.songs;
+      if (this.songs.length > 0)
+        this.id = this.songs[0].video_id;
     })
   }
 
   savePlayer (player) {
-    this.player = player
-    console.log('player instance', player)
-  }
-
+    this.player = player;
+    console.log('player instance', this.player)
+    if (this.state != -1)
+      this.player.loadVideoById(this.id);
+	}
   /*
    * Player States:
    * -1: Not Started Yet
@@ -66,9 +70,26 @@ export class HubMainComponent  {
     switch (event.data) {
       case 0:
         console.log("finished");
-        this.queueService.removeSong()
+        this.state = 0;
+        if (this.songs.length > 1)
+          this.player.loadVideoById(this.songs[1].video_id);
+        this.songs = this.queueService.removeSong(this.name, this.songs[0].video_id)
         break;
       case 1:
+      this.state = 1;
+        console.log("video is playing");
+        break;
+      case 2:
+      this.state = 2;
+        console.log("video is paused");
+        break;
+      case 3:
+      this.state = 3;
+        console.log("video is buffering");
+        break;
+      case 5:
+      this.state = 5;
+        console.log("video is cued");
         break;
       default:
         break;
@@ -111,6 +132,11 @@ export class HubMainComponent  {
           else return 0;
         });
         this.itemList = this.songs;
+        console.log("len: " this.songs.length);
+        if (this.songs.length > 0 && this.state < 1) {
+          this.id = this.songs[0].video_id;
+          this.player.playVideo();
+        }
       })
 
     }

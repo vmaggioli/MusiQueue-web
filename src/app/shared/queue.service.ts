@@ -23,7 +23,8 @@ export class QueueService {
   addSong(title: string, thumbnail: string, videoId: string, hubId: string) {
     var songsRef = firebase.database().ref('Songs/');
     var date = Date.now();
-    songsRef.child(videoId).set({
+    songsRef.child(hubId+videoId).set({
+      video_id: videoId,
       down_votes: 0,
       hub_id: hubId,
       playing: false,
@@ -34,6 +35,15 @@ export class QueueService {
       thumbnail: thumbnail,
       rank: date
     });
+  }
+
+  removeSong(hubId: string, videoId: string): FirebaseListObservable<Song[]> {
+    this.db.object('/Songs/'+hubId+videoId).remove();
+    this.getQueue(hubId).subscribe(songs => {
+      this.queue = songs;
+      console.log(this.queue);
+    })
+    return this.queue;
   }
 
 }

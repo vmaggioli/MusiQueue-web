@@ -2,8 +2,9 @@
 <div id="container">
   <div id="hubConsole">
     <div id="video">
-      <youtube-player id="youtube-player" [videoId]="id" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
+      <youtube-player id="player" [videoId]="id" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
     </div>
+
     <div id="itemList">
       <div id="tabList">
         <nav class="right">

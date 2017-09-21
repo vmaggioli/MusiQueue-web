@@ -17,3 +17,17 @@ export class CreateHubComponent() {
     
   }
 }
+
+var isValidPW(passwd) {
+  if(!Number(passwd) && passwd.length != 4) {
+    return false;
+  }
+  return true;
+  
+}
+var isValidName(hubName){
+  if(hubName.length < 4) {
+    return false;
+  }
+  return true;
+}

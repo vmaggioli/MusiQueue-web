@@ -1,13 +1,17 @@
 import { Vote } from './vote';
 
 export class Song {
-  name: string;
-  user_uid: string;
-  user_name: string;
-  up_votes: number;
   down_votes: number;
+  hub_id: string;
+  playing: boolean;
+  rank: number;
+  song_name: string;
+  thumbnail: string;
   time_added: Date;
-  is_first: boolean;
-  youtube_info: string;
-  votes: Vote[];
+  up_votes: number;
+  user_id: string;
+  video_id: string;
+  constructor() {
+
+  }
 }

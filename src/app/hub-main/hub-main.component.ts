@@ -4,7 +4,7 @@ import { UsersService } from '../shared/users.service';
 import { QueueService } from '../shared/queue.service';
 import { YoutubeService } from '../shared/youtube.service';
 import YouTubePlayer from 'youtube-player';
-
+import { Song } from '../objects/song';
 
 @Component({
   selector: 'hub-main',
@@ -22,16 +22,29 @@ export class HubMainComponent  {
   public isQueue: boolean = true;
   public isSongs: boolean = false;
   public isUsers: boolean = false;
-  public songs: object[] = [];
+  public songs: Song[];
+  public users: User[];
+
 
   constructor(
     public usersService: UsersService,
     public queueService: QueueService,
     public youtubeService: YoutubeService) {
-      this.itemList = this.queueService.getQueue(this.name);
+      //this.itemList = this.queueService.getQueue(this.name);
    }
 
   ngOnInit() {
+    this.queueService.getQueue("UniqueHub").subscribe(items => {
+      this.songs = items;
+      this.songs.sort((a, b) => {
+        let ar: number = a.rank;
+        let br: number = b.rank;
+        if (ar < br) return -1;
+        else if (ar >= br) return 1;
+        else return 0;
+      });
+      this.itemList = this.songs;
+    })
   }
 
   savePlayer (player) {
@@ -50,6 +63,16 @@ export class HubMainComponent  {
    */
   onStateChange(event) {
     console.log('player state', event.data);
+    switch (event.data) {
+      case 0:
+        console.log("finished");
+        this.queueService.removeSong()
+        break;
+      case 1:
+        break;
+      default:
+        break;
+    }
   }
 
   onItemClicked(youtubeItem) {
@@ -78,7 +101,18 @@ export class HubMainComponent  {
       this.isUsers = false;
       this.isSongs = false;
       this.isQueue = true;
-      this.itemList = this.queueService.getQueue(this.name);
+      this.queueService.getQueue(this.name).subscribe(items => {
+        this.songs = items;
+        this.songs.sort((a, b) => {
+          let ar: number = a.rank;
+          let br: number = b.rank;
+          if (ar < br) return -1;
+          else if (ar >= br) return 1;
+          else return 0;
+        });
+        this.itemList = this.songs;
+      })
+
     }
   }
 

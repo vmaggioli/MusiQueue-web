@@ -91,11 +91,15 @@ export class UserHubViewComponent {
   
   upvote(song) {
     console.log("hello");
-    song.up_votes++;
+    //songKey: string = song.hub_id + song.video_id;
+    this.queueService.upvote(song);
+    //song.up_votes++;
   }
   
   downvote(song: Song) {
-    song.down_votes++;
+    //songKey: string = song.hub_id + song.video_id;
+    this.queueService.downvote(song);
+    //song.down_votes++;
   }
 
 }

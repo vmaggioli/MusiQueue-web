@@ -36,7 +36,10 @@
               </span>
               <span *ngIf="isUsers">{{ item.username }}</span>
               <span *ngIf="isQueue">{{ item.song_name }}</span>
-              <span *ngIf="isSongs">{{ item.snippet.title }}</span>
+              <span *ngIf="isSongs">
+                <div class="thumbnail-text"><img src={{item.snippet.thumbnails.default.url}} class="img-thumbnail" width="100" height="80"/></div>
+                <div class="text">{{ item.snippet.title }}</div>
+              </span>
             </li>
           </ul>
         </main>

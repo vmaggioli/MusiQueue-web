@@ -41,6 +41,20 @@
   width: 100%;
 }
 
+/*.img-thumbnail {
+  overflow: auto;
+  display: inline-block;
+}*/
+
+.thumbnail-text {
+  float: left;
+  margin-right: 10px;
+}
+
+.text {
+  overflow: auto
+}
+
 .right {
 	position: relative;
 	z-index: 1;

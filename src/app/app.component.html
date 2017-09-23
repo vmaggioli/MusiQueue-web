@@ -5,8 +5,6 @@
     <div class="navbar-header" style="width: 100%">
       <a class="navbar-brand" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">MusiQueue Home</a>
       <a class="navbar-brand" routerLink="/hub-main" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Go To Hub View</a>
-  	  <button class="navbar-brand" *ngIf="!loggedIn" style="float: right;" (click)="loginWithGoogle()">Login</button>
-	  <button class="navbar-brand" *ngIf="loggedIn" style="float: right;" (click)="logoutWithGoogle()">Logout</button>
     </div>
   </div>
 </nav>

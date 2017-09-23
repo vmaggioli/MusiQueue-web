@@ -47,5 +47,18 @@ export class QueueService {
     })
     return this.queue;
   }
+  
+  upvote(song) {
+    console.log("yo");
+    this.db.object('/Songs/'+song.hub_id+song.video_id+"/").update({
+      up_votes: song.up_votes+1;
+    });
+  }
+  
+  downvote(song) {
+    this.db.object('/Songs'+song.hub_id+song.video_id).update({
+      down_votes: song.down_votes+1;
+    });
+  }
 
 }

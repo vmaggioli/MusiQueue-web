@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import {MdTabsModule} from '@angular/material';
 
-
 import { AppComponent } from './app.component';
 import * as firebase from "firebase";
 
@@ -14,7 +13,7 @@ import { AuthService } from './shared/auth.service';
 import { environment } from '../environments/environment';
 import { RouterModule, Routes } from '@angular/router';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
-
+import { LoginGuard } from './shared/login-guard.module';
 
 import { HubMainComponent } from './hub-main/hub-main.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -45,7 +44,10 @@ import { JoinHubComponent } from './join-hub/join-hub.component';
     AppRoutingModule,
     MdTabsModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    LoginGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { HubService } from '../shared/hub.service';
+
 
 @Component({
   selector: 'create-hub',
@@ -29,6 +31,7 @@ export class CreateHubComponent {
     console.log(Number(this.passwd));
     console.log(this.name);
     if(isValidPW(this.passwd) && isValidName(this.name)) {
+      this.HubService.createHub("false", "user", "date", "lat", "long", this.name, this.passwd, "users", "wifi");
       this.router.navigate(['hub-main']); 
     }
     else(console.log("invalid name or passwd"))

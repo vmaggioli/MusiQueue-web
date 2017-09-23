@@ -3,13 +3,15 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Song } from '../objects/song';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class QueueService {
   public queue: FirebaseListObservable<Song[]> = [];
   public retQueue: FirebaseListObservable<any[]> = [];
 
-  constructor(public db: AngularFireDatabase) { }
+  constructor(public db: AngularFireDatabase
+              private auth: AuthService) { }
 
   getQueue(hubUID: string): FirebaseListObservable<Song[]> {
     return this.db.list('/Songs', {presserveSnapshot:true,
@@ -31,7 +33,7 @@ export class QueueService {
       song_name: title,
       time_added: date,
       up_votes: 0,
-      user_id: "not implemented yet",
+      user_id: this.auth.getCurrentUser().displayName,
       thumbnail: thumbnail,
       rank: date
     });

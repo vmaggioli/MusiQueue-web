@@ -30,8 +30,8 @@ export class UserHubViewComponent {
       this.songs.sort((a, b) => {
         let ar: number = a.rank;
         let br: number = b.rank;
-        if (ar < br) return -1;
-        else if (ar >= br) return 1;
+        if (ar < br) return 1;
+        else if (ar > br) return -1;
         else return 0;
       });
       this.itemList = this.songs;
@@ -67,8 +67,8 @@ export class UserHubViewComponent {
         this.songs.sort((a, b) => {
           let ar: number = a.rank;
           let br: number = b.rank;
-          if (ar < br) return -1;
-          else if (ar >= br) return 1;
+          if (ar < br) return 1;
+          else if (ar > br) return -1;
           else return 0;
         });
         this.itemList = this.songs;
@@ -92,6 +92,18 @@ export class UserHubViewComponent {
   upvote(song) {
     console.log("hello");
     //songKey: string = song.hub_id + song.video_id;
+    /*this.queueService.upvote(song).subscribe(item => {
+      this.queueService.getQueue(song.hub_id).subscribe(items => {
+        this.songs = items;
+        this.songs.sort((a, b) => {
+          let ar: number = a.rank;
+          let br: number = b.rank;
+          if (ar < br) return 1;
+          else if (ar > br) return -1;
+          else return 0;
+        });
+      });
+    });*/
     this.queueService.upvote(song);
     //song.up_votes++;
   }

@@ -1,14 +1,18 @@
 <h1>Create a Hub</h1>
 
-<body>
-Hub     Name: <input type="text"
-id = "hubName" value = ""><br>
-Hub Password: <input type="text"
-id = "hubPW" value = ""><br>
-</body>
+<div ng-app>
+	<div ng-controller="crtHubCtrl">
+		<div class="name">Hub Name:</div>
+		<input type="text" #hubName>
+	
+		<div class="passwd">Hub Password:</div>
+		<input type="text" #hubPW>
+	</div>
+</div>
+
 
 
 
 <div id="createHub">
-	<button>Create Hub</button>
+	<button (click)='gotoHubMain(hubName.value,hubPW.value)'>Create Hub</button>
 </div>

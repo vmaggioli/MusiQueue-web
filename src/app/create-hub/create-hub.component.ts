@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'create-hub',
@@ -7,19 +8,35 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   styleUrls: ['./create-hub.component.css']
 })
 
-export class CreateHubComponent() {
+export class CreateHubComponent {
   
-  constructor() {
+  name: string;
+  passwd: string;
+  
+  constructor(
+    private router: Router) {
     
   }
   
   ngOnInit() {
     
   }
+  
+  gotoHubMain(name:string,passwd:string) {
+    this.passwd = passwd;
+    this.name = name;
+    
+    console.log(Number(this.passwd));
+    console.log(this.name);
+    if(isValidPW(this.passwd) && isValidName(this.name)) {
+      this.router.navigate(['hub-main']); 
+    }
+    else(console.log("invalid name or passwd"))
+  }
 }
 
 var isValidPW(passwd) {
-  if(!Number(passwd) && passwd.length != 4) {
+  if(Number(passwd).toString() === "NaN" || passwd.length != 4) {
     return false;
   }
   return true;

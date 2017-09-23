@@ -1,1 +1,18 @@
-<h1>Temp Page</h1>
+<h1>Create a Hub</h1>
+
+<div ng-app>
+	<div ng-controller="crtHubCtrl">
+		<div class="name">Hub Name:</div>
+		<input type="text" #hubName>
+	
+		<div class="passwd">Hub Password:</div>
+		<input type="text" #hubPW>
+	</div>
+</div>
+
+
+
+
+<div id="createHub">
+	<button (click)='gotoHubMain(hubName.value,hubPW.value)'>Create Hub</button>
+</div>

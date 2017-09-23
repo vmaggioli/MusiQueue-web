@@ -35,7 +35,7 @@ export class QueueService {
       up_votes: 0,
       user_id: this.auth.getCurrentUser().displayName,
       thumbnail: thumbnail,
-      rank: date
+      rank: 0
     });
   }
 
@@ -50,14 +50,17 @@ export class QueueService {
   
   upvote(song) {
     console.log("yo");
-    this.db.object('/Songs/'+song.hub_id+song.video_id+"/").update({
-      up_votes: song.up_votes+1;
+    var songRef = this.db.object('/Songs/'+song.hub_id+song.video_id);
+    songRef.update({
+      up_votes: song.up_votes++;
+      rank: song.up_votes - song.down_votes;
     });
   }
   
   downvote(song) {
-    this.db.object('/Songs'+song.hub_id+song.video_id).update({
-      down_votes: song.down_votes+1;
+    this.db.object('/Songs/'+song.hub_id+song.video_id).update({
+      down_votes: song.down_votes++;
+      rank: song.up_votes - song.down_votes;
     });
   }
 

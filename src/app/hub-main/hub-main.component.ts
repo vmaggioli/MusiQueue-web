@@ -40,8 +40,8 @@ export class HubMainComponent  {
       this.songs.sort((a, b) => {
         let ar: number = a.rank;
         let br: number = b.rank;
-        if (ar < br) return -1;
-        else if (ar >= br) return 1;
+        if (ar < br) return 1;
+        else if (ar > br) return -1;
         else return 0;
       });
       this.itemList = this.songs;
@@ -127,8 +127,8 @@ export class HubMainComponent  {
         this.songs.sort((a, b) => {
           let ar: number = a.rank;
           let br: number = b.rank;
-          if (ar < br) return -1;
-          else if (ar >= br) return 1;
+          if (ar < br) return 1;
+          else if (ar > br) return -1;
           else return 0;
         });
         this.itemList = this.songs;
@@ -151,6 +151,14 @@ export class HubMainComponent  {
         this.itemList.push(item);
       });
     });
+  }
+
+  upvote(song) {
+    this.queueService.upvote(song);
+  }
+
+  downvote(song) {
+    this.queueService.downvote(song);
   }
 
 }

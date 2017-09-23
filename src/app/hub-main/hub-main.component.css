@@ -133,6 +133,14 @@ li {
     font-size: 18px;
 }
 
+#rank {
+  display: inline-block;
+}
+
+.vote {
+  padding: 4px 6px 2px 6px;
+}
+
 main {
   background: #eee;
 	display: block;

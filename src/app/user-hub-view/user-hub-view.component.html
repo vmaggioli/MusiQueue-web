@@ -18,22 +18,6 @@
             </span>
           </div>
         </div>
-        <!-- <main>
-        	<ul class="list-group">
-            <li (click)="onItemClicked( item )" [ngClass]="{ 'selectable' : isSongs }" class="list-group-item" *ngFor="let item of itemList">
-              	<span class="pull-right" *ngIf="isQueue">
-					<button (click) = "upvote(item)" type="button" class="upvote">
-						<span class = "glyphicon glyphicon-thumbs-up"></span>
-					</button>
-					<button (click) = "downvote(item)" type="button" class="downvote">
-						<span class = "glyphicon glyphicon-thumbs-down"></span>
-					</button>
-              	</span>
-              	<span *ngIf="isQueue">{{ item.song_name }}</span>
-              	<span *ngIf="isSongs">{{ item.snippet.title }}</span>
-            </li>
-          </ul>
-        </main> -->
         <main>
           <ul class="list-group">
             <li (click)="onItemClicked( item )" [ngClass]="{ 'selectable' : isSongs }" class="list-group-item" *ngFor="let item of itemList">
@@ -41,7 +25,7 @@
                 <button (click)="upvote(item)" type="button" *ngIf="isQueue" class="vote">
                   <span class="glyphicon" [ngClass]="{ 'glyphicon-remove' : isUsers, 'glyphicon-thumbs-up' : isQueue }"></span>
                 </button>
-                <button (click)="downVote(item)" type="button" *ngIf="isQueue" class="vote">
+                <button (click)="downvote(item)" type="button" *ngIf="isQueue" class="vote">
                   <span class="glyphicon glyphicon-thumbs-down"></span>
                 </button>
                 <p id="rank" *ngIf="isQueue">{{ item.up_votes - item.down_votes }}</p>

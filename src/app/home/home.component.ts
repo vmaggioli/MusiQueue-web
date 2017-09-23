@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
@@ -14,6 +15,7 @@ export class HomeComponent implements OnInit {
   loggedIn: false;
   
   constructor(private auth: AuthService,
+              private router: Router,
               public db: AngularFireDatabase) { }
 
   ngOnInit() {
@@ -28,18 +30,9 @@ export class HomeComponent implements OnInit {
     this.auth.loginWithGoogle().then((result) => {
       console.log(this.auth.getCurrentUser());
       if (this.auth.getCurrentUser() != null) {
-        this.loggedIn = true; 
+        this.loggedIn = true;
+        this.router.navigateByUrl('create-join');
       }    
     });
   }
-  
-  logoutWithGoogle() {
-    this.auth.logoutWithGoogle().then((result) => {
-      console.log(this.auth.getCurrentUser());
-      if (this.auth.getCurrentUser() == null) { 
-        this.loggedIn = false; 
-      } 
-    });
-  }
-  
 }

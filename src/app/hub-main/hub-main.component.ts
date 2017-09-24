@@ -5,6 +5,8 @@ import { QueueService } from '../shared/queue.service';
 import { YoutubeService } from '../shared/youtube.service';
 import { YouTubePlayer } from 'youtube-player';
 import { Song } from '../objects/song';
+import { Router, ActivatedRoute, ParamMap} from '@angular/router';
+
 
 @Component({
   selector: 'hub-main',
@@ -19,8 +21,8 @@ export class HubMainComponent  {
   private id: string = '';
   private state: number;
   public itemList: FirebaseListObservable<any[]>;
-  name: string = "UniqueHub"
-  public isQueue: boolean = true;
+  private name: string = "UniqueHub";
+  private sub: any;
   public isSongs: boolean = false;
   public isUsers: boolean = false;
   public songs: Song[];
@@ -28,6 +30,7 @@ export class HubMainComponent  {
 
 
   constructor(
+    private route: ActivatedRoute
     public usersService: UsersService,
     public queueService: QueueService,
     public youtubeService: YoutubeService) {
@@ -35,6 +38,10 @@ export class HubMainComponent  {
    }
 
   ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      this.name = params['name'];
+    })
+    console.log("MY NAME IS" + this.name);
     this.queueService.getQueue("UniqueHub").subscribe(items => {
       this.songs = items;
       this.songs.sort((a, b) => {

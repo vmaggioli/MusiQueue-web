@@ -47,20 +47,26 @@ export class QueueService {
     })
     return this.queue;
   }
-  
+
   upvote(song) {
-    console.log("yo");
-    var songRef = this.db.object('/Songs/'+song.hub_id+song.video_id);
-    songRef.update({
-      up_votes: song.up_votes++;
-      rank: song.up_votes - song.down_votes;
+    var songRef = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/up_votes');
+    songRef.transaction(function(upvotes) {
+      return upvotes + 1;
+    });
+    var songRef2 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank');
+    songRef2.transaction(function(rank) {
+      return rank + 1;
     });
   }
-  
+
   downvote(song) {
-    this.db.object('/Songs/'+song.hub_id+song.video_id).update({
-      down_votes: song.down_votes++;
-      rank: song.up_votes - song.down_votes;
+    var songRef = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/down_votes');
+    songRef.transaction(function(downvotes) {
+      return downvotes + 1;
+    });
+    var songRef2 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank');
+    songRef2.transaction(function(rank) {
+      return rank - 1;
     });
   }
 

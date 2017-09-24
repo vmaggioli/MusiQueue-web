@@ -1,0 +1,41 @@
+<h1 id="hubTitle">Hub Name</h1>
+<div id="container">
+  <div id="hubConsole">
+    
+    <div id="songsList">
+      <div id="tabList">
+        <nav class="right">
+          <p (click)="onSelected('queue')" [ngClass]="{ 'selected' : isQueue }">Queue</p>
+        	<p (click)="onSelected('songs')" [ngClass]="{ 'selected' : isSongs }">Songs</p>
+        </nav>
+        <div id="custom-search-input" *ngIf="isSongs">
+          <div class="input-group col-sm-12">
+            <input #searchInput type="text" class="form-control input-sm" placeholder="Search" />
+            <span class="input-group-btn">
+                <button (click)="onSearch(searchInput.value)"class="btn btn-info btn-lg" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+          </div>
+        </div>
+        <main>
+        	<ul class="list-group">
+            <li (click)="onItemClicked( item )" [ngClass]="{ 'selectable' : isSongs }" class="list-group-item" *ngFor="let item of itemList">
+              	<span class="pull-right" *ngIf="isQueue">
+					<button (click) = "upvote(item)" type="button" class="upvote">
+						<span class = "glyphicon glyphicon-thumbs-up"></span>				
+					</button>
+					<button (click) = "downvote(item)" type="button" class="downvote">
+						<span class = "glyphicon glyphicon-thumbs-down"></span>				
+					</button>              
+              	</span>
+              	<span *ngIf="isQueue">{{ item.song_name }}</span>
+              	<span *ngIf="isSongs">{{ item.snippet.title }}</span>
+            </li>
+          </ul>
+        </main>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

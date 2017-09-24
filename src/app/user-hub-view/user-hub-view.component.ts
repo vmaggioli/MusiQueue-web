@@ -17,11 +17,11 @@ export class UserHubViewComponent {
   public isQueue: boolean = true;
   public isSongs: boolean = false;
   public name: string = "UniqueHub";
-  
+
   constructor(
     public queueService: QueueService,
     public youtubeService: YoutubeService) {
-    
+
    }
 
   ngOnInit() {
@@ -39,7 +39,7 @@ export class UserHubViewComponent {
         this.id = this.songs[0].video_id;
     })
   }
-  
+
   onItemClicked(youtubeItem) {
     console.log("hello1");
     if (!this.isSongs) return;
@@ -77,7 +77,7 @@ export class UserHubViewComponent {
 
     }
   }
-  
+
   onSearch(input: string) {
     this.songs = this.youtubeService.search(input);
     this.songs.forEach(song => {
@@ -88,30 +88,13 @@ export class UserHubViewComponent {
       });
     });
   }
-  
+
   upvote(song) {
-    console.log("hello");
-    //songKey: string = song.hub_id + song.video_id;
-    /*this.queueService.upvote(song).subscribe(item => {
-      this.queueService.getQueue(song.hub_id).subscribe(items => {
-        this.songs = items;
-        this.songs.sort((a, b) => {
-          let ar: number = a.rank;
-          let br: number = b.rank;
-          if (ar < br) return 1;
-          else if (ar > br) return -1;
-          else return 0;
-        });
-      });
-    });*/
     this.queueService.upvote(song);
-    //song.up_votes++;
   }
-  
-  downvote(song: Song) {
-    //songKey: string = song.hub_id + song.video_id;
+
+  downvote(song) {
     this.queueService.downvote(song);
-    //song.down_votes++;
   }
 
 }

@@ -5,6 +5,7 @@ import { QueueService } from '../shared/queue.service';
 import { YoutubeService } from '../shared/youtube.service';
 import { YouTubePlayer } from 'youtube-player';
 import { Song } from '../objects/song';
+import { FirebaseListObservable } from 'angularfire2/database';
 import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 
 
@@ -17,7 +18,7 @@ import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 })
 
 export class HubMainComponent  {
-  player: YT.Player;
+  public player;
   private id: string = '';
   private state: number;
   public itemList: FirebaseListObservable<any[]>;
@@ -33,9 +34,7 @@ export class HubMainComponent  {
     private route: ActivatedRoute
     public usersService: UsersService,
     public queueService: QueueService,
-    public youtubeService: YoutubeService) {
-      //this.itemList = this.queueService.getQueue(this.name);
-   }
+    public youtubeService: YoutubeService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -54,7 +53,8 @@ export class HubMainComponent  {
       this.itemList = this.songs;
       if (this.songs.length > 0)
         this.id = this.songs[0].video_id;
-    })
+    });
+    console.log("current user: " + UsersService.currentUser.email);
   }
 
   savePlayer (player) {
@@ -139,7 +139,6 @@ export class HubMainComponent  {
           else return 0;
         });
         this.itemList = this.songs;
-        console.log("len: " this.songs.length);
         if (this.songs.length > 0 && this.state < 1) {
           this.id = this.songs[0].video_id;
           this.player.playVideo();
@@ -154,7 +153,7 @@ export class HubMainComponent  {
     this.songs.forEach(song => {
       this.itemList = [];
       song.items.forEach(item => {
-        console.log(item);
+        console.log("item: " + item);
         this.itemList.push(item);
       });
     });

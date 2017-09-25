@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { QueueService } from '../shared/queue.service';
 import { YoutubeService } from '../shared/youtube.service';
 import { Song } from '../objects/song';
+import { FirebaseListObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'lsl-user-hub-view',
@@ -35,8 +36,6 @@ export class UserHubViewComponent {
         else return 0;
       });
       this.itemList = this.songs;
-      if (this.songs.length > 0)
-        this.id = this.songs[0].video_id;
     })
   }
 
@@ -54,12 +53,10 @@ export class UserHubViewComponent {
   onSelected(tab: string) {
     if (tab == "songs") {
       this.isQueue = false;
-      this.isUsers = false;
       this.isSongs = true;
       this.itemList = [];
     }
     else if (tab == "queue") {
-      this.isUsers = false;
       this.isSongs = false;
       this.isQueue = true;
       this.queueService.getQueue(this.name).subscribe(items => {
@@ -72,7 +69,6 @@ export class UserHubViewComponent {
           else return 0;
         });
         this.itemList = this.songs;
-        console.log("len: " this.songs.length);
       })
 
     }

@@ -12,8 +12,8 @@ import * as firebase from 'firebase/app';
 export class HomeComponent implements OnInit {
   topics: FirebaseListObservable<any[]>;
   user = null;
-  loggedIn: false;
-  
+  loggedIn: boolean = false;
+
   constructor(private auth: AuthService,
               private router: Router,
               public db: AngularFireDatabase) { }
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
       if (this.auth.getCurrentUser() != null) {
         this.loggedIn = true;
         this.router.navigateByUrl('create-join');
-      }    
+      }
     });
   }
 }

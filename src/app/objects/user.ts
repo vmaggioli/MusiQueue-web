@@ -1,11 +1,24 @@
 import { Hub } from './hub';
 
-export interface User {
-  name: string;
-  uid: string;
-  active: boolean;
-  kicked: boolean;
-  email: boolean;
-  last_active: Date;
-  hubs_list: Hub[];
+export class User {
+  public username: string;
+  public uid: string;
+  public active: boolean;
+  public kicked: boolean;
+  public email: string;
+  public last_active: number;
+  public hub_list: Hub[];
+  constructor (
+    username: string, uid :string, active: boolean, kicked: boolean,
+    email: string, last_active: number, hub_list: Hub[]
+  ) {
+    this.username = username;
+    this.uid = uid;
+    this.active = active;
+    this.kicked = kicked;
+    this.email = email;
+    this.last_active = last_active;
+    this.hub_list = hub_list;
+  }
+
 }

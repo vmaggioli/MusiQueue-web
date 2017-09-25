@@ -9,19 +9,6 @@ import { User } from '../objects/user';
 })
 
 export class HubUsersComponent implements OnInit {
-  player: YT.Player;
-  private id: string = 'qDuKsiwS5xw';
-
-  users: User[];
-
-  savePlayer (player) {
-    this.player = player;
-    console.log('player instance', player)
-  }
-
-  onStateChange(event) {
-    console.log('player state', event.data);
-  }
 
   constructor() { }
 

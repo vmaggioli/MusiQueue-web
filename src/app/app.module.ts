@@ -10,6 +10,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AuthService } from './shared/auth.service';
+import { UsersService } from './shared/users.service';
 import { environment } from '../environments/environment';
 import { RouterModule, Routes } from '@angular/router';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
@@ -46,6 +47,7 @@ import { UserHubViewComponent } from './user-hub-view/user-hub-view.component';
     MdTabsModule
   ],
   providers: [
+    UsersService,
     AuthService,
     LoginGuard
   ],

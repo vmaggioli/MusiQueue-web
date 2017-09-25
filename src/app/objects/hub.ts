@@ -10,7 +10,7 @@ export class Hub {
   hub_uid: string;
   users: User[];
   songs: Song[];
-  constructor (
+  public constructor (
     name: string, creator_name: string, creator_uid: string, pin: number,
     last_active: Date, hub_uid: string, users: User[], songs: Song[]
   ) {

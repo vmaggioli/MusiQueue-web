@@ -11,6 +11,15 @@
     "typeRoots": [
       "node_modules/@types"
     ],
+		"types": [
+			"core-js",
+			"exporess",
+			"jasmine",
+			"node",
+			"protractor",
+			"systemjs",
+			"angularfire2"
+		],
     "lib": [
       "es2017",
       "dom"

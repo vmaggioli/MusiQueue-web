@@ -8,7 +8,7 @@ export class User {
   public email: string;
   public last_active: number;
   public hub_list: Hub[];
-  constructor (
+  public constructor (
     username: string, uid :string, active: boolean, kicked: boolean,
     email: string, last_active: number, hub_list: Hub[]
   ) {

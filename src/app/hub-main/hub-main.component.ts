@@ -21,7 +21,7 @@ export class HubMainComponent  {
   private id: string = '';
   private state: number;
   public itemList: FirebaseListObservable<any[]>;
-  private name: string = "UniqueHub";
+  private name: string;
   private sub: any;
   public isSongs: boolean = false;
   public isUsers: boolean = false;
@@ -42,7 +42,7 @@ export class HubMainComponent  {
       this.name = params['name'];
     })
     console.log("MY NAME IS" + this.name);
-    this.queueService.getQueue("UniqueHub").subscribe(items => {
+    this.queueService.getQueue(this.name).subscribe(items => {
       this.songs = items;
       this.songs.sort((a, b) => {
         let ar: number = a.rank;

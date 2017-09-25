@@ -2,17 +2,18 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
 
 import { User } from '../objects/user';
 
 @Injectable()
 export class UsersService {
-  public allUsers: FirebaseListObservable<any[]>;
+  public allUsers: FirebaseListObservable<User[]>;
   public hubUserKeys: FirebaseListObservable<any[]>;
-  public hubUsers: FirebaseListObservable<any[]> = [];
-  public hubUser: FirebaseObjectObservable<any>;
+  public hubUsers: FirebaseListObservable<User[]> = [];
+  public hubUser: FirebaseObjectObservable<User>;
+  public currentUser: User;
 
   constructor(public db: AngularFireDatabase) {
     this.allUsers = db.list('/Users');
@@ -24,7 +25,7 @@ export class UsersService {
 
 
   // this implementation FAILS to update automatically if a user is removed from the hub
-  addUserByID(id: any) {
+  addUserByID(id) {
     this.hubUser = this.db.object('Users/' + id.val(), {preserveSnapshot:true}).subscribe(u => {
       var isPresent = false;
       this.hubUsers.forEach(hu => {

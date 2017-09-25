@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
+import { UsersService } from './users.service'
 
 import { User } from '../objects/user';
 
@@ -10,11 +11,13 @@ import { User } from '../objects/user';
 export class AuthService {
   private authState: Observable<firebase.User>
   private currentUser: firebase.User = null;
-constructor(public afAuth: AngularFireAuth) {
+//  public currentUser: User;
+constructor(public afAuth: AngularFireAuth, public usersService: UsersService) {
     this.authState = this.afAuth.authState;
     this.authState.subscribe(user => {
       if (user) {
         this.currentUser = user;
+        UsersService.currentUser = new User(user.email, user.uid, true, false, user.email, Date.now(), []);
       } else {
         this.currentUser = null;
       }
@@ -29,27 +32,28 @@ constructor(public afAuth: AngularFireAuth) {
     return this.afAuth.auth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()).then((result) => {
         var token = result.credential.accessToken;
-        var user = result.user;
-        this.currentUser = user;
         var usersRef = firebase.database().ref('Users');
-        usersRef.child(user.uid).set({
+        var date = Date.now();
+        UsersService.currentUser = new User("guest", result.user.uid, true, false, result.user.email, date, []);        
+        usersRef.child(result.user.uid).set({
+          uid: result.user.uid,
           active: true,
-          email: user.email,
+          email: result.user.email,
           kicked: false,
-          last_active: Date.now(),
+          last_active: date,
           username: "guest",
-          hubs: {
+          hub_list: {
           }
         });
       });
   }
-  
+
   logoutWithGoogle() {
     return this.afAuth.auth.signOut().then((result) => {
       this.currentUser = null;
     });
   }
-  
+
   getCurrentUser() { return this.currentUser; }
 
 }

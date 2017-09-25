@@ -40,7 +40,7 @@ export class HubMainComponent  {
     this.sub = this.route.params.subscribe(params => {
       this.name = params['name'];
     })
-    console.log("MY NAME IS" + this.name);
+    console.log("MY NAME IS " + this.name);
     this.queueService.getQueue(this.name).subscribe(items => {
       this.songs = items;
       this.songs.sort((a, b) => {

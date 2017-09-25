@@ -19,10 +19,16 @@ export class HomeComponent implements OnInit {
               public db: AngularFireDatabase) { }
 
   ngOnInit() {
-    this.auth.getAuthState().subscribe(
-      (user) => this.user = user);
-      if (this.user != null)
+    this.auth.getAuthState().subscribe((user) => {
+      this.user = user
+      if (user != null) {
         this.loggedIn = true;
+        this.router.navigate(['create-join']);
+      }
+    });
+      if (this.user != null) {
+        this.loggedIn = true;
+      }
       this.topics = this.db.list('/topics');
   }
 

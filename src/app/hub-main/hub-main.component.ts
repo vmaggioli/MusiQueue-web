@@ -2,9 +2,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { User } from '../objects/user';
 import { UsersService } from '../shared/users.service';
 import { QueueService } from '../shared/queue.service';
+import { HubService } from '../shared/hub.service';
 import { YoutubeService } from '../shared/youtube.service';
 import { YouTubePlayer } from 'youtube-player';
 import { Song } from '../objects/song';
+import { Hub } from '../objects/hub';
 import { FirebaseListObservable } from 'angularfire2/database';
 import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 
@@ -14,7 +16,7 @@ import { Router, ActivatedRoute, ParamMap} from '@angular/router';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './hub-main.component.html',
   styleUrls: ['./hub-main.component.css'],
-  providers: [UsersService, QueueService, YoutubeService],
+  providers: [QueueService, YoutubeService],
 })
 
 export class HubMainComponent  {
@@ -22,8 +24,8 @@ export class HubMainComponent  {
   private id: string = '';
   private state: number;
   public itemList: FirebaseListObservable<any[]>;
-  private name: string;
-  private sub: any;
+  public currentHub: Hub;
+  public isQueue: boolean = true;
   public isSongs: boolean = false;
   public isUsers: boolean = false;
   public songs: Song[];
@@ -31,30 +33,38 @@ export class HubMainComponent  {
 
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
     public usersService: UsersService,
     public queueService: QueueService,
-    public youtubeService: YoutubeService) { }
+    public youtubeService: YoutubeService,
+    public hubService: HubService) {
+
+     }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.name = params['name'];
-    })
-    console.log("MY NAME IS " + this.name);
-    this.queueService.getQueue(this.name).subscribe(items => {
-      this.songs = items;
-      this.songs.sort((a, b) => {
-        let ar: number = a.rank;
-        let br: number = b.rank;
-        if (ar < br) return 1;
-        else if (ar > br) return -1;
-        else return 0;
-      });
-      this.itemList = this.songs;
-      if (this.songs.length > 0)
-        this.id = this.songs[0].video_id;
+    this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
+      this.sortQueue(items);
     });
-    console.log("current user: " + UsersService.currentUser.email);
+  }
+
+  sortQueue(items): number {
+    this.songs = items;
+    this.songs.sort((a, b) => {
+      let ar: number = a.rank;
+      let br: number = b.rank;
+      let ad: number = a.time_added;
+      let bd: number = b.time_added;
+      if (ar < br) return 1;
+      else if (ar > br) return -1;
+      else if (ad < bd) return -1;
+      else if (ad > bd) return 1;
+      else return 0;
+    });
+    this.itemList = this.songs;
+    if (this.songs.length > 0)
+      this.id = this.songs[0].video_id;
+    if (this.state < 1)
+      this.player.playVideo();
   }
 
   savePlayer (player) {
@@ -80,7 +90,7 @@ export class HubMainComponent  {
         this.state = 0;
         if (this.songs.length > 1)
           this.player.loadVideoById(this.songs[1].video_id);
-        this.songs = this.queueService.removeSong(this.name, this.songs[0].video_id)
+        this.songs = this.queueService.removeSong(this.currentHub.hub_uid, this.songs[0].video_id)
         break;
       case 1:
       this.state = 1;
@@ -108,7 +118,7 @@ export class HubMainComponent  {
     var title = youtubeItem.snippet.title;
     var thumbnail = youtubeItem.snippet.thumbnails.default.url; //there are other sizes
     var videoId = youtubeItem.id.videoId;
-    this.queueService.addSong(title, thumbnail, videoId, this.name);
+    this.queueService.addSong(title, thumbnail, videoId, this.hubService.currentHub.name);
     this.onSelected("queue");
   }
 
@@ -117,7 +127,7 @@ export class HubMainComponent  {
       this.isQueue = false;
       this.isSongs = false;
       this.isUsers = true;
-      this.itemList = this.usersService.getHubUsers(this.name);
+      this.itemList = this.usersService.getHubUsers(this.hubService.currentHub.name);
     }
     else if (tab == "songs") {
       this.isQueue = false;
@@ -129,22 +139,9 @@ export class HubMainComponent  {
       this.isUsers = false;
       this.isSongs = false;
       this.isQueue = true;
-      this.queueService.getQueue(this.name).subscribe(items => {
-        this.songs = items;
-        this.songs.sort((a, b) => {
-          let ar: number = a.rank;
-          let br: number = b.rank;
-          if (ar < br) return 1;
-          else if (ar > br) return -1;
-          else return 0;
-        });
-        this.itemList = this.songs;
-        if (this.songs.length > 0 && this.state < 1) {
-          this.id = this.songs[0].video_id;
-          this.player.playVideo();
-        }
-      })
-
+      this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
+        this.sortQueue(items);
+      });
     }
   }
 
@@ -153,7 +150,6 @@ export class HubMainComponent  {
     this.songs.forEach(song => {
       this.itemList = [];
       song.items.forEach(item => {
-        console.log("item: " + item);
         this.itemList.push(item);
       });
     });

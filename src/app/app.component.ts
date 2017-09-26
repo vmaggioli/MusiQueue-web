@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './shared/auth.service';
-import { UsersService } from './shared/users.service';
+
 
 
 @Component({
   selector: 'lsl-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [UsersService]
+  providers: []
 })
 export class AppComponent {
   title = 'MusiQueue-web';
 
   constructor(private router: Router,
-              private auth: AuthService,
-              public usersService: UsersService) { }
+              private auth: AuthService) { }
 
   ngOnInit() { }
 

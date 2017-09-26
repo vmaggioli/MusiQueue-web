@@ -35,7 +35,7 @@ export class QueueService {
       time_added: date,
       up_votes: 0,
       user_id: this.auth.getCurrentUser().uid,
-      username: UsersService.currentUser.username,
+      username: this.usersService.currentUser.username,
       thumbnail: thumbnail,
       rank: 0
     });

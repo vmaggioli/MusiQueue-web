@@ -11,14 +11,13 @@ import { User } from '../objects/user';
 export class AuthService {
   private authState: Observable<firebase.User>
   private currentUser: firebase.User = null;
-//  public currentUser: User;
 constructor(public afAuth: AngularFireAuth, public usersService: UsersService) {
     this.authState = this.afAuth.authState;
     this.authState.subscribe(user => {
       if (user) {
         this.currentUser = user;
-        UsersService.currentUser = new User(user.email, user.uid, true, false, user.email, Date.now(), []);
-        console.log("user: " + UsersService.currentUser.email);
+        this.usersService.currentUser = new User(user.email, user.uid, true, false, user.email, Date.now(), []);
+        console.log("user: " + this.usersService.currentUser.email);
       } else {
         this.currentUser = null;
       }
@@ -35,7 +34,7 @@ constructor(public afAuth: AngularFireAuth, public usersService: UsersService) {
         var token = result.credential.accessToken;
         var usersRef = firebase.database().ref('Users');
         var date = Date.now();
-        UsersService.currentUser = new User("guest", result.user.uid, true, false, result.user.email, date, []);
+        this.usersService.currentUser = new User("guest", result.user.uid, true, false, result.user.email, date, []);
         usersRef.child(result.user.uid).set({
           uid: result.user.uid,
           active: true,

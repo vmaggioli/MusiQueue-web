@@ -19,6 +19,18 @@
   padding: 20px;
 }
 
+#noVideo {
+	float: left;
+	width: 50%;
+	padding: 20px;
+}
+
+#noSongsText {
+	color: red;
+	font-size: 150%;
+	margin: auto;
+}
+
 #itemList {
   float: right;
   width: 50%;

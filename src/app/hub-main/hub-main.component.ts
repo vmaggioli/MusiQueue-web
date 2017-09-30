@@ -46,7 +46,7 @@ export class HubMainComponent  {
     this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
       this.sortQueue(items);
     });
-    this.hasSongs = (this.songs.length > 0);
+    this.hasSongs = (this.songs != null) && (this.songs.length > 0);
   }
 
   sortQueue(items): number {

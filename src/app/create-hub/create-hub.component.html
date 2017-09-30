@@ -1,12 +1,12 @@
-<h1>Create a Hub</h1>
+<h1 id="title"> Create a Hub</h1>
 
 <div ng-app>
-	<div ng-controller="crtHubCtrl">
+	<div id="swag" ng-controller="crtHubCtrl">
 		<div class="name">Hub Name:</div>
-		<input type="text" #hubName>
+		<input type="text" maxlength="12" #hubName>
 	
-		<div class="passwd">Hub Password:</div>
-		<input type="text" #hubPW>
+		<div class="passwd">Hub Password (4 digit num):</div>
+		<input type="number" maxlength="4" #hubPW>
 	</div>
 </div>
 

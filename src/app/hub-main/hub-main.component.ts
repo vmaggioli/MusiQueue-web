@@ -63,8 +63,12 @@ export class HubMainComponent  {
       else return 0;
     });
     this.itemList = this.songs;
-    if (this.songs.length > 0)
+    if (this.songs.length > 0) {
       this.id = this.songs[0].video_id;
+      this.hasSongs = true;
+    }
+    else
+      this.hasSongs = false;
     if (this.state < 1)
       this.player.playVideo();
   }
@@ -90,11 +94,15 @@ export class HubMainComponent  {
       case 0:
         console.log("finished");
         this.state = 0;
+
         if (this.songs.length > 1) {
           this.player.loadVideoById(this.songs[1].video_id);
         }
-        this.songs = this.queueService.removeSong(this.currentHub.hub_uid, this.songs[0].video_id);
-        if (this.songs.length == 0) {
+        console.log("hub-next: " this.hubService.currentHub.name);
+        var last = this.songs.length - 1;
+        this.queueService.removeSong(this.hubService.currentHub.name, this.songs[0].video_id);
+        if (last == 0) {
+          console.log("WHYWHYWHYWHYWHY")''
           this.hasSongs = false;
         }
         break;

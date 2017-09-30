@@ -25,6 +25,7 @@ export class HubMainComponent  {
   private state: number;
   public itemList: FirebaseListObservable<any[]>;
   public currentHub: Hub;
+  public hasSongs: boolean = false;
   public isQueue: boolean = true;
   public isSongs: boolean = false;
   public isUsers: boolean = false;
@@ -88,9 +89,13 @@ export class HubMainComponent  {
       case 0:
         console.log("finished");
         this.state = 0;
-        if (this.songs.length > 1)
+        if (this.songs.length > 1) {
           this.player.loadVideoById(this.songs[1].video_id);
-        this.songs = this.queueService.removeSong(this.currentHub.hub_uid, this.songs[0].video_id)
+        }
+        this.songs = this.queueService.removeSong(this.currentHub.hub_uid, this.songs[0].video_id);
+        if (this.songs.length == 0) {
+          this.hasSongs = false;
+        }
         break;
       case 1:
       this.state = 1;
@@ -119,6 +124,7 @@ export class HubMainComponent  {
     var thumbnail = youtubeItem.snippet.thumbnails.default.url; //there are other sizes
     var videoId = youtubeItem.id.videoId;
     this.queueService.addSong(title, thumbnail, videoId, this.hubService.currentHub.name);
+    this.hasSongs = true;
     this.onSelected("queue");
   }
 

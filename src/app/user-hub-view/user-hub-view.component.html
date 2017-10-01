@@ -19,21 +19,36 @@
           </div>
         </div>
         <main>
-          <ul class="list-group">
-            <li (click)="onItemClicked( item )" [ngClass]="{ 'selectable' : isSongs }" class="list-group-item" *ngFor="let item of itemList">
-              <span class="pull-right">
-                <button (click)="upvote(item)" type="button" *ngIf="isQueue" class="vote">
-                  <span class="glyphicon" [ngClass]="{ 'glyphicon-remove' : isUsers, 'glyphicon-thumbs-up' : isQueue }"></span>
-                </button>
-                <button (click)="downvote(item)" type="button" *ngIf="isQueue" class="vote">
-                  <span class="glyphicon glyphicon-thumbs-down"></span>
-                </button>
-                <p id="rank" *ngIf="isQueue">{{ item.up_votes - item.down_votes }}</p>
-              </span>
-              <span *ngIf="isQueue">{{ item.song_name }}</span>
-              <span *ngIf="isSongs">{{ item.snippet.title }}</span>
+
+          <ul *ngIf="isSongs" class="list-group">
+            <!-- SONG SEARCH -->
+            <li *ngFor="let song of ytsongs" (click)="onSongClicked( song )" class="list-group-item selectable">
+                <div class="thumbnail-text">
+                  <img src={{song.snippet.thumbnails.default.url}} class="img-thumbnail" width="100" height="80"/>
+                </div>
+                <div class="text">{{ song.snippet.title }}</div>
             </li>
           </ul>
+
+          <ul *ngIf="isQueue" class="list-group">
+            <!-- QUEUE -->
+            <li class="list-group-item" *ngFor="let song of songs">
+              <span class="pull-right">
+                <button (click)="upvote(song)" type="button" class="vote">
+                  <span class="glyphicon glyphicon-thumbs-up"></span>
+                </button>
+                <button (click)="downvote(song)" type="butotn" class="vote">
+                  <span class="glyphicon glyphicon-thumbs-down"></span>
+                </button>
+                <p id="rank">{{ song.up_votes - song.down_votes }}</p>
+              </span>
+              <span>
+                <span>{{ song.song_name }}</span><br>
+                <span>{{ song.username }}</span>
+              </span>
+            </li>
+          </ul>
+
         </main>
       </div>
     </div>

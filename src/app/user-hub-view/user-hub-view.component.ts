@@ -6,6 +6,8 @@ import { UsersService } from '../shared/users.service';
 import { User } from '../objects/user';
 import { Song } from '../objects/song';
 import { Hub } from '../objects/hub';
+import { YTSong } from '../objects/YTsong';
+import { Observable } from 'rxjs/Observable';
 import { FirebaseListObservable } from 'angularfire2/database';
 import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 
@@ -18,11 +20,13 @@ import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 })
 export class UserHubViewComponent {
 
-  public itemList: FirebaseListObservable<any[]>;
+  public songList: FirebaseListObservable<YTSong[]>;
+  public queueList: FirebaseListObservable<Song[]>;
   public isQueue: boolean = true;
   public isSongs: boolean = false;
   public currentHub: Hub;
   public songs: Song[];
+  public ytsongs: YTSong[];
   public users: User[];
 
   constructor(
@@ -40,27 +44,26 @@ export class UserHubViewComponent {
      });
    }
 
-   sortQueue(items): number {
+   sortQueue(items) {
      this.songs = items;
      this.songs.sort((a, b) => {
        let ar: number = a.rank;
        let br: number = b.rank;
-       let ad: number = a.time_added;
-       let bd: number = b.time_added;
+       let ad: Date = a.time_added;
+       let bd: Date = b.time_added;
        if (ar < br) return 1;
        else if (ar > br) return -1;
        else if (ad < bd) return -1;
        else if (ad > bd) return 1;
        else return 0;
      });
-     this.itemList = this.songs;
    }
 
-  onItemClicked(youtubeItem) {
+  onSongClicked(youtubeItem) {
     if (!this.isSongs) return;
-    var title = youtubeItem.snippet.title;
-    var thumbnail = youtubeItem.snippet.thumbnails.default.url; //there are other sizes
-    var videoId = youtubeItem.id.videoId;
+    var title = youtubeItem.song_name;
+    var thumbnail = youtubeItem.thumbnail; //there are other sizes
+    var videoId = youtubeItem.video_id;
     this.queueService.addSong(title, thumbnail, videoId, this.hubService.currentHub.name);
     this.onSelected("queue");
   }
@@ -69,7 +72,7 @@ export class UserHubViewComponent {
     if (tab == "songs") {
       this.isQueue = false;
       this.isSongs = true;
-      this.itemList = [];
+      this.ytsongs = [];
     }
     else if (tab == "queue") {
       this.isSongs = false;
@@ -81,14 +84,8 @@ export class UserHubViewComponent {
   }
 
   onSearch(input: string) {
-    this.songs = this.youtubeService.search(input);
-    this.songs.forEach(song => {
-      this.itemList = [];
-      song.items.forEach(item => {
-        console.log(item);
-        this.itemList.push(item);
-      });
-    });
+    this.ytsongs = [];
+    this.ytsongs = this.youtubeService.search(input);
   }
 
   upvote(song) {

@@ -11,7 +11,7 @@ import { User } from '../objects/user';
 export class UsersService {
   public allUsers: FirebaseListObservable<User[]>;
   public hubUserKeys: FirebaseListObservable<any[]>;
-  public hubUsers: FirebaseListObservable<User[]> = [];
+  public hubUsers: FirebaseListObservable<User[]>;
   public hubUser: FirebaseObjectObservable<User>;
   public currentUser: User;
 
@@ -19,21 +19,18 @@ export class UsersService {
     this.allUsers = db.list('/Users');
   }
 
-  getAllUsers(): User[] {
-    return this.allUsers;
-  }
-
-
   // this implementation FAILS to update automatically if a user is removed from the hub
   addUserByID(id) {
-    this.hubUser = this.db.object('Users/' + id.val(), {preserveSnapshot:true}).subscribe(u => {
+    this.db.object('Users/' + id.val(), {preserveSnapshot:true}).subscribe(u => {
       var isPresent = false;
       this.hubUsers.forEach(hu => {
-        if (u.val().email == hu.email) {
-          isPresent = true;
-          hu.username = u.val().username;
-        }
-      })
+        hu.forEach(ahu => {
+          if (u.email == ahu.email) {
+            isPresent = true;
+            ahu.username = u.val().username;
+          }
+        });
+      });
       if (!isPresent)
         this.hubUsers.push(u.val());
     });

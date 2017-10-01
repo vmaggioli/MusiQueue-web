@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
 export class HubService {
 
   public currentHub: Hub;
-  constructor(public db: AngularFireDatabase
+  constructor(public db: AngularFireDatabase,
               private auth: AuthService) { }
 
   createHub(closed: string, creator: string, last_active: string, latitude: string, longitude: string, name: string, pin: string, users: string, wifi: string){

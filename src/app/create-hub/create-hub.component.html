@@ -1,18 +1,25 @@
-<h1 id="title"> Create a Hub</h1>
 
+<div class="centered">
+	<h1 id="title"> Create a Hub</h1>
 <div ng-app>
 	<div id="swag" ng-controller="crtHubCtrl">
 		<div class="name">Hub Name:</div>
 		<input type="text" maxlength="12" #hubName>
-	
+
 		<div class="passwd">Hub Password (4 digit num):</div>
 		<input type="number" maxlength="4" #hubPW>
 	</div>
 </div>
 
-
-
-
 <div id="createHub">
 	<button (click)='gotoHubMain(hubName.value,hubPW.value)'>Create Hub</button>
+</div>
+<div id="geo-locat">
+	<p>Allow Location will grab your current location and allow users</p>
+	<p>to search for your hub based on your current location!</p>
+	<p>If you don't want to enable your location now you can always</p>
+	<p>update it later.</p>
+	<button (click)="locate()">Allow Location</button>
+</div>
+
 </div>

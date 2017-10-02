@@ -25,7 +25,7 @@ export class YoutubeService {
         });
         return this.songs;
       }).subscribe(res => {
-      })
+      });
     return this.songs;
   }
 }

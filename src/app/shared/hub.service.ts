@@ -27,7 +27,33 @@ export class HubService {
       users: this.auth.getCurrentUser().displayName,
       wifi: wifi
     });
-
   }
 
+  getHubByName(name): FirebaseListObservable<Hub[]> {
+    return this.db.object("Hubs/" + name);
+  }
+
+  getHubsByLat(lat): FirebaseListObservable<Hub[]> {
+    var latMin: number = lat - 0.01;
+    var latMax: number = lat + 0.01;
+    return this.db.list("Hubs", {
+      query: {
+        orderByChild: 'latitude',
+        startAt: latMin,
+        endAt: latMax
+      }
+    });
+  }
+
+  getHubsByLong(long): FirebaseListObservable<Hub[]> {
+    var longMin: number = long - 0.01;
+    var longMax: number = long + 0.01;
+    return this.db.list("Hubs", {
+      query: {
+        orderByChild: 'longitude',
+        startAt: longMin,
+        endAt: longMax
+      }
+    });
+  }
 }

@@ -1,18 +1,15 @@
-main {
-  background: #eee;
-	display: block;
-  left:0;
-  margin-right: 20px;
-  margin-top: 13.8px;
-	padding: 1em;
-  text-align: center
+button {
+  margin-top: 10px;
 }
-#createHub {
-	text-align: center;
+
+p {
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
-#swag {
-	text-align: center;
+
+#geo-locat {
+  padding: 40px;
 }
-#title {
-	text-align: center;
+.centered {
+  text-align: center;
 }

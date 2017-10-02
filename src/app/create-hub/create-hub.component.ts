@@ -16,7 +16,7 @@ export class CreateHubComponent {
 
   name: string;
   passwd: string;
-
+  location = {};
   constructor(
     private router: Router
     public hubService: HubService
@@ -37,11 +37,22 @@ export class CreateHubComponent {
     if(isValidPW(this.passwd) && isValidName(this.name)) {
       this.hubService.currentHub = new Hub(this.name, "user", "user", this.passwd, "date", [], []);
       console.log("hub name is: " + this.hubService.currentHub.name);
-      this.hubService.createHub("false", "user", "date", "lat", "long", this.name, this.passwd, "users", "wifi");
+
+      if (location.longitude != 0)
+        this.hubService.createHub("false", "user", "date", this.location.latitude, this.location.longitude, this.name, this.passwd, "users", "wifi");
+      else
+        this.hubService.createHub("false", "user", "date", 0, 0, this.name, this.passwd, "users", "wifi");
       this.usersService.addUserToHub(this.usersService.currentUser.uid, this.name);
       this.router.navigate(['hub-main',{name: this.name}]);
     }
     else(console.log("invalid name or passwd"))
+  }
+
+  locate() {
+    navigator.geolocation.getCurrentPosition(pos => {
+      this.location = pos.coords;
+      console.log("LOCATION: " + this.location.longitude + this.location.latitude);
+    });
   }
 }
 

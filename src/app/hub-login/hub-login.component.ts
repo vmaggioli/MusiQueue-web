@@ -12,7 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class HubLoginComponent {
   name: string = "";
   creator: string = "";
-  pin: string = "";
+  pin: number = 0;
   hub: Hub;
   constructor(public hubService: HubService, public route: ActivatedRoute, public router: Router) { }
 

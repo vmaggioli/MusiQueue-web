@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Hub } from '../objects/hub';
 import { AuthService } from './auth.service';
 
@@ -29,7 +29,7 @@ export class HubService {
     });
   }
 
-  getHubByName(name): FirebaseListObservable<Hub[]> {
+  getHubByName(name): FirebaseObjectObservable<Hub> {
     return this.db.object("Hubs/" + name);
   }
 

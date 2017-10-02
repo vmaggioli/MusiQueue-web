@@ -3,7 +3,7 @@ import { Song } from './song';
 
 export class Hub {
   name: string;
-  creator_name: string;
+  creator: string;
   creator_uid: string;
   pin: number;
   last_active: Date;
@@ -11,11 +11,11 @@ export class Hub {
   users: User[];
   songs: Song[];
   public constructor (
-    name: string, creator_name: string, creator_uid: string, pin: number,
+    name: string, creator: string, creator_uid: string, pin: number,
     last_active: Date, users: User[], songs: Song[]
   ) {
     this.name = name;
-    this.creator_name = creator_name;
+    this.creator = creator;
     this.creator_uid = creator_uid;
     this.pin = pin;
     this.last_active = last_active;

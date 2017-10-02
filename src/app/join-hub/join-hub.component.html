@@ -9,8 +9,10 @@
 		<ul class="hub-search-list">
 			<li *ngFor="let hub of locHubs" class="list-group-item selectable">
 				<a class="list-route" [routerLink]="['/hub-login', hub.name]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-					<h4>{{ hub.name }}</h4>
-					<p>Created By: {{ hub.creator }}</p>
+					<div>
+						<h4>{{ hub.name }}</h4>
+						<p>Created By: {{ hub.creator }}</p>
+					</div>
 				</a>
 			</li>
 		</ul>

@@ -8,7 +8,7 @@ import { UsersService } from './users.service';
 
 @Injectable()
 export class QueueService {
-  public queue: FirebaseListObservable<Song[]>;
+  public queue: FirebaseListObservable<Song[]> = [];
 
   constructor(public db: AngularFireDatabase,
               private auth: AuthService,
@@ -43,6 +43,7 @@ export class QueueService {
 
   removeSong(hubId: string, videoId: string): FirebaseListObservable<Song[]> {
     this.db.object('/Songs/'+hubId+videoId).remove();
+    this.queue = [];
     this.getQueue(hubId).subscribe(songs => {
       songs.forEach(s => {
         this.queue.push(s);

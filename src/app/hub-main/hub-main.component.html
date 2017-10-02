@@ -61,13 +61,13 @@
 
           <ul *ngIf="isUsers" class="list-gorup">
             <!-- USERS -->
-            <li class="list-group-item" *ngFor="let user of users">
+            <li class="list-group-item" *ngFor="let user of userList">
               <span class="pull-right">
                 <button type="button" class="btn btn-danger">
                   <span class="glyphicon glyphicon-remove"></span>
                 </button>
               </span>
-              <span>{{ item.username }}</span>
+              <span>{{ user.email }}</span>
             </li>
           </ul>
 

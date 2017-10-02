@@ -39,16 +39,17 @@ export class QueueService {
       thumbnail: thumbnail,
       rank: 0
     });
-    this.queue.push(songsRef.child(hubId + videoId));
   }
 
   removeSong(hubId: string, videoId: string): FirebaseListObservable<Song[]> {
     this.db.object('/Songs/'+hubId+videoId).remove();
-    this.queue.foreach(song => {
-      if (song.video_id == videoId) {
-        this.queue.remove(song);
-      }
-    });
+    this.queue = [];
+    this.getQueue(hubId).subscribe(songs => {
+      songs.forEach(s => {
+        this.queue.push(s);
+      });
+      console.log(this.queue);
+    })
     return this.queue;
   }
 

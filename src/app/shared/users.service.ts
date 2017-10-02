@@ -41,22 +41,22 @@ export class UsersService {
           last_active: u.val().last_active,
           username: "guest"
         });
-        this.hubUsers.push(u.val());
       }
     });
   }
   
   removeUserFromHub(userID: string, hubUID: string) {
     this.db.object("Hubs/" + hubUID + "/users/" + userID).remove();
-    this.hubUsers.forEach(user => {
-      if (user.uid == userID) {
-        hubUsers.remove(user);
-      }
-    });
-    return this.hubUsers;
+    return getHubUsers(hubUID);
   }
 
   getHubUsers(hubUID: string) {
+    this.hubUsers = [];
+    this.db.list("Hubs/" + hubUID + "/users").subscribe(users => {
+      users.forEach(user => {
+        this.hubUsers.push(user);
+      });
+    });
     return this.hubUsers;
   }
 }

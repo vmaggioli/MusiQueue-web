@@ -10,7 +10,7 @@ import { CreateJoinComponent } from './create-join/create-join.component';
 import { CreateHubComponent } from './create-hub/create-hub.component';
 import { JoinHubComponent } from './join-hub/join-hub.component';
 import { UserHubViewComponent } from './user-hub-view/user-hub-view.component';
-
+import { HubLoginComponent } from './hub-login/hub-login.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent }
@@ -20,6 +20,8 @@ const appRoutes: Routes = [
   { path: 'create-hub', component: CreateHubComponent, canActivate: [LoginGuard] },
   { path: 'join-hub', component: JoinHubComponent, canActivate: [LoginGuard] },
   { path: 'user-hub-view', component: UserHubViewComponent, canActivate: [LoginGuard]},
+  { path: 'hub-login/:name', component: HubLoginComponent, canActivate: [LoginGuard]},
+
 ]
 @NgModule({
   imports: [

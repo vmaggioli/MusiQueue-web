@@ -1,12 +1,20 @@
-<h2>Join a Hub</h2>
-<div  style="text-align: center;" ng-app>
-	
-		<div class="hub">Search for a Hub:</div>
-		<input type="text" #Hub>
-	
+<div class="centered">
+	<h2>Join a Hub</h2>
+	<div class="hub">Search for a Hub:</div>
+	<input type="text" #Hub>
+	<button >Search</button>
+	<br>
+	<button id="locate-button" (click)="searchLocation()">Search By Location</button>
+	<div id="list-container">
+		<ul class="hub-search-list">
+			<li *ngFor="let hub of locHubs" class="list-group-item selectable">
+				<a class="list-route" [routerLink]="['/hub-login', hub.name]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+					<div>
+						<h4>{{ hub.name }}</h4>
+						<p>Created By: {{ hub.creator }}</p>
+					</div>
+				</a>
+			</li>
+		</ul>
 </div>
-
-<div style="text-align: center;">
-    <br>
-    <button >Search</button>
 </div>

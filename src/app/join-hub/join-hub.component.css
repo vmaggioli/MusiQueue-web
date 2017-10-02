@@ -1,9 +1,31 @@
-main {
-  background: #eee;
-	display: block;
-  left:0;
-  margin-right: 20px;
-  margin-top: 13.8px;
-	padding: 1em;
-  text-align: center
+.centered {
+  text-align: center;
+}
+
+.hub-search-list {
+  width: 100%;
+  line-height: 5px;
+}
+
+button {
+  margin: 10px;
+}
+
+.selectable:hover {
+  background: #ddd;
+  cursor: pointer;
+}
+
+#list-container {
+  width: 50%;
+  margin: auto
+}
+
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+.list-route {
+  color: black;
+  text-decoration: none;
 }

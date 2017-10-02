@@ -41,9 +41,7 @@ constructor(public afAuth: AngularFireAuth, public usersService: UsersService) {
           email: result.user.email,
           kicked: false,
           last_active: date,
-          username: "guest",
-          hub_list: {
-          }
+          username: "guest"
         });
       });
   }

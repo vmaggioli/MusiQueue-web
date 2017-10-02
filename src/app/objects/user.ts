@@ -10,7 +10,7 @@ export class User {
   public hub_list: Hub[];
   public constructor (
     username: string, uid :string, active: boolean, kicked: boolean,
-    email: string, last_active: number, hub_list: Hub[]
+    email: string, last_active: number
   ) {
     this.username = username;
     this.uid = uid;
@@ -18,7 +18,6 @@ export class User {
     this.kicked = kicked;
     this.email = email;
     this.last_active = last_active;
-    this.hub_list = hub_list;
   }
 
 }

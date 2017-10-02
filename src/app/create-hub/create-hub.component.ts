@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ParamMap} from '@angular/router';
 import { HubService } from '../shared/hub.service';
+import { UsersService } from '../shared/users.service';
 import { Hub } from '../objects/hub';
 
 @Component({
@@ -18,7 +19,8 @@ export class CreateHubComponent {
   location = {};
   constructor(
     private router: Router
-    public hubService: HubService) {
+    public hubService: HubService
+    public usersService: UsersService) {
 
   }
 
@@ -35,11 +37,12 @@ export class CreateHubComponent {
     if(isValidPW(this.passwd) && isValidName(this.name)) {
       this.hubService.currentHub = new Hub(this.name, "user", "user", this.passwd, "date", [], []);
       console.log("hub name is: " + this.hubService.currentHub.name);
+
       if (location.longitude != 0)
         this.hubService.createHub("false", "user", "date", this.location.latitude, this.location.longitude, this.name, this.passwd, "users", "wifi");
       else
         this.hubService.createHub("false", "user", "date", 0, 0, this.name, this.passwd, "users", "wifi");
-
+      this.usersService.addUserToHub(this.usersService.currentUser.uid, this.name);
       this.router.navigate(['hub-main',{name: this.name}]);
     }
     else(console.log("invalid name or passwd"))

@@ -25,9 +25,6 @@ export class HubMainComponent  {
   public player;
   private id: string = '';
   private state: number;
-  public songList: FirebaseListObservable<YTSong[]>;
-  public queueList: FirebaseListObservable<Song[]>;
-  public userList: FirebaseListObservable<User[]>;
   public currentHub: Hub;
   public hasSongs: boolean = false;
   public isQueue: boolean = true;
@@ -35,7 +32,7 @@ export class HubMainComponent  {
   public isUsers: boolean = false;
   public songs: Song[];
   public ytsongs: YTSong[];
-  public users: User[];
+  public userList: FirebaseListObservable<User[]>;
 
 
   constructor(

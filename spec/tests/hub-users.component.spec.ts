@@ -1,8 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { YoutubePlayerModule } from 'ng2-youtube-player';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { HubUsersComponent } from './hub-users.component';
-import { RouterTestingModule } from '@angular/router/testing';
+import {} from 'jasmine';
+import { HubUsersComponent } from '../../src/app/hub-users/hub-users.component';
 
 describe('HubUsersComponent', () => {
   let component: HubUsersComponent;
@@ -10,12 +8,7 @@ describe('HubUsersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HubUsersComponent ],
-      imports: [
-        AngularFireDatabaseModule,
-        YoutubePlayerModule,
-        RouterTestingModule
-      ],
+      declarations: [ HubUsersComponent ]
     })
     .compileComponents();
   }));

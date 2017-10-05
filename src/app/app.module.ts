@@ -45,7 +45,8 @@ import { UserHubViewComponent } from './user-hub-view/user-hub-view.component';
     AngularFireAuthModule,
     YoutubePlayerModule,
     AppRoutingModule,
-    MdTabsModule
+    MdTabsModule,
+    HttpModule
   ],
   providers: [
     UsersService,

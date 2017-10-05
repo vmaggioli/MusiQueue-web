@@ -22,7 +22,7 @@ describe('UserHubViewComponent', () => {
     messagingSenderId: "386642263895"
   }
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ UserHubViewComponent ],
       imports: [
@@ -39,7 +39,7 @@ describe('UserHubViewComponent', () => {
        ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UserHubViewComponent);

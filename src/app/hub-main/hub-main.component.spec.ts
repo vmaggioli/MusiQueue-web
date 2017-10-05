@@ -24,7 +24,7 @@ describe('HubMainComponent', () => {
     messagingSenderId: "386642263895"
   }
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         HubMainComponent,
@@ -45,7 +45,7 @@ describe('HubMainComponent', () => {
       ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HubMainComponent);

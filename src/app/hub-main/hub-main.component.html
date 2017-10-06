@@ -46,7 +46,7 @@
                 <button (click)="upvote(song)" type="button" class="vote">
                   <span class="glyphicon glyphicon-thumbs-up"></span>
                 </button>
-                <button (click)="downvote(song)" type="butotn" class="vote">
+                <button (click)="downvote(song)" type="button" class="vote">
                   <span class="glyphicon glyphicon-thumbs-down"></span>
                 </button>
                 <p id="rank">{{ song.up_votes - song.down_votes }}</p>
@@ -61,13 +61,13 @@
 
           <ul *ngIf="isUsers" class="list-gorup">
             <!-- USERS -->
-            <li class="list-group-item" *ngFor="let user of users">
+            <li class="list-group-item" *ngFor="let user of userList">
               <span class="pull-right">
                 <button type="button" class="btn btn-danger">
                   <span class="glyphicon glyphicon-remove"></span>
                 </button>
               </span>
-              <span>{{ item.username }}</span>
+              <span>{{ user.email }}</span>
             </li>
           </ul>
 

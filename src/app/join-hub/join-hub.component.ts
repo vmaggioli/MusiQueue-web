@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Hub } from '../objects/Hub';
 import { HubService } from '../shared/hub.service';
 import { Router } from '@angular/router';
+import { UsersService } from '../shared/users.service';
 
 
 @Component({
@@ -15,10 +16,11 @@ import { Router } from '@angular/router';
 export class JoinHubComponent {
   location = {};
   locHubs: Hub[] = [];
+  recentHubs: Hub[];
   lats: FirebaseListObservable<Hub[]>;
   longs: FirebaseListObservable<Hub[]>;
 
-  constructor(public router: Router, public hubService: HubService) {
+  constructor(public router: Router, public hubService: HubService, public usersService: UsersService) {
 
   }
 
@@ -41,8 +43,17 @@ export class JoinHubComponent {
 
     });
   }
+  
+  recentHubs() {
+    this.recentHubs = [];
+    this.usersService.getRecentHubs().subscribe(hubs => {
+      hubs.forEach(hub => {
+        this.recentHubs.push(hub);
+      });
+    });
+  }
 
   onHubSelected(hub) {
-
+    
   }
 }

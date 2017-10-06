@@ -19,32 +19,62 @@ export class UsersService {
     this.allUsers = db.list('/Users');
   }
 
-  // this implementation FAILS to update automatically if a user is removed from the hub
-  addUserByID(id) {
-    this.db.object('Users/' + id.val(), {preserveSnapshot:true}).subscribe(u => {
-      var isPresent = false;
-      this.hubUsers.forEach(hu => {
-        hu.forEach(ahu => {
-          if (u.email == ahu.email) {
-            isPresent = true;
-            ahu.username = u.val().username;
-          }
+  userIsPartOfHub(userID: string, hubUID: string) {
+    this.db.list("Users/" + userID + "hub_list", {preserveSnapshot:true}).subscribe(hubs => {
+      hubs.forEach(hub => {
+        if (hub.val().name == hubUID) {
+          return true;
+        }
+      });
+    });
+    return false;
+  }
+  
+  addHubUnderUser(userID: string, hubUID: string) {
+    if (!this.userIsPartOfHub(userID, hubUID)) {
+      var date = Date.now();
+      var userRef = firebase.database().ref("Users/" + userID);
+      this.db.object("Hubs/" + hubUID, {preserveSnapshot:true}).subscribe(newHub => {
+        userRef.child("hub_list/" + hubUID).set({
+          closed: newHub.val().closed,
+          creator: newHub.val().creator,
+          last_active: date,
+          latitude: newHub.val().latitude,
+          longitude: newHub.val().longitude,
+          name: newHub.val().name,
+          pin: newHub.val().pin,
+          //users: this.auth.getCurrentUser().displayName,
+          wifi: newHub.val().wifi
         });
       });
-      if (!isPresent)
-        this.hubUsers.push(u.val());
+    }
+  }
+  
+  getHubUsers(hubUID: string) {
+    this.hubUsers = [];
+    this.db.list("Users/", {
+      query: {
+        orderByChild: "hub_list/" + hubUID + "/name",
+        equalTo: hubUID
+      }
+    }).subscribe(users => {
+      users.forEach(hubUser => {
+        this.hubUsers.push(hubUser);
+      });
     });
     return this.hubUsers;
+  }
+  
+  getRecentHubs() {
+    var date = Date.now();
+    var maxTimeSinceActivity = date - (7 * 24 * 60 * 60 * 1000);
+    return this.db.list("Users/" + this.currentUser.uid + "/hub_list", {
+      query: {
+        orderByChild: "last_active",
+        startAt: maxTimeSinceActivity
+        endAt: date
+      }
+    });
   }
 
-  getHubUsers(hubUID: string) {
-    var hubsRef = firebase.database().ref('Hubs/' + hubUID + '/users');
-    this.hubUserKeys = this.db.list('Hubs/' + hubUID + '/users', {preserveSnapshot:true});
-    this.hubUserKeys.subscribe(snapshots => {
-      snapshots.forEach(snapshot => {
-        this.addUserByID(snapshot);
-      })
-    });
-    return this.hubUsers;
-  }
 }

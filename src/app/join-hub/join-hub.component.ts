@@ -52,6 +52,11 @@ export class JoinHubComponent {
       });
     });
   }
+  
+  removeItem(list: string) {
+    var x = document.getElementsByClassName(list);
+    x.remove();
+  }
 
   onHubSelected(hub) {
     

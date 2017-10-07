@@ -18,7 +18,7 @@
 			</li>
 		</ul>
 		<ul *ngIf="displayingRecentHubs" class = "recent-hubs-list">
-			<li *ngFor="let hub of recentHubs" class="list-group-item selectable">
+			<li *ngFor="let hub of recentHubsOfUser" class="list-group-item selectable">
 				<a class="list-route" [routerLink]="['/hub-login', hub.name]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
 					<div>
 						<h4>{{ hub.name }}</h4>

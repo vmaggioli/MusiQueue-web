@@ -16,7 +16,7 @@ import { UsersService } from '../shared/users.service';
 export class JoinHubComponent {
   location = {};
   locHubs: Hub[] = [];
-  recentHubs: Hub[];
+  recentHubsOfUser: Hub[];
   lats: FirebaseListObservable<Hub[]>;
   longs: FirebaseListObservable<Hub[]>;
   displayingLocalHubs: boolean = false;
@@ -49,10 +49,10 @@ export class JoinHubComponent {
   }
   
   recentHubs() {
-    this.recentHubs = [];
+    this.recentHubsOfUser = [];
     this.usersService.getRecentHubs().subscribe(hubs => {
       hubs.forEach(hub => {
-        this.recentHubs.push(hub);
+        this.recentHubsOfUser.push(hub);
       });
     });
     this.displayingRecentHubs = true;

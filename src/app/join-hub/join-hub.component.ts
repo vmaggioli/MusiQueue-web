@@ -19,6 +19,8 @@ export class JoinHubComponent {
   recentHubs: Hub[];
   lats: FirebaseListObservable<Hub[]>;
   longs: FirebaseListObservable<Hub[]>;
+  displayingLocalHubs: boolean = false;
+  displayingRecentHubs: boolean = false;
 
   constructor(public router: Router, public hubService: HubService, public usersService: UsersService) {
 
@@ -30,6 +32,7 @@ export class JoinHubComponent {
 
   searchLocation() {
     console.log("button click is working");
+    this.locHubs = [];
     navigator.geolocation.getCurrentPosition(pos => {
       this.location = pos.coords;
       this.lats = this.hubService.getHubsByLat(this.location.latitude).subscribe(h => {
@@ -40,8 +43,9 @@ export class JoinHubComponent {
           });
         });
       });
-
     });
+    this.displayingLocalHubs = true;
+    this.displayingRecentHubs = false;
   }
   
   recentHubs() {
@@ -51,11 +55,8 @@ export class JoinHubComponent {
         this.recentHubs.push(hub);
       });
     });
-  }
-  
-  removeItem(list: string) {
-    var x = document.getElementsByClassName(list);
-    x.remove();
+    this.displayingRecentHubs = true;
+    this.displayingLocalHubs = false;
   }
 
   onHubSelected(hub) {

@@ -35,7 +35,7 @@ constructor(public afAuth: AngularFireAuth, public usersService: UsersService) {
         var usersRef = firebase.database().ref('Users');
         var date = Date.now();
         this.usersService.currentUser = new User("guest", result.user.uid, true, false, result.user.email, date, []);
-        usersRef.child(result.user.uid).set({
+        usersRef.child(result.user.uid).update({
           uid: result.user.uid,
           active: true,
           email: result.user.email,

@@ -31,9 +31,9 @@ export class UsersService {
   }
   
   addHubUnderUser(userID: string, hubUID: string) {
+    var date = Date.now();
+    var userRef = firebase.database().ref("Users/" + userID);
     if (!this.userIsPartOfHub(userID, hubUID)) {
-      var date = Date.now();
-      var userRef = firebase.database().ref("Users/" + userID);
       this.db.object("Hubs/" + hubUID, {preserveSnapshot:true}).subscribe(newHub => {
         userRef.child("hub_list/" + hubUID).set({
           closed: newHub.val().closed,
@@ -47,7 +47,15 @@ export class UsersService {
           wifi: newHub.val().wifi
         });
       });
+    } else {
+      userRef.child("hub_list/" + hubUID).update({
+        last_active: date
+      });
     }
+  }
+  
+  removeUserFromHub(userID: string, hubUID: string) {
+    this.db.object("Users/" + userID + "/hub_list/" + hubUID).remove();
   }
   
   getHubUsers(hubUID: string) {

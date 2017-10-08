@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Hub } from '../objects/hub';
 import { AuthService } from './auth.service';
 
@@ -27,7 +27,33 @@ export class HubService {
       users: this.auth.getCurrentUser().displayName,
       wifi: wifi
     });
-
   }
 
+  getHubByName(name): FirebaseObjectObservable<Hub> {
+    return this.db.object("Hubs/" + name);
+  }
+
+  getHubsByLat(lat): FirebaseListObservable<Hub[]> {
+    var latMin: number = lat - 0.01;
+    var latMax: number = lat + 0.01;
+    return this.db.list("Hubs", {
+      query: {
+        orderByChild: 'latitude',
+        startAt: latMin,
+        endAt: latMax
+      }
+    });
+  }
+
+  getHubsByLong(long): FirebaseListObservable<Hub[]> {
+    var longMin: number = long - 0.01;
+    var longMax: number = long + 0.01;
+    return this.db.list("Hubs", {
+      query: {
+        orderByChild: 'longitude',
+        startAt: longMin,
+        endAt: longMax
+      }
+    });
+  }
 }

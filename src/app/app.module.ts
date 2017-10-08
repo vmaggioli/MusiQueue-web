@@ -25,6 +25,7 @@ import { CreateJoinComponent } from './create-join/create-join.component';
 import { CreateHubComponent } from './create-hub/create-hub.component';
 import { JoinHubComponent } from './join-hub/join-hub.component';
 import { UserHubViewComponent } from './user-hub-view/user-hub-view.component';
+import { HubLoginComponent } from './hub-login/hub-login.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { UserHubViewComponent } from './user-hub-view/user-hub-view.component';
     CreateJoinComponent,
     CreateHubComponent,
     JoinHubComponent,
-    UserHubViewComponent
+    UserHubViewComponent,
+    HubLoginComponent
   ],
   imports: [
     BrowserModule,

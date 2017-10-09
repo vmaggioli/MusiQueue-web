@@ -7,6 +7,15 @@ import { AngularFireModule } from 'angularfire2';
 import { FirebaseApp } from 'angularfire2';
 
 describe('AppComponent', () => {
+  const config = {
+    apiKey: "AIzaSyAgvdKA3CBSgY3Oaooi8TDh4gA0iQgg5Ok",
+    authDomain: "musiqueue-web.firebaseapp.com",
+    databaseURL: "https://musiqueue-web.firebaseio.com",
+    projectId: "musiqueue-web",
+    storageBucket: "musiqueue-web.appspot.com",
+    messagingSenderId: "386642263895"
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -15,7 +24,7 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule,
         AngularFireAuthModule,
-        AngularFireModule
+        AngularFireModule.initializeApp(config)
       ],
       providers: [
         AuthService,

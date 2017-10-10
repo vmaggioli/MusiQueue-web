@@ -5,8 +5,9 @@
 	<button >Search</button>
 	<br>
 	<button id="locate-button" (click)="searchLocation()">Search By Location</button>
+	<button id="recent-hubs-button" (click)="recentHubs()">Find Recent Hubs</button>
 	<div id="list-container">
-		<ul class="hub-search-list">
+		<ul *ngIf="displayingLocalHubs" class="hub-search-list">
 			<li *ngFor="let hub of locHubs" class="list-group-item selectable">
 				<a class="list-route" [routerLink]="['/hub-login', hub.name]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
 					<div>
@@ -16,5 +17,15 @@
 				</a>
 			</li>
 		</ul>
-</div>
+		<ul *ngIf="displayingRecentHubs" class = "recent-hubs-list">
+			<li *ngFor="let hub of recentHubsOfUser" class="list-group-item selectable">
+				<a class="list-route" [routerLink]="['/hub-login', hub.name]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+					<div>
+						<h4>{{ hub.name }}</h4>
+						<p>Created By: {{ hub.creator }}</p>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
 </div>

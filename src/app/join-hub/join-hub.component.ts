@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Hub } from '../objects/Hub';
 import { HubService } from '../shared/hub.service';
 import { Router } from '@angular/router';
+import { UsersService } from '../shared/users.service';
 
 
 @Component({
@@ -15,10 +16,13 @@ import { Router } from '@angular/router';
 export class JoinHubComponent {
   location = {};
   locHubs: Hub[] = [];
+  recentHubsOfUser: Hub[];
   lats: FirebaseListObservable<Hub[]>;
   longs: FirebaseListObservable<Hub[]>;
+  displayingLocalHubs: boolean = false;
+  displayingRecentHubs: boolean = false;
 
-  constructor(public router: Router, public hubService: HubService) {
+  constructor(public router: Router, public hubService: HubService, public usersService: UsersService) {
 
   }
 
@@ -28,6 +32,7 @@ export class JoinHubComponent {
 
   searchLocation() {
     console.log("button click is working");
+    this.locHubs = [];
     navigator.geolocation.getCurrentPosition(pos => {
       this.location = pos.coords;
       this.lats = this.hubService.getHubsByLat(this.location.latitude).subscribe(h => {
@@ -38,11 +43,23 @@ export class JoinHubComponent {
           });
         });
       });
-
     });
+    this.displayingLocalHubs = true;
+    this.displayingRecentHubs = false;
+  }
+  
+  recentHubs() {
+    this.recentHubsOfUser = [];
+    this.usersService.getRecentHubs().subscribe(hubs => {
+      hubs.forEach(hub => {
+        this.recentHubsOfUser.push(hub);
+      });
+    });
+    this.displayingRecentHubs = true;
+    this.displayingLocalHubs = false;
   }
 
   onHubSelected(hub) {
-
+    
   }
 }

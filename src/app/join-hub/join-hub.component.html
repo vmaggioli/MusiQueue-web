@@ -2,7 +2,7 @@
 	<h2>Join a Hub</h2>
 	<div class="hub">Search for a Hub:</div>
 	<input type="text" #Hub>
-	<button >Search</button>
+	<button (click)="searchHubs(Hub.value)">Search</button>
 	<br>
 	<button id="locate-button" (click)="searchLocation()">Search By Location</button>
 	<button id="recent-hubs-button" (click)="recentHubs()">Find Recent Hubs</button>
@@ -17,8 +17,18 @@
 				</a>
 			</li>
 		</ul>
-		<ul *ngIf="displayingRecentHubs" class = "recent-hubs-list">
+		<ul *ngIf="displayingRecentHubs" class = "hub-search-list">
 			<li *ngFor="let hub of recentHubsOfUser" class="list-group-item selectable">
+				<a class="list-route" [routerLink]="['/hub-login', hub.name]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+					<div>
+						<h4>{{ hub.name }}</h4>
+						<p>Created By: {{ hub.creator }}</p>
+					</div>
+				</a>
+			</li>
+		</ul>
+		<ul *ngIf="displayingSearchHubs" class = "hub-search-list">
+			<li *ngFor="let hub of hubsFromSearch" class="list-group-item selectable">
 				<a class="list-route" [routerLink]="['/hub-login', hub.name]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
 					<div>
 						<h4>{{ hub.name }}</h4>

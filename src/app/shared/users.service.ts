@@ -29,7 +29,7 @@ export class UsersService {
     });
     return false;
   }
-  
+
   addHubUnderUser(userID: string, hubUID: string) {
     var date = Date.now();
     var userRef = firebase.database().ref("Users/" + userID);
@@ -53,13 +53,13 @@ export class UsersService {
       });
     }
   }
-  
+
   removeUserFromHub(userID: string, hubUID: string) {
     this.db.object("Users/" + userID + "/hub_list/" + hubUID).remove();
   }
-  
+
   getHubUsers(hubUID: string) {
-    this.hubUsers = [];
+    var hubUsers: FirebaseListObservable<User[]>;
     this.db.list("Users/", {
       query: {
         orderByChild: "hub_list/" + hubUID + "/name",
@@ -67,19 +67,19 @@ export class UsersService {
       }
     }).subscribe(users => {
       users.forEach(hubUser => {
-        this.hubUsers.push(hubUser);
+        hubUsers.push(hubUser);
       });
     });
-    return this.hubUsers;
+    return hubUsers;
   }
-  
+
   getRecentHubs() {
     var date = Date.now();
     var maxTimeSinceActivity = date - (7 * 24 * 60 * 60 * 1000);
     return this.db.list("Users/" + this.currentUser.uid + "/hub_list", {
       query: {
         orderByChild: "last_active",
-        startAt: maxTimeSinceActivity
+        startAt: maxTimeSinceActivity,
         endAt: date
       }
     });

@@ -17,10 +17,12 @@ export class JoinHubComponent {
   location = {};
   locHubs: Hub[] = [];
   recentHubsOfUser: Hub[];
+  hubsFromSearch: FirebaseListObservable<Hub[]>;
   lats: FirebaseListObservable<Hub[]>;
   longs: FirebaseListObservable<Hub[]>;
   displayingLocalHubs: boolean = false;
   displayingRecentHubs: boolean = false;
+  displayingSearchHubs: boolean = false;
 
   constructor(public router: Router, public hubService: HubService, public usersService: UsersService) {
 
@@ -46,6 +48,7 @@ export class JoinHubComponent {
     });
     this.displayingLocalHubs = true;
     this.displayingRecentHubs = false;
+    this.displayingSearchHubs = false;
   }
   
   recentHubs() {
@@ -57,6 +60,14 @@ export class JoinHubComponent {
     });
     this.displayingRecentHubs = true;
     this.displayingLocalHubs = false;
+    this.displayingSearchHubs = false;
+  }
+  
+  searchHubs(hubName: string) {
+    this.hubsFromSearch = this.hubService.getHubsBySearch(hubName);
+    this.displayingSearchHubs = true;
+    this.displayingLocalHubs = false;
+    this.displayingRecentHubs = false;
   }
 
   onHubSelected(hub) {

@@ -9,6 +9,7 @@ import { AuthService } from './auth.service';
 export class HubService {
 
   public currentHub: Hub;
+  private hubsBySearch: FirebaseListObservable<Hub[]>;
   constructor(public db: AngularFireDatabase,
               private auth: AuthService) { }
 
@@ -31,6 +32,20 @@ export class HubService {
 
   getHubByName(name): FirebaseObjectObservable<Hub> {
     return this.db.object("Hubs/" + name);
+  }
+  
+  getHubsBySearch(name): FirebaseListObservable<Hub> {
+    this.hubsBySearch = [];
+    this.db.list("Hubs").subscribe(searchHubs => {
+      searchHubs.forEach(hub => {
+        if (name.length <= hub.name.length) {
+          if (name.toLowerCase() == hub.name.substring(0, name.length).toLowerCase()) {
+            this.hubsBySearch.push(hub);
+          }
+        }
+      });
+    });
+    return this.hubsBySearch;
   }
 
   getHubsByLat(lat): FirebaseListObservable<Hub[]> {

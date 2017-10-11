@@ -33,19 +33,19 @@ export class HubService {
   getHubByName(name): FirebaseObjectObservable<Hub> {
     return this.db.object("Hubs/" + name);
   }
-  
-  getHubsBySearch(name): FirebaseListObservable<Hub> {
-    this.hubsBySearch = [];
+
+  getHubsBySearch(name): FirebaseListObservable<Hub[]> {
+    var hubsBySearch: FirebaseListObservable<Hub[]>;
     this.db.list("Hubs").subscribe(searchHubs => {
       searchHubs.forEach(hub => {
         if (name.length <= hub.name.length) {
           if (name.toLowerCase() == hub.name.substring(0, name.length).toLowerCase()) {
-            this.hubsBySearch.push(hub);
+            hubsBySearch.push(hub);
           }
         }
       });
     });
-    return this.hubsBySearch;
+    return hubsBySearch;
   }
 
   getHubsByLat(lat): FirebaseListObservable<Hub[]> {

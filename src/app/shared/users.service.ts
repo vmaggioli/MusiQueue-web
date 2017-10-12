@@ -54,6 +54,13 @@ export class UsersService {
     }
   }
   
+  updateUsername(userId: string, username: string) {
+    var userRef = firebase.database().ref("Users/" + userId);
+    userRef.update({
+      username: username
+    });
+  }
+  
   removeUserFromHub(userID: string, hubUID: string) {
     this.db.object("Users/" + userID + "/hub_list/" + hubUID).remove();
   }

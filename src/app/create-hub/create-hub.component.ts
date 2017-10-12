@@ -43,6 +43,7 @@ export class CreateHubComponent {
         this.hubService.createHub("false", "user", "date", 0, 0, this.name, this.passwd, "users", "wifi");
 
       this.usersService.addHubUnderUser(this.usersService.currentUser.uid, this.name);
+      this.usersService.addUserToHub(this.usersService.currentUser.uid, this.name);
       this.router.navigate(['hub-main',{name: this.name}]);
     }
     else(console.log("invalid name or passwd"))

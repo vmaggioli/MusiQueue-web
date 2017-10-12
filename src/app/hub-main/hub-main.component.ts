@@ -35,7 +35,7 @@ export class HubMainComponent  {
   public isUsers: boolean = false;
   public songs: Song[];
   public ytsongs: YTSong[];
-  public users: User[];
+  public hubUsers: User[];
 
 
   constructor(
@@ -142,7 +142,12 @@ export class HubMainComponent  {
       this.isQueue = false;
       this.isSongs = false;
       this.isUsers = true;
-      this.userList = this.usersService.getHubUsers(this.hubService.currentHub.name);
+      this.hubUsers = [];
+      this.usersService.getHubUsers(this.hubService.currentHub.name).subscribe(users => {
+        users.forEach(user => {
+          this.hubUsers.push(user);
+        });
+      });
     }
     else if (tab == "songs") {
       this.isQueue = false;

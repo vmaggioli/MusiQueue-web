@@ -17,7 +17,7 @@ export class JoinHubComponent {
   location = {};
   locHubs: Hub[] = [];
   recentHubsOfUser: Hub[];
-  hubsFromSearch: FirebaseListObservable<Hub[]>;
+  hubsFromSearch: Hub[];
   lats: FirebaseListObservable<Hub[]>;
   longs: FirebaseListObservable<Hub[]>;
   displayingLocalHubs: boolean = false;

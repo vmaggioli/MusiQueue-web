@@ -30,6 +30,21 @@ export class UsersService {
     return false;
   }
 
+  addUserToHub(userID: string, hubUID: string) {
+    var date = Date.now();
+    this.db.object('Users/' + userID, {preserveSnapshot:true}).subscribe(u => {
+      var hub = firebase.database().ref("Hubs/" + hubUID);
+      hub.child("/users/" + userID).update({
+        uid: userID,
+        active: u.val().active,
+        email: u.val().email,
+        kicked: u.val().kicked,
+        last_active: date,
+        username: "guest"
+      });
+    });
+  }
+
   addHubUnderUser(userID: string, hubUID: string) {
     var date = Date.now();
     var userRef = firebase.database().ref("Users/" + userID);
@@ -59,18 +74,7 @@ export class UsersService {
   }
 
   getHubUsers(hubUID: string) {
-    var hubUsers: FirebaseListObservable<User[]>;
-    this.db.list("Users/", {
-      query: {
-        orderByChild: "hub_list/" + hubUID + "/name",
-        equalTo: hubUID
-      }
-    }).subscribe(users => {
-      users.forEach(hubUser => {
-        hubUsers.push(hubUser);
-      });
-    });
-    return hubUsers;
+    return this.db.list("Hubs/" + hubUID + "/users");
   }
 
   getRecentHubs() {

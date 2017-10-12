@@ -59,18 +59,12 @@ export class UsersService {
   }
 
   getHubUsers(hubUID: string) {
-    var hubUsers: FirebaseListObservable<User[]>;
-    this.db.list("Users/", {
+    return this.db.list("Users/", {
       query: {
         orderByChild: "hub_list/" + hubUID + "/name",
         equalTo: hubUID
       }
-    }).subscribe(users => {
-      users.forEach(hubUser => {
-        hubUsers.push(hubUser);
-      });
     });
-    return hubUsers;
   }
 
   getRecentHubs() {

@@ -34,8 +34,8 @@ export class HubService {
     return this.db.object("Hubs/" + name);
   }
 
-  getHubsBySearch(name): FirebaseListObservable<Hub[]> {
-    var hubsBySearch: FirebaseListObservable<Hub[]>;
+  getHubsBySearch(name): Hub[] {
+    var hubsBySearch: Hub[] = [];
     this.db.list("Hubs").subscribe(searchHubs => {
       searchHubs.forEach(hub => {
         if (name.length <= hub.name.length) {

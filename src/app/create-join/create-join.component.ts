@@ -14,7 +14,7 @@ export class CreateJoinComponent {
 
   name: string;
   constructor(
-    private router: Router
+    private router: Router,
     public usersService: UsersService) {
 
   }
@@ -34,7 +34,7 @@ export class CreateJoinComponent {
     this.router.navigate(['join-hub']);
   }
   
-  gotoCreateHub(name:string)) {
+  gotoCreateHub(name:string) {
     this.name = name;
     if (name.length > 0) {
       this.usersService.updateUsername(this.usersService.currentUser.uid, name);

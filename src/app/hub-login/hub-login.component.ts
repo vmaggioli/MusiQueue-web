@@ -43,6 +43,7 @@ export class HubLoginComponent {
     else {
       this.hubService.currentHub = this.hub;
       this.usersService.addHubUnderUser(this.usersService.currentUser.uid, this.name);
+      this.usersService.addUserToHub(this.usersService.currentUser.uid, this.name);      
       if (this.auth.getCurrentUser().displayName == this.creator) {
         this.router.navigate(['hub-main', {name: this.name}]);
       } else {

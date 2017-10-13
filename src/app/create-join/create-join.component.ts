@@ -27,22 +27,22 @@ export class CreateJoinComponent {
   
   gotoJoinHub(name:string) {
     this.name = name;
-    if (name.length > 0) {
+    if (this.name.length) {
       this.usersService.updateUsername(this.usersService.currentUser.uid, this.name);
     }
     else {
-      this.usersService.updateUsername(this.usersService.currentUser.email, this.name);
+      this.usersService.updateUsername(this.usersService.currentUser.uid,this.usersService.currentUser.email);
     }
     this.router.navigate(['join-hub']);
   }
   
   gotoCreateHub(name:string) {
     this.name = name;
-    if (name.length > 0) {
-      this.usersService.updateUsername(this.usersService.currentUser.uid, name);
+    if (this.name) {
+      this.usersService.updateUsername(this.usersService.currentUser.uid, this.name);
     }
     else {
-      this.usersService.updateUsername(this.usersService.currentUser.email, name);
+      this.usersService.updateUsername(this.usersService.currentUser.uid,this.usersService.currentUser.email);
     }
     this.router.navigate(['create-hub']); 
   }

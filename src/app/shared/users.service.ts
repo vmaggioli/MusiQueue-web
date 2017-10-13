@@ -29,7 +29,22 @@ export class UsersService {
     });
     return false;
   }
-  
+
+  addUserToHub(userID: string, hubUID: string) {
+    var date = Date.now();
+    this.db.object('Users/' + userID, {preserveSnapshot:true}).subscribe(u => {
+      var hub = firebase.database().ref("Hubs/" + hubUID);
+      hub.child("/users/" + userID).update({
+        uid: userID,
+        active: u.val().active,
+        email: u.val().email,
+        kicked: u.val().kicked,
+        last_active: date,
+        username: "guest"
+      });
+    });
+  }
+
   addHubUnderUser(userID: string, hubUID: string) {
     var date = Date.now();
     var userRef = firebase.database().ref("Users/" + userID);
@@ -53,6 +68,7 @@ export class UsersService {
       });
     }
   }
+
   
   updateUsername(userId: string, username: string) {
     var userRef = firebase.database().ref("Users/" + userId);
@@ -64,29 +80,18 @@ export class UsersService {
   removeUserFromHub(userID: string, hubUID: string) {
     this.db.object("Users/" + userID + "/hub_list/" + hubUID).remove();
   }
-  
+
   getHubUsers(hubUID: string) {
-    this.hubUsers = [];
-    this.db.list("Users/", {
-      query: {
-        orderByChild: "hub_list/" + hubUID + "/name",
-        equalTo: hubUID
-      }
-    }).subscribe(users => {
-      users.forEach(hubUser => {
-        this.hubUsers.push(hubUser);
-      });
-    });
-    return this.hubUsers;
+    return this.db.list("Hubs/" + hubUID + "/users");
   }
-  
+
   getRecentHubs() {
     var date = Date.now();
     var maxTimeSinceActivity = date - (7 * 24 * 60 * 60 * 1000);
     return this.db.list("Users/" + this.currentUser.uid + "/hub_list", {
       query: {
         orderByChild: "last_active",
-        startAt: maxTimeSinceActivity
+        startAt: maxTimeSinceActivity,
         endAt: date
       }
     });

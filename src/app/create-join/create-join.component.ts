@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsersService } from '../shared/users.service';
+import { NgModel } from '@angular/forms';
+
+
 
 @Component({
   selector: 'create-join',
@@ -10,20 +14,36 @@ import { Router } from '@angular/router';
 
 export class CreateJoinComponent {
 
+  name: string;
+  public uname: string = this.usersService.currentUser.username;
   constructor(
-    private router: Router) {
-
-  }
-  
-  ngOnInit() {
+    private router: Router,
+    public usersService: UsersService) {
     
   }
   
-  gotoJoinHub() {
+  ngOnInit() {
+  }
+  
+  gotoJoinHub(name:string) {
+    this.name = name;
+    if (this.name.length) {
+      this.usersService.updateUsername(this.usersService.currentUser.uid, this.name);
+    }
+    else {
+      this.usersService.updateUsername(this.usersService.currentUser.uid,this.usersService.currentUser.email);
+    }
     this.router.navigate(['join-hub']);
   }
   
-  gotoCreateHub() {
+  gotoCreateHub(name:string) {
+    this.name = name;
+    if (this.name) {
+      this.usersService.updateUsername(this.usersService.currentUser.uid, this.name);
+    }
+    else {
+      this.usersService.updateUsername(this.usersService.currentUser.uid,this.usersService.currentUser.email);
+    }
     this.router.navigate(['create-hub']); 
   }
 }

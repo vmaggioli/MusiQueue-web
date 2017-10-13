@@ -1,8 +1,16 @@
-<h1 id="createJoinTitle">Create or Join a Hub!</h1>
+<h1 id="createJoinTitle">Getting Started</h1>
 <br>
 <div id="buttonContainer">
-	<button (click)='gotoJoinHub()'>Join Hub</button>
+	
+	<div id="crtjoin" >
+		<div class="name">Nickname: </div>
+		<input type="text" maxlength="12" [(ngModel)]="uname" #name>
+
+
+	</div>
+	
+	<button (click)='gotoJoinHub(name.value)'>Join Hub</button>
 	<br>
 	<br>
-	<button (click)='gotoCreateHub()'>Create Hub</button>
+	<button (click)='gotoCreateHub(name.value)'>Create Hub</button>
 </div>

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService } from '../shared/users.service';
+import { NgModel } from '@angular/forms';
+
 
 
 @Component({
@@ -13,14 +15,14 @@ import { UsersService } from '../shared/users.service';
 export class CreateJoinComponent {
 
   name: string;
+  public uname: string = this.usersService.currentUser.username;
   constructor(
     private router: Router,
     public usersService: UsersService) {
-
+    
   }
   
   ngOnInit() {
-    
   }
   
   gotoJoinHub(name:string) {

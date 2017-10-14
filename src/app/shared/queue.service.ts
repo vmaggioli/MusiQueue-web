@@ -53,8 +53,9 @@ export class QueueService {
   }
 
   upvote(song) {
-    this.db.object("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id, {preserveSnapshot:true}).subscribe (songID => {
-      if (songID.val().songVote == "null") {
+    var ref = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
+    ref.once("value", songID => {
+      if (songID.val() == null) {
         var songRef = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/up_votes');
         songRef.transaction(function(upvotes) {
           return upvotes + 1;
@@ -76,8 +77,11 @@ export class QueueService {
         songRef3.transaction(function(rank) {
           return rank + 2;
         });
+      } else if (songID.val().songVote == "upvote") {
+        console.log("no double voting!!");
       }
     });
+
     var songToUpvote = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs");
     songToUpvote.child(song.hub_id + song.video_id).update({
       songVote: "upvote"
@@ -85,8 +89,9 @@ export class QueueService {
   }
 
   downvote(song) {
-    this.db.object("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id, {preserveSnapshot:true}).subscribe (songID => {
-      if (songID.val().songVote == "null") {
+    var ref = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
+    ref.once("value", songID => {
+      if (songID.val() == null) {
         var songRef = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/down_votes');
         songRef.transaction(function(downvotes) {
           return downvotes + 1;
@@ -108,6 +113,8 @@ export class QueueService {
         songRef3.transaction(function(rank) {
           return rank - 2;
         });
+      } else if (songID.val().songVote == "downvote") {
+        console.log("no double voting!!");
       }
     });
     var songToDownvote = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs");

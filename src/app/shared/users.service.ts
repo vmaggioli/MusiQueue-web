@@ -67,38 +67,15 @@ export class UsersService {
         last_active: date
       });
     }
+}
 
-    this.db.list("Songs/", {
-      query: {
-        orderByChild: "hub_id",
-        equalTo: hubUID
-      }
-    }).subscribe(songs => {
-      songs.forEach(song => {
-        var songID = song.hub_id + song.video_id;
-        userRef.child("songs").orderByChild(songID + "/hub_id").equalTo(hubUID).once("value", snapshot => {
-          const vote = snapshot.val();
-          if (vote == null) {
-            userRef.child("songs/" + songID).update({
-              hub_id: song.hub_id,
-              video_id: song.video_id,
-              songVote: "null"
-            });
-          }
-        });
-      });
-    });
-
-  }
-
-  
   updateUsername(userId: string, username: string) {
     var userRef = firebase.database().ref("Users/" + userId);
     userRef.update({
       username: username
     });
   }
-  
+
   removeUserFromHub(userID: string, hubUID: string) {
     this.db.object("Users/" + userID + "/hub_list/" + hubUID).remove();
   }

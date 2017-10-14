@@ -13,6 +13,7 @@ export class YoutubeService {
 
   search(query: string): YTSong[] {
     console.log("inSearch");
+    this.songs = [];
     this.http
       .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}`+
           '&maxResults=8' +

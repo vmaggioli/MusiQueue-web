@@ -172,10 +172,18 @@ export class HubMainComponent  {
 
   upvote(song) {
     this.queueService.upvote(song);
+    /*var upVote = document.getElementById("upvoteButton");
+    var downVote = document.getElementById("downvoteButton");
+    upVote.style.backgroundColor = "#0000ff";
+    downVote.style.backgroundColor = "#FCFCFC";*/
   }
 
   downvote(song) {
     this.queueService.downvote(song);
+    /*var upVote = document.getElementById("upvoteButton");
+    var downVote = document.getElementById("downvoteButton");
+    upVote.style.backgroundColor = "#FCFCFC";
+    downVote.style.backgroundColor = "#0000ff";*/
   }
 
 }

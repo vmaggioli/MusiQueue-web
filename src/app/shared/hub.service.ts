@@ -71,4 +71,14 @@ export class HubService {
       }
     });
   }
+
+  getHubUsers(hubUID: string) {
+    return this.db.list("Hubs/" + hubUID + "/users");
+  }
+
+  removeUser(name, user) {
+    firebase.database().ref("Hubs/" + name + "/users/" + user.uid).remove();
+    firebase.database().ref("Users/" + user.uid + "/hub_list/" + name).remove();
+    console.log("got the boot");
+  }
 }

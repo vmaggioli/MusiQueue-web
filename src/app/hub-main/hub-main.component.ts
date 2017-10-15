@@ -142,9 +142,10 @@ export class HubMainComponent  {
       this.isQueue = false;
       this.isSongs = false;
       this.isUsers = true;
-      this.hubUsers = [];
-      this.usersService.getHubUsers(this.hubService.currentHub.name).subscribe(users => {
+      this.hubService.getHubUsers(this.hubService.currentHub.name).subscribe(users => {
+        this.hubUsers = [];
         users.forEach(user => {
+          console.log("adding users");
           this.hubUsers.push(user);
         });
       });
@@ -172,18 +173,17 @@ export class HubMainComponent  {
 
   upvote(song) {
     this.queueService.upvote(song);
-    /*var upVote = document.getElementById("upvoteButton");
-    var downVote = document.getElementById("downvoteButton");
-    upVote.style.backgroundColor = "#0000ff";
-    downVote.style.backgroundColor = "#FCFCFC";*/
   }
 
   downvote(song) {
     this.queueService.downvote(song);
-    /*var upVote = document.getElementById("upvoteButton");
-    var downVote = document.getElementById("downvoteButton");
-    upVote.style.backgroundColor = "#FCFCFC";
-    downVote.style.backgroundColor = "#0000ff";*/
+  }
+
+  removeUser(user) {
+    if (confirm("Are you sure you want to remove " + user.username + "?")) {
+      this.hubService.removeUser(this.hubService.currentHub.name, user);
+      this.usersService.addToKickedList(this.hubService.currentHub.name, user.uid);
+    }
   }
 
 }

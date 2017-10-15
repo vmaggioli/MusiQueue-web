@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Hub } from '../objects/Hub';
 import { HubService } from '../shared/hub.service';
-import { Router } from '@angular/router';
 import { UsersService } from '../shared/users.service';
 
 
@@ -50,7 +49,7 @@ export class JoinHubComponent {
     this.displayingRecentHubs = false;
     this.displayingSearchHubs = false;
   }
-  
+
   recentHubs() {
     this.recentHubsOfUser = [];
     this.usersService.getRecentHubs().subscribe(hubs => {
@@ -62,7 +61,7 @@ export class JoinHubComponent {
     this.displayingLocalHubs = false;
     this.displayingSearchHubs = false;
   }
-  
+
   searchHubs(hubName: string) {
     this.hubsFromSearch = this.hubService.getHubsBySearch(hubName);
     this.displayingSearchHubs = true;
@@ -71,6 +70,6 @@ export class JoinHubComponent {
   }
 
   onHubSelected(hub) {
-    
+
   }
 }

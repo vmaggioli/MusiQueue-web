@@ -3,6 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 
 
 import { User } from '../objects/user';
@@ -15,24 +16,41 @@ export class UsersService {
   public hubUser: FirebaseObjectObservable<User>;
   public currentUser: User;
 
-  constructor(public db: AngularFireDatabase) {
+  constructor(public db: AngularFireDatabase,
+              public route: ActivatedRoute,
+              public router: Router
+            ) {
     this.allUsers = db.list('/Users');
   }
 
-  userIsPartOfHub(userID: string, hubUID: string) {
-    this.db.list("Users/" + userID + "hub_list", {preserveSnapshot:true}).subscribe(hubs => {
-      hubs.forEach(hub => {
-        if (hub.val().name == hubUID) {
-          return true;
+  listenForBoot() {
+    firebase.database().ref("Users/" + this.currentUser.uid + "/hub_list").on("child_removed", hub => {
+      let i : number = this.router.url.indexOf('=');
+      let name = this.router.url.substring(i+1);
+
+        if (name != undefined && name != null && name == hub.val().name) {
+          this.router.navigate(['create-join']);
+          confirm("You have been kicked out of the Hub: " + name +
+            ". You can join again though because we havn't" +
+            " implemented keeping your annoying ass out of the Hub yet.");
         }
       });
+  }
+
+  userIsPartOfHub(userID: string, hubUID: string) {
+    var ref = firebase.database().ref("Users/" + userID + "hub_list/" + hubUID);
+    var isMember = true;
+    ref.transaction(function(user) {
+      if (user == null)
+        isMember = false;
     });
-    return false;
+    return isMember;
   }
 
   addUserToHub(userID: string, hubUID: string) {
     var date = Date.now();
-    this.db.object('Users/' + userID, {preserveSnapshot:true}).subscribe(u => {
+    var ref = firebase.database().ref('Users/' + userID)
+    ref.once("value", u => {
       var hub = firebase.database().ref("Hubs/" + hubUID);
       hub.child("/users/" + userID).update({
         uid: userID,
@@ -49,7 +67,8 @@ export class UsersService {
     var date = Date.now();
     var userRef = firebase.database().ref("Users/" + userID);
     if (!this.userIsPartOfHub(userID, hubUID)) {
-      this.db.object("Hubs/" + hubUID, {preserveSnapshot:true}).subscribe(newHub => {
+      var ref = firebase.database().ref("Hubs/" + hubUID);
+      ref.once("value", newHub => {
         userRef.child("hub_list/" + hubUID).set({
           closed: newHub.val().closed,
           creator: newHub.val().creator,
@@ -80,10 +99,6 @@ export class UsersService {
     this.db.object("Users/" + userID + "/hub_list/" + hubUID).remove();
   }
 
-  getHubUsers(hubUID: string) {
-    return this.db.list("Hubs/" + hubUID + "/users");
-  }
-
   getRecentHubs() {
     var date = Date.now();
     var maxTimeSinceActivity = date - (7 * 24 * 60 * 60 * 1000);
@@ -94,6 +109,11 @@ export class UsersService {
         endAt: date
       }
     });
+  }
+
+  addToKickedList(hub: string, user: string) {
+    firebase.database().ref("/Users/" + user + "/kicked_list").push(hub);
+    console.log("added to kick list");
   }
 
 }

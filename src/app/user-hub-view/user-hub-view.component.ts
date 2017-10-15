@@ -42,6 +42,9 @@ export class UserHubViewComponent {
      this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
        this.sortQueue(items);
      });
+
+     // listen for if user gets kicked out
+     this.usersService.listenForBoot();
    }
 
    sortQueue(items) {

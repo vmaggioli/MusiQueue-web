@@ -34,6 +34,8 @@ export class HubMainComponent  {
   public isSongs: boolean = false;
   public isUsers: boolean = false;
   public songs: Song[];
+  public whenUpvoteClicked: boolean[];
+  public whenDownvoteClicked: boolean[];
   public ytsongs: YTSong[];
   public hubUsers: User[];
 
@@ -162,6 +164,8 @@ export class HubMainComponent  {
       this.isQueue = true;
       this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
         this.sortQueue(items);
+        this.whenUpvoteClicked = new Array<boolean>(this.songs.length);
+        this.whenDownvoteClicked = new Array<boolean>(this.songs.length);
       });
     }
   }
@@ -173,10 +177,18 @@ export class HubMainComponent  {
 
   upvote(song) {
     this.queueService.upvote(song);
+    var upVote = document.getElementById("upvoteButton");
+    var downVote = document.getElementById("downvoteButton");
+    upVote.style.backgroundColor = "#0000ff";
+    downVote.style.backgroundColor = "#FCFCFC";
   }
 
   downvote(song) {
     this.queueService.downvote(song);
+    var upVote = document.getElementById("upvoteButton");
+    var downVote = document.getElementById("downvoteButton");
+    upVote.style.backgroundColor = "#FCFCFC";
+    downVote.style.backgroundColor = "#0000ff";
   }
 
   removeUser(user) {

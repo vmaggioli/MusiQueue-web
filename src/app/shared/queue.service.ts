@@ -56,7 +56,7 @@ export class QueueService {
     var ref = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     ref.once("value", songID => {
       console.log("songID: " + songID.val());
-      if (songID.val() == null) {
+      if (songID.val() == null || songID.val().songVote == "null") {
         var songRef = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/up_votes');
         songRef.transaction(function(upvotes) {
           return upvotes + 1;
@@ -64,6 +64,11 @@ export class QueueService {
         var songRef2 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank');
         songRef2.transaction(function(rank) {
           return rank + 1;
+        });
+
+        var songToUpvote = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs");
+        songToUpvote.child(song.hub_id + song.video_id).update({
+          songVote: "upvote"
         });
       } else if (songID.val().songVote == "downvote") {
         var songRef1 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/down_votes');
@@ -78,13 +83,27 @@ export class QueueService {
         songRef3.transaction(function(rank) {
           return rank + 2;
         });
+
+        var songToUpvote = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs");
+        songToUpvote.child(song.hub_id + song.video_id).update({
+          songVote: "upvote"
+        });
       } else if (songID.val().songVote == "upvote") {
-        console.log("no double voting!!");
+        //console.log("no double voting!!");
+        var songRef1 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/up_votes');
+        songRef1.transaction(function(upvotes) {
+          return upvotes - 1;
+        });
+        var songRef1 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank');
+        songRef1.transaction(function(rank) {
+          return rank - 1;
+        });
+
+        var songToNeutralState = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs");
+        songToNeutralState.child(song.hub_id + song.video_id).update({
+          songVote: "null"
+        });
       }
-      var songToUpvote = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs");
-      songToUpvote.child(song.hub_id + song.video_id).update({
-        songVote: "upvote"
-      });
     });
 
 
@@ -93,7 +112,7 @@ export class QueueService {
   downvote(song) {
     var ref = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     ref.once("value", songID => {
-      if (songID.val() == null) {
+      if (songID.val() == null || songID.val().songVote == "null") {
         var songRef = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/down_votes');
         songRef.transaction(function(downvotes) {
           return downvotes + 1;
@@ -101,6 +120,11 @@ export class QueueService {
         var songRef2 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank');
         songRef2.transaction(function(rank) {
           return rank - 1;
+        });
+
+        var songToDownvote = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs");
+        songToDownvote.child(song.hub_id + song.video_id).update({
+          songVote: "downvote"
         });
       } else if (songID.val().songVote == "upvote") {
         var songRef1 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/up_votes');
@@ -115,14 +139,27 @@ export class QueueService {
         songRef3.transaction(function(rank) {
           return rank - 2;
         });
-      } else if (songID.val().songVote == "downvote") {
-        console.log("no double voting!!");
-      }
 
-      var songToDownvote = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs");
-      songToDownvote.child(song.hub_id + song.video_id).update({
-        songVote: "downvote"
-      });
+        var songToDownvote = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs");
+        songToDownvote.child(song.hub_id + song.video_id).update({
+          songVote: "downvote"
+        });
+      } else if (songID.val().songVote == "downvote") {
+        //console.log("no double voting!!");
+        var songRef1 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/down_votes');
+        songRef1.transaction(function(downvotes) {
+          return downvotes - 1;
+        });
+        var songRef2 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank');
+        songRef2.transaction(function(rank) {
+          return rank + 1;
+        });
+
+        var songToNeutralState = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs");
+        songToNeutralState.child(song.hub_id + song.video_id).update({
+          songVote: "null"
+        });
+      }
     });
   }
 

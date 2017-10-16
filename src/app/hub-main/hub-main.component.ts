@@ -37,7 +37,8 @@ export class HubMainComponent  {
   public songs: Song[];
   public ytsongs: YTSong[];
   public hubUsers: User[];
-
+  public isUpvoted: boolean;
+  public isDownvoted: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -188,9 +189,9 @@ export class HubMainComponent  {
     downVote.style.backgroundColor = "#0000ff";*/
   }
 
-  isSongUpvoted(song) {
+  isSongUpvoted(song, callback) {
     //var isUpvoted;
-    var songRef  = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
+    /*var songRef  = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     songRef.once("value", vote => {
       if (vote.val() != null) {
         if (vote.val().songVote == "upvote") {
@@ -202,6 +203,27 @@ export class HubMainComponent  {
       } else {
         return false;
       }
+    });*/
+    var songRef  = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
+    function songUpvoted(callback) {
+      var isUpvoted;
+      songRef.once("value", vote => {
+        if (vote.val() != null) {
+          if (vote.val().songVote == "upvote") {
+            console.log("song is upvoted. change to blue");
+            isUpvoted = true;
+          } else {
+            isUpvoted = false;
+          }
+        } else {
+          isUpvoted = false;
+        }
+        callback(isUpvoted);
+      });
+    }
+    //var returnValue;
+    songUpvoted(function(isUpvoted) {
+      callback(isUpvoted);
     });
   }
 

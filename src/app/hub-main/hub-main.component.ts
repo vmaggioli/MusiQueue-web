@@ -189,38 +189,36 @@ export class HubMainComponent  {
   }
 
   isSongUpvoted(song) {
-    var isUpvoted;
+    //var isUpvoted;
     var songRef  = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     songRef.once("value", vote => {
       if (vote.val() != null) {
         if (vote.val().songVote == "upvote") {
           console.log("song is upvoted. change to blue");
-          isUpvoted = true;
+          return true;
         } else {
-          isUpvoted = false;
+          return false;
         }
       } else {
-        isUpvoted = false;
+        return false;
       }
     });
-    return isUpvoted;
   }
 
   isSongDownvoted(song) {
-    var isDownvoted;
+    //var isDownvoted;
     var songRef  = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     songRef.once("value", vote => {
       if (vote.val() != null) {
         if (vote.val().songVote == "downvote") {
-          isDownvoted = true;
+          return true;
         } else {
-          isDownvoted = false;
+          return false;
         }
       } else {
-        isDownvoted = false;
+        return false;
       }
     });
-    return isDownvoted;
   }
 
   removeUser(user) {

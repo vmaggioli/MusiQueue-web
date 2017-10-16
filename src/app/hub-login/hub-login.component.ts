@@ -4,6 +4,7 @@ import { HubService } from '../shared/hub.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
 import { UsersService } from '../shared/users.service';
+import * as firebase from 'firebase/app';
 
 
 @Component({
@@ -24,15 +25,20 @@ export class HubLoginComponent {
     public router: Router) { }
 
   ngOnInit() {
+    var name: string = "";
     this.route.params.subscribe(params => {
       this.name = params['name'];
+      name = this.name;
+      firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/kicked_list").orderByValue().equalTo(name).once("value", snap => {
+        if (snap != null && snap.val() != null) {
+          confirm("Sorry, you have previously been kicked out of this Hub and are not aloud to rejoin.");
+          this.router.navigate(['join-hub']);
+        }
+      });
       this.hubService.getHubByName(this.name).subscribe(hub => {
         this.creator = hub.creator;
         this.pin = hub.pin;
         this.hub = hub;
-        console.log(hub);
-        console.log("creator: " +hub.creator);
-        console.log("pin: " + hub.pin);
       });
     });
   }

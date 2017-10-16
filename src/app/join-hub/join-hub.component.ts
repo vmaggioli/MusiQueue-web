@@ -23,7 +23,9 @@ export class JoinHubComponent {
   displayingRecentHubs: boolean = false;
   displayingSearchHubs: boolean = false;
 
-  constructor(public router: Router, public hubService: HubService, public usersService: UsersService) {
+  constructor(public router: Router,
+    public hubService: HubService,
+    public usersService: UsersService) {
 
   }
 

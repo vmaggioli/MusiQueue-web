@@ -9,6 +9,7 @@ import { Song } from '../objects/song';
 import { Hub } from '../objects/hub';
 import { YTSong } from '../objects/YTsong';
 import { FirebaseListObservable } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 
@@ -34,8 +35,6 @@ export class HubMainComponent  {
   public isSongs: boolean = false;
   public isUsers: boolean = false;
   public songs: Song[];
-  public whenUpvoteClicked: boolean[];
-  public whenDownvoteClicked: boolean[];
   public ytsongs: YTSong[];
   public hubUsers: User[];
 
@@ -164,8 +163,6 @@ export class HubMainComponent  {
       this.isQueue = true;
       this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
         this.sortQueue(items);
-        this.whenUpvoteClicked = new Array<boolean>(this.songs.length);
-        this.whenDownvoteClicked = new Array<boolean>(this.songs.length);
       });
     }
   }
@@ -177,18 +174,53 @@ export class HubMainComponent  {
 
   upvote(song) {
     this.queueService.upvote(song);
-    var upVote = document.getElementById("upvoteButton");
+    /*var upVote = document.getElementById("upvoteButton");
     var downVote = document.getElementById("downvoteButton");
     upVote.style.backgroundColor = "#0000ff";
-    downVote.style.backgroundColor = "#FCFCFC";
+    downVote.style.backgroundColor = "#FCFCFC";*/
   }
 
   downvote(song) {
     this.queueService.downvote(song);
-    var upVote = document.getElementById("upvoteButton");
+    /*var upVote = document.getElementById("upvoteButton");
     var downVote = document.getElementById("downvoteButton");
     upVote.style.backgroundColor = "#FCFCFC";
-    downVote.style.backgroundColor = "#0000ff";
+    downVote.style.backgroundColor = "#0000ff";*/
+  }
+
+  isSongUpvoted(song) {
+    var isUpvoted;
+    var songRef  = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
+    songRef.once("value", vote => {
+      if (vote.val() != null) {
+        if (vote.val().songVote == "upvote") {
+          console.log("song is upvoted. change to blue");
+          isUpvoted = true;
+        } else {
+          isUpvoted = false;
+        }
+      } else {
+        isUpvoted = false;
+      }
+    });
+    return isUpvoted;
+  }
+
+  isSongDownvoted(song) {
+    var isDownvoted;
+    var songRef  = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
+    songRef.once("value", vote => {
+      if (vote.val() != null) {
+        if (vote.val().songVote == "downvote") {
+          isDownvoted = true;
+        } else {
+          isDownvoted = false;
+        }
+      } else {
+        isDownvoted = false;
+      }
+    });
+    return isDownvoted;
   }
 
   removeUser(user) {

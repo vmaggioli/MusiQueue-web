@@ -41,15 +41,15 @@
 
           <ul *ngIf="isQueue" class="list-group">
             <!-- QUEUE -->
-            <li class="list-group-item" *ngFor="let song of songs; let i = index" [attr.data-index]="i">
+            <li class="list-group-item" *ngFor="let song of songs">
               <span class="pull-right">
-                <button (click)="upvote(song); whenUpvoteClicked[i]=!whenUpvoteClicked[i]" 
-                  [style.background-color] = "whenUpvoteClicked[i] ? 'blue' : 'gray'" 
+                <button (click)="upvote(song)" 
+                  [style.background-color] = "isSongUpvoted(song) ? 'blue' : 'gray'" 
                   type="button" id="upvoteButton">
                   <span class="glyphicon glyphicon-thumbs-up"></span>
                 </button>
-                <button (click)="downvote(song); whenDownvoteClicked[i]=!whenDownvoteClicked[i]" 
-                  [style.background-color] = "whenDownvoteClicked[i] ? 'blue' : 'gray'" 
+                <button (click)="downvote(song)" 
+                  [style.background-color] = "isSongDownvoted(song) ? 'blue' : 'gray'" 
                   type="button" id="downvoteButton">
                   <span class="glyphicon glyphicon-thumbs-down"></span>
                 </button>

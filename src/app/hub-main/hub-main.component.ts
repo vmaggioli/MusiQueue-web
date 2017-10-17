@@ -186,4 +186,10 @@ export class HubMainComponent  {
     }
   }
 
+  removeSong(song) {
+    if (confirm("Are you sure you want to remove " + song.song_name + "?")) {
+      this.hubService.removeSong(this.hubService.currentHub.name, song);
+    }
+  }
+
 }

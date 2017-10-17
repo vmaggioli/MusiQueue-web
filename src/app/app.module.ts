@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import {MdTabsModule} from '@angular/material';
+import { MatButtonModule, MatTabsModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import * as firebase from "firebase";
@@ -17,7 +17,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { LoginGuard } from './shared/login-guard.module';
 import { FormsModule } from '@angular/forms';
-
 
 import { HubMainComponent } from './hub-main/hub-main.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -49,8 +48,11 @@ import { HubLoginComponent } from './hub-login/hub-login.component';
     AngularFireAuthModule,
     YoutubePlayerModule,
     AppRoutingModule,
-    MdTabsModule
-    FormsModule
+    MatTabsModule,
+    FormsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [
     UsersService,

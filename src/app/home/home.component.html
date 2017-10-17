@@ -1,5 +1,7 @@
 <div style="text-align: center;">
     <h1>MusiQueue Home Page</h1>
     <br>
-    <a routerLink="/create-join" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><button (click)="loginWithGoogle()">Login</button></a>
+    <a routerLink="/create-join" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <button mat-button color="primary" (click)="loginWithGoogle()">Login</button>
+    </a>
 </div>

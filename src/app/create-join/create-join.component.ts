@@ -19,12 +19,12 @@ export class CreateJoinComponent {
   constructor(
     private router: Router,
     public usersService: UsersService) {
-    
+
   }
-  
+
   ngOnInit() {
   }
-  
+
   gotoJoinHub(name:string) {
     this.name = name;
     if (this.name.length) {
@@ -35,7 +35,7 @@ export class CreateJoinComponent {
     }
     this.router.navigate(['join-hub']);
   }
-  
+
   gotoCreateHub(name:string) {
     this.name = name;
     if (this.name) {
@@ -44,6 +44,6 @@ export class CreateJoinComponent {
     else {
       this.usersService.updateUsername(this.usersService.currentUser.uid,this.usersService.currentUser.email);
     }
-    this.router.navigate(['create-hub']); 
+    this.router.navigate(['create-hub']);
   }
 }

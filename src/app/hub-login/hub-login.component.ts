@@ -31,7 +31,7 @@ export class HubLoginComponent {
       name = this.name;
       firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/kicked_list").orderByValue().equalTo(name).once("value", snap => {
         if (snap != null && snap.val() != null) {
-          confirm("Sorry, you have previously been kicked out of this Hub and are not aloud to rejoin.");
+          confirm("Sorry, you have previously been kicked out of this Hub and are not allowed to rejoin.");
           this.router.navigate(['join-hub']);
         }
       });

@@ -43,10 +43,16 @@
             <!-- QUEUE -->
             <li class="list-group-item" *ngFor="let song of songs">
               <span class="pull-right">
-                <button (click)="upvote(song)" type="button" id="upvoteButton">
+                <button
+                  ng-model="voteStatus" ng-value="false"
+                  (click)="upvote(song); isSongUpvoted(song, function(voteStatus))" 
+                  [style.background-color] = "voteStatus ? 'blue' : 'gray'" 
+                  type="button" id="upvoteButton">
                   <span class="glyphicon glyphicon-thumbs-up"></span>
                 </button>
-                <button (click)="downvote(song)" type="button" id="downvoteButton">
+                <button (click)="downvote(song)" 
+                  [style.background-color] = "isSongDownvoted(song) ? 'blue' : 'gray'" 
+                  type="button" id="downvoteButton">
                   <span class="glyphicon glyphicon-thumbs-down"></span>
                 </button>
                 <p id="rank">{{ song.up_votes - song.down_votes }}</p>

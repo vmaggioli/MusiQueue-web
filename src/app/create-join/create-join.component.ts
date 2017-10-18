@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { UsersService } from '../shared/users.service';
 import { NgModel } from '@angular/forms';
 
-
-
 @Component({
   selector: 'create-join',
   encapsulation: ViewEncapsulation.None,

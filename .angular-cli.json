@@ -19,7 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "lsl",
       "styles": [
-        "styles.css"
+        "musiqueue-theme.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

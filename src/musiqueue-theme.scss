@@ -1,0 +1,11 @@
+@import '../node_modules/@angular/material/theming';
+
+@include mat-core();
+
+$musiqueue-theme-primary: mat-palette($mat-light-blue);
+$musiqueue-theme-accent: mat-palette($mat-grey);
+$musiqueue-theme-warn: mat-palette($mat-red);
+
+$musiqueue-theme: mat-light-theme($musiqueue-theme-primary, $musiqueue-theme-accent, $musiqueue-theme-warn);
+
+@include angular-material-theme($musiqueue-theme);

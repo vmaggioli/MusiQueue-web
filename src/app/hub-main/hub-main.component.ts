@@ -39,6 +39,7 @@ export class HubMainComponent  {
   public hubUsers: User[];
   public isUpvoted: boolean;
   public isDownvoted: boolean;
+  public  hubn: string ='';
 
   constructor(
     private route: ActivatedRoute,
@@ -53,6 +54,7 @@ export class HubMainComponent  {
     this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
       this.sortQueue(items);
     });
+    this.hubn=this.hubService.currentHub.name;
     this.hasSongs = (this.songs != null) && (this.songs.length > 0);
   }
   sortQueue(items) {

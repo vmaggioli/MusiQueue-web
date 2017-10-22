@@ -1,4 +1,4 @@
-<h1 id="hubTitle">Hub Name</h1>
+<h1 id="hubTitle" >Hub: {{hubn}}</h1>
 <div id="container">
   <div id="hubConsole">
     <div id="video" *ngIf="hasSongs">
@@ -45,13 +45,13 @@
               <span class="pull-right">
                 <button
                   ng-model="voteStatus" ng-value="false"
-                  (click)="upvote(song); isSongUpvoted(song, function(voteStatus))" 
-                  [style.background-color] = "voteStatus ? 'blue' : 'gray'" 
+                  (click)="upvote(song); isSongUpvoted(song, function(voteStatus))"
+                  [style.background-color] = "voteStatus ? 'blue' : 'gray'"
                   type="button" id="upvoteButton">
                   <span class="glyphicon glyphicon-thumbs-up"></span>
                 </button>
-                <button (click)="downvote(song)" 
-                  [style.background-color] = "isSongDownvoted(song) ? 'blue' : 'gray'" 
+                <button (click)="downvote(song)"
+                  [style.background-color] = "isSongDownvoted(song) ? 'blue' : 'gray'"
                   type="button" id="downvoteButton">
                   <span class="glyphicon glyphicon-thumbs-down"></span>
                 </button>

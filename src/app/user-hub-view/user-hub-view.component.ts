@@ -28,6 +28,7 @@ export class UserHubViewComponent {
   public songs: Song[];
   public ytsongs: YTSong[];
   public users: User[];
+  public  hubn: string ='';
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +43,7 @@ export class UserHubViewComponent {
      this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
        this.sortQueue(items);
      });
+     this.hubn = this.hubService.currentHub.name;
 
      // listen for if user gets kicked out
      this.usersService.listenForBoot();

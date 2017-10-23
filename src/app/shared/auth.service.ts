@@ -17,7 +17,7 @@ constructor(public afAuth: AngularFireAuth, public usersService: UsersService) {
       if (user) {
         this.currentUser = user;
         this.usersService.currentUser = new User(user.email, user.uid, true, false, user.email, Date.now(), []);
-        console.log("user: " + this.usersService.currentUser.email);
+        this.usersService.setUsername(user.uid);
       } else {
         this.currentUser = null;
       }
@@ -34,14 +34,13 @@ constructor(public afAuth: AngularFireAuth, public usersService: UsersService) {
         var token = result.credential.accessToken;
         var usersRef = firebase.database().ref('Users');
         var date = Date.now();
-        this.usersService.currentUser = new User("guest", result.user.uid, true, false, result.user.email, date, []);
+        this.usersService.currentUser = new User(result.user.email, result.user.uid, true, false, result.user.email, date, []);
         usersRef.child(result.user.uid).update({
           uid: result.user.uid,
           active: true,
           email: result.user.email,
           kicked: false,
           last_active: date,
-          username: "guest"
         });
       });
   }

@@ -3,7 +3,7 @@
 @include mat-core();
 
 $musiqueue-theme-primary: mat-palette($mat-light-blue);
-$musiqueue-theme-accent: mat-palette($mat-grey);
+$musiqueue-theme-accent: mat-palette($mat-grey, 300);
 $musiqueue-theme-warn: mat-palette($mat-red);
 
 $musiqueue-theme: mat-light-theme($musiqueue-theme-primary, $musiqueue-theme-accent, $musiqueue-theme-warn);

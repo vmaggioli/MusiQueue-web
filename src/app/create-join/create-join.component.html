@@ -1,16 +1,20 @@
-<h1 id="createJoinTitle">Getting Started</h1>
-<br>
-<div id="buttonContainer">
-
-	<div id="crtjoin" >
-		<div class="name">Nickname: </div>
-		<mat-form-field>
-			<input matInput placeholder="Nickname" type="text" maxlength="12" [(ngModel)]="uname" #name>
-		</mat-form-field>
-	</div>
-
-	<button mat-button color="primary" (click)='gotoJoinHub(name.value)'>Join Hub</button>
-	<br>
-	<br>
-	<button mat-button color="primary" (click)='gotoCreateHub(name.value)'>Create Hub</button>
+<div id="card">
+	<mat-card>
+	<mat-card-header>
+		<h1>Getting Started</h1>
+	</mat-card-header>
+	<mat-card-content id="content">
+		<br>
+		<div id="crtjoin" >
+			<mat-form-field hintLabel="max 36 characters">
+				<input matInput id="uname_input" placeholder="Nickname" maxlength="36" [(ngModel)]="uname" #name>
+				<mat-hint align="end">{{ name.value?.length || 0 }}/36</mat-hint>
+			</mat-form-field>
+		</div>
+		<button mat-raised-button color="primary" (click)='gotoJoinHub(name.value)'>Join Hub</button>
+		<br>
+		<br>
+		<button mat-raised-button color="primary" (click)='gotoCreateHub(name.value)'>Create Hub</button>
+	</mat-card-content>
+</mat-card>
 </div>

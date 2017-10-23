@@ -39,7 +39,6 @@ export class HubMainComponent  {
   public hubUsers: User[];
   public isUpvoted: boolean;
   public isDownvoted: boolean;
-  public  hubn: string ='';
 
   constructor(
     private route: ActivatedRoute,
@@ -54,10 +53,10 @@ export class HubMainComponent  {
     this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
       this.sortQueue(items);
     });
-    this.hubn=this.hubService.currentHub.name;
     this.hasSongs = (this.songs != null) && (this.songs.length > 0);
   }
   sortQueue(items) {
+    console.log("entering sort");
     this.songs = items;
     this.songs.sort((a, b) => {
       let ar: number = a.rank;
@@ -79,6 +78,7 @@ export class HubMainComponent  {
       this.hasSongs = false;
     if (this.state < 1)
       this.player.playVideo();
+    console.log("exiting sort");
   }
 
   savePlayer (player) {
@@ -177,35 +177,13 @@ export class HubMainComponent  {
 
   upvote(song) {
     this.queueService.upvote(song);
-    /*var upVote = document.getElementById("upvoteButton");
-    var downVote = document.getElementById("downvoteButton");
-    upVote.style.backgroundColor = "#0000ff";
-    downVote.style.backgroundColor = "#FCFCFC";*/
   }
 
   downvote(song) {
     this.queueService.downvote(song);
-    /*var upVote = document.getElementById("upvoteButton");
-    var downVote = document.getElementById("downvoteButton");
-    upVote.style.backgroundColor = "#FCFCFC";
-    downVote.style.backgroundColor = "#0000ff";*/
   }
 
   isSongUpvoted(song, callback) {
-    //var isUpvoted;
-    /*var songRef  = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
-    songRef.once("value", vote => {
-      if (vote.val() != null) {
-        if (vote.val().songVote == "upvote") {
-          console.log("song is upvoted. change to blue");
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    });*/
     var songRef  = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     function songUpvoted(callback) {
       var isUpvoted;
@@ -223,14 +201,12 @@ export class HubMainComponent  {
         callback(isUpvoted);
       });
     }
-    //var returnValue;
     songUpvoted(function(isUpvoted) {
       callback(isUpvoted);
     });
   }
 
   isSongDownvoted(song) {
-    //var isDownvoted;
     var songRef  = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     songRef.once("value", vote => {
       if (vote.val() != null) {

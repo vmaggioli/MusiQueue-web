@@ -1,29 +1,19 @@
-#createJoinTitle {
-  text-align: center;
-  padding-bottom: 50px;
-}
 
 #buttonContainer {
 	text-align: center;
 }
 
-.button {
-	background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+#crtjoin {
+  margin-bottom: 50px;
 }
 
-main {
-  background: #eee;
-	display: block;
-  left:0;
-  margin-right: 20px;
-  margin-top: 13.8px;
-	padding: 1em;
-  text-align: center
+#card {
+  text-align: cneter;
+  margin: auto;
+  width: 350px;;
+}
+
+#content {
+  text-align: center;
+  margin: auto;
 }

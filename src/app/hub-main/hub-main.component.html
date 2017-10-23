@@ -1,4 +1,4 @@
-<h1 id="hubTitle" >Hub: {{hubn}}</h1>
+<h1 id="hubTitle">{{ hubService.currentHub.name }}</h1>
 <div id="container">
   <div id="hubConsole">
     <div id="video" *ngIf="hasSongs">
@@ -30,11 +30,11 @@
 
         	<ul *ngIf="isSongs" class="list-group">
             <!-- SONG SEARCH -->
-            <li *ngFor="let song of ytsongs" (click)="onSongClicked( song )" class="list-group-item selectable">
+            <li *ngFor="let ytsong of ytsongs" (click)="onSongClicked( ytsong )" class="list-group-item selectable">
                 <div class="thumbnail-text">
-                  <img src={{song.thumbnail}} class="img-thumbnail" width="100" height="80"/>
+                  <img src={{ytsong.thumbnail}} class="img-thumbnail" width="100" height="80"/>
                 </div>
-                <div class="text">{{ song.song_name }}</div>
+                <div class="text">{{ ytsong.song_name }}</div>
             </li>
           </ul>
 
@@ -43,14 +43,15 @@
             <!-- QUEUE -->
             <li class="list-group-item" *ngFor="let song of songs">
               <span class="pull-right">
-                <button
+                <button mat-raised-button
                   ng-model="voteStatus" ng-value="false"
                   (click)="upvote(song); isSongUpvoted(song, function(voteStatus))"
                   [style.background-color] = "voteStatus ? 'blue' : 'gray'"
                   type="button" id="upvoteButton">
                   <span class="glyphicon glyphicon-thumbs-up"></span>
                 </button>
-                <button (click)="downvote(song)"
+                <button mat-raised-button
+                  (click)="downvote(song)"
                   [style.background-color] = "isSongDownvoted(song) ? 'blue' : 'gray'"
                   type="button" id="downvoteButton">
                   <span class="glyphicon glyphicon-thumbs-down"></span>

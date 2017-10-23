@@ -13,7 +13,7 @@ import { NgModel } from '@angular/forms';
 export class CreateJoinComponent {
 
   name: string;
-  public uname: string = this.usersService.currentUser.username;
+  public uname: string;
   constructor(
     private router: Router,
     public usersService: UsersService) {
@@ -21,6 +21,7 @@ export class CreateJoinComponent {
   }
 
   ngOnInit() {
+    this.uname = this.usersService.currentUser.username;
   }
 
   gotoJoinHub(name:string) {

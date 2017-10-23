@@ -1,4 +1,6 @@
 .centered {
+  width: 75%;
+  margin: auto;
   text-align: center;
 }
 
@@ -7,8 +9,8 @@
   line-height: 5px;
 }
 
-button {
-  margin: 10px;
+input {
+  margin: 20px;
 }
 
 .selectable:hover {
@@ -17,7 +19,7 @@ button {
 }
 
 #list-container {
-  width: 50%;
+  max-width: 600px;
   margin: auto
 }
 

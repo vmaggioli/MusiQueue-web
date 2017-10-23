@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
+import { UsersService } from '../shared/users.service';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
+import { User } from '../objects/user';
 
 @Component({
   selector: 'lsl-home',
@@ -16,20 +18,24 @@ export class HomeComponent implements OnInit {
 
   constructor(private auth: AuthService,
               private router: Router,
-              public db: AngularFireDatabase) { }
+              public db: AngularFireDatabase,
+              public usersService: UsersService) { }
 
   ngOnInit() {
     this.auth.getAuthState().subscribe((user) => {
-      this.user = user
       if (user != null) {
-        this.loggedIn = true;
-        this.router.navigate(['create-join']);
+        this.usersService.setUsername(user.uid);
+        this.user = user
+        if (user != null) {
+          this.loggedIn = true;
+          this.router.navigate(['create-join']);
+        }
       }
     });
-      if (this.user != null) {
-        this.loggedIn = true;
-      }
-      this.topics = this.db.list('/topics');
+    if (this.user != null) {
+      this.loggedIn = true;
+    }
+    this.topics = this.db.list('/topics');
   }
 
     loginWithGoogle() {

@@ -4,9 +4,7 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header" style="width: 100%">
       <a class="navbar-brand" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">MusiQueue Home</a>
-      <a class="navbar-brand" routerLink="/hub-main" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Go To Hub View</a>
-      <a class="navbar-brand" routerLink="/user-hub-view" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Standard user hub view</a>
-       <button mat-button color="accent" *ngIf="this.auth.getCurrentUser() != null" class="navbar-brand" style="float: right;" (click)="logoutWithGoogle()">Logout</button>
+      <button mat-raised-button color="accent" *ngIf="this.auth.getCurrentUser() != null" class="navbar-brand" style="float: right;" (click)="logoutWithGoogle()">Logout</button>
     </div>
   </div>
 </nav>

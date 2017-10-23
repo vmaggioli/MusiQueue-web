@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { MatButtonModule, MatTabsModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { MatCardModule, MatButtonModule, MatTabsModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { Animations } from '@angular/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import * as firebase from "firebase";
@@ -38,7 +40,7 @@ import { HubLoginComponent } from './hub-login/hub-login.component';
     CreateHubComponent,
     JoinHubComponent,
     UserHubViewComponent,
-    HubLoginComponent
+    HubLoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,9 +52,12 @@ import { HubLoginComponent } from './hub-login/hub-login.component';
     AppRoutingModule,
     MatTabsModule,
     FormsModule,
+    MatCardModule,
     MatButtonModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    BrowserAnimationsModule
+
   ],
   providers: [
     UsersService,

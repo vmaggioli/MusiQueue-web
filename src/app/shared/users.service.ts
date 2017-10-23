@@ -23,6 +23,16 @@ export class UsersService {
     this.allUsers = db.list('/Users');
   }
 
+  setUsername(id) {
+    firebase.database().ref("Users/" + id).once("value", u => {
+      this.currentUser.username = u.val().username;
+    });
+  }
+
+  getUserById(id) {
+    return this.db.object("Users/" + id);
+  }
+
   listenForBoot() {
     firebase.database().ref("Users/" + this.currentUser.uid + "/hub_list").on("child_removed", hub => {
       let i : number = this.router.url.indexOf('=');
@@ -30,9 +40,7 @@ export class UsersService {
 
         if (name != undefined && name != null && name == hub.val().name) {
           this.router.navigate(['create-join']);
-          confirm("You have been kicked out of the Hub: " + name +
-            ". You can join again though because we havn't" +
-            " implemented keeping your annoying ass out of the Hub yet.");
+          confirm("You have been kicked out of the Hub: " + name);
         }
       });
   }
@@ -58,7 +66,7 @@ export class UsersService {
         email: u.val().email,
         kicked: u.val().kicked,
         last_active: date,
-        username: "guest"
+        username: u.val().username
       });
     });
   }

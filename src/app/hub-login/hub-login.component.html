@@ -1,7 +1,15 @@
 <div class="centered">
-  <h1>{{ name }}</h1>
-  <p>Created By: {{ creator }}</p>
-  <h4>Enter The 4-Digit Pin:</h4>
-  <input #pinInput type="text" placeholder="1234"/>
-    <button (click)="checkPin(pinInput.value)">Submit</button>
+  <mat-card id="login-card">
+		<mat-card-title>
+			<h1>{{ name }}</h1>
+		</mat-card-title>
+		<mat-card-subtitle>
+      <p>Created By: {{ creator }}</p>
+    </mat-card-subtitle>
+    <mat-card-content>
+      <h4>Enter The 4-Digit Pin:</h4>
+      <input #pinInput type="text" placeholder="1234"/>
+      <button mat-raised-button color="accent" (click)="checkPin(pinInput.value)">Submit</button>
+    </mat-card-content>
+  </mat-card>
 </div>

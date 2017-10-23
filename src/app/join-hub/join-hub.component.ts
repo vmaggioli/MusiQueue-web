@@ -53,6 +53,7 @@ export class JoinHubComponent {
   }
 
   recentHubs() {
+    console.log("made it");
     this.recentHubsOfUser = [];
     this.usersService.getRecentHubs().subscribe(hubs => {
       hubs.forEach(hub => {

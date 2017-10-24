@@ -1,8 +1,19 @@
-<div style="text-align: center;">
-    <h1>MusiQueue Home Page</h1>
-    <br>
-    <img src="/VinMags16/MusiQueue-web/jukebox.png">
-    <a routerLink="/create-join" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <button mat-raised-button color="primary" (click)="loginWithGoogle()">Login</button>
-    </a>
+<div id="card">
+  <mat-card>
+    <mat-card-title>
+      <h1>MusiQueue</h1>
+    </mat-card-title>
+    <mat-card-content>
+      <img src="assets/jukebox.png">
+      <br><br>
+      <mat-form-field hintLabel="you can change it later!">
+        <input matInput placeholder="Nickname" maxLength="36" [(ngModel)]="usname" #name>
+        <mat-hint align="end">{{ name.value?.length || 0 }}/36</mat-hint>
+      </mat-form-field>
+      <br><br>
+      <a routerLink="/create-join" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <button mat-raised-button color="primary" (click)="loginWithGoogle()">Login</button>
+      </a>
+    </mat-card-content>
+  </mat-card>
 </div>

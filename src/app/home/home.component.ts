@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   topics: FirebaseListObservable<any[]>;
   user = null;
   loggedIn: boolean = false;
+  usname: string = "";
 
   constructor(private auth: AuthService,
               private router: Router,
@@ -22,29 +23,49 @@ export class HomeComponent implements OnInit {
               public usersService: UsersService) { }
 
   ngOnInit() {
+    // need to force initial user data for compilation
+    this.usersService.currentUser = new User("", "", true, false, "", Date.now(), []);
+    this.usname = "";
     this.auth.getAuthState().subscribe((user) => {
       if (user != null) {
-        this.usersService.setUsername(user.uid);
         this.user = user
-        if (user != null) {
-          this.loggedIn = true;
-          this.router.navigate(['create-join']);
+        this.loggedIn = true;
+        var ref = firebase.database().ref("Users/" + user.uid);
+        if (this.usname == null || this.usname == "") {
+          ref.once("value", u => {
+            this.usname = u.val().username;
+            this.setAndGo();
+          });
+        } else {
+          ref.update({username: this.usname});
         }
       }
     });
-    if (this.user != null) {
-      this.loggedIn = true;
-    }
-    this.topics = this.db.list('/topics');
   }
 
-    loginWithGoogle() {
+  setAndGo() {
+    if (this.usname == null || this.usname == "") {
+      if (confirm("Are you sure you don't want to create a name? We will make your name 'guest' if you don't choose one yourself")) {
+        this.usname = "guest";
+      }
+      else {
+        this.usname = "";
+        return;
+      }
+    }
+    if (this.user)
+      this.usersService.currentUser = new User(this.usname, this.user.uid, true, false, this.user.email, Date.now(), []);
+    else
+      this.usersService.currentUser.username = this.usname;
+    this.router.navigate(['create-join']);
+  }
+
+  loginWithGoogle() {
     this.auth.loginWithGoogle().then((result) => {
-      console.log(this.auth.getCurrentUser());
       if (this.auth.getCurrentUser() != null) {
         this.loggedIn = true;
-        this.router.navigateByUrl('create-join');
       }
+      this.setAndGo();
     });
   }
 }

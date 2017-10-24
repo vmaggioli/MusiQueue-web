@@ -23,12 +23,6 @@ export class UsersService {
     this.allUsers = db.list('/Users');
   }
 
-  setUsername(id) {
-    firebase.database().ref("Users/" + id).once("value", u => {
-      this.currentUser.username = u.val().username;
-    });
-  }
-
   getUserById(id) {
     return this.db.object("Users/" + id);
   }

@@ -45,12 +45,11 @@ export class HomeComponent implements OnInit {
 
   setAndGo() {
     if (this.usname == null || this.usname == "") {
-      if (confirm("Are you sure you don't want to create a name? We will make your name 'guest' if you don't choose one yourself")) {
-        this.usname = "guest";
+      if (confirm("You did not enter a name for yourself. Press 'OK' if you want us to try to find a past username or 'Cancel' for a default name")) {
+        return;
       }
       else {
-        this.usname = "";
-        return;
+        this.usname = "guest";
       }
     }
     if (this.user)

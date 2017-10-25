@@ -57,7 +57,7 @@ export class JoinHubComponent {
     this.recentHubsOfUser = [];
     this.usersService.getRecentHubs().subscribe(hubs => {
       hubs.forEach(hub => {
-        this.recentHubsOfUser.push(hub);
+        this.recentHubsOfUser.unshift(hub);
       });
     });
     this.displayingRecentHubs = true;

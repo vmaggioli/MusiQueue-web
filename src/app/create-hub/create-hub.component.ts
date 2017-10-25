@@ -47,7 +47,7 @@ export class CreateHubComponent {
           this.usersService.addUserToHub(this.usersService.currentUser.uid, this.name);
           this.router.navigate(['hub-main',{name: this.name}]);
         } else {
-          console.log("Hub already exists with that name.");
+          confirm("A hub with that name already exists!");
         }
       });
     }

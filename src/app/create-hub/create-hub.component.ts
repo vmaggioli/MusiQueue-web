@@ -32,6 +32,47 @@ export class CreateHubComponent {
   gotoHubMain(name:string,passwd:string) {
     this.passwd = passwd;
     this.name = name;
+    
+        if(name.indexOf(' ') != -1) {
+      confirm("Hub name cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('[') != -1) {
+      confirm("Hub name cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf(']') != -1) {
+      confirm("Hub name cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('.') != -1) {
+      confirm("Hub name cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('$') != -1) {
+      confirm("Hub name cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('/') != -1) {
+      confirm("Hub name cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('|') != -1) {
+      confirm("Hub name cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('\t') != -1) {
+      confirm("Hub name cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('?') != -1) {
+      confirm("Hub name cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('.') != -1) {
+      confirm("Hub name cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
 
     if(isValidPW(this.passwd) && isValidName(this.name)) {
       var hubRef = firebase.database().ref("Hubs/" + this.name);

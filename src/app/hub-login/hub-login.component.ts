@@ -40,6 +40,7 @@ export class HubLoginComponent {
         this.pin = hub.pin;
         this.hub = hub;
       });
+      this.hub.
     });
   }
 

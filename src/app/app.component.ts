@@ -10,7 +10,7 @@ import { AuthService } from './shared/auth.service';
   styleUrls: ['./app.component.css'],
   providers: []
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'MusiQueue-web';
 
   constructor(private router: Router,
@@ -20,7 +20,6 @@ export class AppComponent {
 
   logoutWithGoogle() {
     this.auth.logoutWithGoogle().then((result) => {
-      console.log(this.auth.getCurrentUser());
       if (this.auth.getCurrentUser() == null) {
         this.router.navigateByUrl('');
       }

@@ -39,7 +39,7 @@ export class HubService {
     this.db.list("Hubs").subscribe(searchHubs => {
       searchHubs.forEach(hub => {
         if (name.length <= hub.name.length) {
-          if (name.toLowerCase() == hub.name.substring(0, name.length).toLowerCase()) {
+          if (name == hub.name.substring(0, name.length) {
             hubsBySearch.push(hub);
           }
         }

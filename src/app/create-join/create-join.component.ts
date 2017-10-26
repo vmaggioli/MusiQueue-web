@@ -32,7 +32,7 @@ export class CreateJoinComponent {
     else {
       this.usersService.updateUsername(this.usersService.currentUser.uid,this.usersService.currentUser.email);
     }
-    this.router.navigate(['join-hub']);
+    this.router.navigate(['create-hub']);
   }
 
   gotoCreateHub(name:string) {
@@ -43,6 +43,6 @@ export class CreateJoinComponent {
     else {
       this.usersService.updateUsername(this.usersService.currentUser.uid,this.usersService.currentUser.email);
     }
-    this.router.navigate(['create-hub']);
+    this.router.navigate(['join-hub']);
   }
 }

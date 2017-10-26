@@ -223,8 +223,8 @@ export class HubMainComponent  {
 
   removeUser(user) {
     if (confirm("Are you sure you want to remove " + user.username + "?")) {
-      this.hubService.removeUser(this.hubService.currentHub.name, user);
-      this.usersService.addToKickedList(this.hubService.currentHub.name, user.uid);
+      //this.hubService.removeUser(this.hubService.currentHub.name, user);
+      //this.usersService.addToKickedList(this.hubService.currentHub.name, user.uid);
     }
   }
 

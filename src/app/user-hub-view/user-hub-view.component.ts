@@ -51,7 +51,7 @@ export class UserHubViewComponent {
 
    sortQueue(items) {
      this.songs = items;
-     this.songs.sort((a, b) => {
+     /*this.songs.sort((a, b) => {
        let ar: number = a.rank;
        let br: number = b.rank;
        let ad: Date = a.time_added;
@@ -61,7 +61,7 @@ export class UserHubViewComponent {
        else if (ad < bd) return -1;
        else if (ad > bd) return 1;
        else return 0;
-     });
+     });*/
    }
 
   onSongClicked(youtubeItem) {

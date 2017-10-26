@@ -27,7 +27,43 @@ export class CreateJoinComponent {
   gotoJoinHub(name:string) {
     this.name = name;
     if(name.indexOf(' ') != -1) {
-      confirm("Nickname cannot contain spaces");
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('[') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf(']') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('.') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('$') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('/') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('|') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('\t') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('?') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return;
+    }
+    if(name.indexOf('.') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
       return;
     }
     

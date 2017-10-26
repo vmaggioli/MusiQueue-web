@@ -10,7 +10,7 @@ import { NgModel } from '@angular/forms';
   styleUrls: ['./create-join.component.css']
 })
 
-export class CreateJoinComponent {
+export class CreateJoinComponent implements OnInit {
 
   name: string;
   public uname: string;

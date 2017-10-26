@@ -6,9 +6,9 @@
 	<mat-card-content id="content">
 		<br>
 		<div id="crtjoin" >
-			<mat-form-field hintLabel="max 36 characters">
+			<mat-form-field hintLabel="max 12 characters">
 				<input matInput id="uname_input" placeholder="Nickname" maxlength="36" [(ngModel)]="uname" #name>
-				<mat-hint align="end">{{ name.value?.length || 0 }}/36</mat-hint>
+				<mat-hint align="end">{{ name.value?.length || 0 }}/12</mat-hint>
 			</mat-form-field>
 		</div>
 		<button mat-raised-button color="primary" (click)='gotoJoinHub(name.value)'>Join Hub</button>

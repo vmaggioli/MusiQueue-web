@@ -41,6 +41,8 @@ export class HubLoginComponent {
         this.hub = hub;
       });
     });
+    
+
   }
 
   checkPin(input) {

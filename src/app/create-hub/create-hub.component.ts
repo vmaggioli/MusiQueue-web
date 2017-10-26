@@ -43,7 +43,10 @@ export class CreateHubComponent {
       this.usersService.addUserToHub(this.usersService.currentUser.uid, this.name);
       this.router.navigate(['hub-main',{name: this.name}]);
     }
-    else(console.log("invalid name or passwd"))
+    else{
+      confirm("Pin must be 4 digits and Password cannot contain whitespace");
+      return;
+    }
   }
 
   locate() {
@@ -61,7 +64,7 @@ var isValidPW(passwd) {
 
 }
 var isValidName(hubName){
-  if(hubName.length < 4) {
+  if(hubName.length < 1 || hubName.indexOf(' ') != -1) {
     return false;
   }
   return true;

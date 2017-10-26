@@ -44,9 +44,8 @@
             <li class="list-group-item" *ngFor="let song of songs">
               <span class="pull-right">
                 <button mat-raised-button
-                  ng-model="voteStatus" ng-value="false"
-                  (click)="upvote(song); isSongUpvoted(song, function(voteStatus))"
-                  [style.background-color] = "voteStatus ? 'blue' : 'gray'"
+                  (click)="upvote(song)"
+                  [style.background-color] = "isSongUpvoted(song) ? 'blue' : 'gray'"
                   type="button" id="upvoteButton">
                   <span class="glyphicon glyphicon-thumbs-up"></span>
                 </button>

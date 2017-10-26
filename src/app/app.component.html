@@ -4,7 +4,7 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header" style="width: 100%">
       <a class="navbar-brand" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">MusiQueue Home</a>
-      <button mat-raised-button color="accent" *ngIf="this.auth.getCurrentUser() != null" class="navbar-brand" style="float: right;" (click)="logoutWithGoogle()">Logout</button>
+      <button mat-raised-button color="accent" class="navbar-brand" style="float: right;" (click)="logoutWithGoogle()">Logout</button>
     </div>
   </div>
 </nav>

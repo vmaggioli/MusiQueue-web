@@ -41,15 +41,15 @@ export class QueueService {
     });
   }
 
-  removeSong(hubId: string, videoId: string): FirebaseListObservable<Song[]> {
-    this.db.object('/Songs/'+hubId+videoId).remove();
-    this.getQueue(hubId).subscribe(songs => {
-      songs.forEach(s => {
-        this.queue.push(s);
-      });
-      console.log(this.queue);
-    })
-    return this.queue;
+  removeSong(hubId: string, videoId: string) {
+    var songRef = firebase.database().ref('Songs/' + hubId + videoId);
+    songRef.remove();
+    var songVoteRef = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + hubId + videoId);
+    songVoteRef.once("value", songID => {
+      if (songID.val() != null) {
+        songVoteRef.remove();
+      }
+    });
   }
 
   upvote(song) {

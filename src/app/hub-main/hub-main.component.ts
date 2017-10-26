@@ -186,11 +186,11 @@ export class HubMainComponent  {
   isSongUpvoted(song, callback) {
     var songRef  = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     function songUpvoted(callback) {
-      var isUpvoted;
       songRef.once("value", vote => {
+        var isUpvoted = false;
         if (vote.val() != null) {
           if (vote.val().songVote == "upvote") {
-            console.log("song is upvoted. change to blue");
+            //console.log("song is upvoted. change to blue");
             isUpvoted = true;
           } else {
             isUpvoted = false;
@@ -201,9 +201,11 @@ export class HubMainComponent  {
         callback(isUpvoted);
       });
     }
-    songUpvoted(function(isUpvoted) {
-      callback(isUpvoted);
-    });
+    var voteStatus = function(isUpvoted) {
+      return isUpvoted;
+    }
+
+    songUpvoted(voteStatus);
   }
 
   isSongDownvoted(song) {

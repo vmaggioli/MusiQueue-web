@@ -52,6 +52,10 @@ export class HomeComponent implements OnInit {
         this.usname = "guest";
       }
     }
+    if(this.usname.indexOf(' ') != -1) {
+      confirm("No whitespace is allowed in usernames");
+      return;
+    }
     if (this.user)
       this.usersService.currentUser = new User(this.usname, this.user.uid, true, false, this.user.email, Date.now(), []);
     else

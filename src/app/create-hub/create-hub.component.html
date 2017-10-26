@@ -15,7 +15,8 @@
 					<br>
 					<br>
 					<mat-form-field hintLabel="4 digit number">
-						<input matInput placeholder="Hub Pass Pin" type="text" maxlength="4" #pin>
+						<input matInput placeholder="Hub Pass Pin" type="number" max="9999" #pin>
+						<mat-hint align="end">{{ pin.value?.length || 0}}/4</mat-hint>
 					</mat-form-field>
 				</div>
 			</div>

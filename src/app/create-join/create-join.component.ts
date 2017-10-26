@@ -26,6 +26,11 @@ export class CreateJoinComponent {
 
   gotoJoinHub(name:string) {
     this.name = name;
+    if(name.indexOf(' ') != -1) {
+      confirm("Nickname cannot contain spaces");
+      return;
+    }
+    
     if (this.name.length) {
       this.usersService.updateUsername(this.usersService.currentUser.uid, this.name);
     }
@@ -37,6 +42,9 @@ export class CreateJoinComponent {
 
   gotoCreateHub(name:string) {
     this.name = name;
+    if(name.indexOf(' ') != -1) {
+      return;
+    }
     if (this.name) {
       this.usersService.updateUsername(this.usersService.currentUser.uid, this.name);
     }

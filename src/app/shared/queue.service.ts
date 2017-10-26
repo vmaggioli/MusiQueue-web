@@ -90,7 +90,7 @@ export class QueueService {
         });
       } else if (songID.val().songVote == "upvote") {
         //console.log("no double voting!!");
-        var songRef1 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/up_votes');
+        /*var songRef1 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/up_votes');
         songRef1.transaction(function(upvotes) {
           return upvotes - 1;
         });
@@ -102,7 +102,7 @@ export class QueueService {
         var songToNeutralState = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs");
         songToNeutralState.child(song.hub_id + song.video_id).update({
           songVote: "null"
-        });
+        });*/
       }
     });
 
@@ -146,7 +146,7 @@ export class QueueService {
         });
       } else if (songID.val().songVote == "downvote") {
         //console.log("no double voting!!");
-        var songRef1 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/down_votes');
+        /*var songRef1 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/down_votes');
         songRef1.transaction(function(downvotes) {
           return downvotes - 1;
         });
@@ -158,7 +158,7 @@ export class QueueService {
         var songToNeutralState = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs");
         songToNeutralState.child(song.hub_id + song.video_id).update({
           songVote: "null"
-        });
+        });*/
       }
     });
   }

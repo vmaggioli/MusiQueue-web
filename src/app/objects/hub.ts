@@ -5,13 +5,13 @@ export class Hub {
   name: string;
   creator: string;
   creator_uid: string;
-  pin: number;
+  pin: string;
   last_active: Date;
   hub_uid: string;
   users: User[];
   songs: Song[];
   public constructor (
-    name: string, creator: string, creator_uid: string, pin: number,
+    name: string, creator: string, creator_uid: string, pin: string,
     last_active: Date, users: User[], songs: Song[]
   ) {
     this.name = name;

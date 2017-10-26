@@ -3,6 +3,7 @@ import { Router, ParamMap} from '@angular/router';
 import { HubService } from '../shared/hub.service';
 import { Hub } from '../objects/hub';
 import { UsersService } from '../shared/users.service';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'create-hub',
@@ -33,15 +34,22 @@ export class CreateHubComponent {
     this.name = name;
 
     if(isValidPW(this.passwd) && isValidName(this.name)) {
-      this.hubService.currentHub = new Hub(this.name, "user", "user", this.passwd, "date", [], []);
-      if (this.location.longitude != undefined) {
-        this.hubService.createHub("false", "user", "date", this.location.latitude, this.location.longitude, this.name, this.passwd, "users", "wifi");
-      } else {
-        this.hubService.createHub("false", "user", "date", 0, 0, this.name, this.passwd, "users", "wifi");
-      }
-      this.usersService.addHubUnderUser(this.usersService.currentUser.uid, this.name);
-      this.usersService.addUserToHub(this.usersService.currentUser.uid, this.name);
-      this.router.navigate(['hub-main',{name: this.name}]);
+      var hubRef = firebase.database().ref("Hubs/" + this.name);
+      hubRef.once("value", hubName => {
+        if (hubName.val() == null) {
+          this.hubService.currentHub = new Hub(this.name, "user", "user", this.passwd, "date", [], []);
+          if (this.location.longitude != undefined) {
+            this.hubService.createHub("false", "user", "date", this.location.latitude, this.location.longitude, this.name, this.passwd, "users", "wifi");
+          } else {
+            this.hubService.createHub("false", "user", "date", 0, 0, this.name, this.passwd, "users", "wifi");
+          }
+          this.usersService.addHubUnderUser(this.usersService.currentUser.uid, this.name);
+          this.usersService.addUserToHub(this.usersService.currentUser.uid, this.name);
+          this.router.navigate(['hub-main',{name: this.name}]);
+        } else {
+          confirm("A hub with that name already exists!");
+        }
+      });
     }
     else(console.log("invalid name or passwd"))
   }

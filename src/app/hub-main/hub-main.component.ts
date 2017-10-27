@@ -59,7 +59,7 @@ export class HubMainComponent  {
   sortQueue(items) {
     console.log("entering sort");
     this.songs = items;
-    this.songs.sort((a, b) => {
+    this.songs = this.songs.slice(0,1).concat(this.songs.sort((a, b) => {
       let ar: number = a.rank;
       let br: number = b.rank;
       let ad: Date = a.time_added;
@@ -69,7 +69,7 @@ export class HubMainComponent  {
       else if (ad < bd) return -1;
       else if (ad > bd) return 1;
       else return 0;
-    });
+    }));
 
     if (this.songs.length > 0) {
       this.id = this.songs[0].video_id;

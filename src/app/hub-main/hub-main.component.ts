@@ -39,6 +39,7 @@ export class HubMainComponent  {
   public hubUsers: User[];
   public isUpvoted: boolean;
   public isDownvoted: boolean;
+  public currentSong: Song;
 
   constructor(
     private route: ActivatedRoute,
@@ -107,11 +108,30 @@ export class HubMainComponent  {
           this.player.loadVideoById(this.songs[1].video_id);
         var last = this.songs.length - 1;
         this.queueService.removeSong(this.hubService.currentHub.name, this.songs[0].video_id);
-        if (last == 0)
+        if (last == 0) {
           this.hasSongs = false;
+          var currentSongRef = firebase.database().ref("Hubs/" + this.hubService.currentHub.name + "/currentlyPlaying/" + this.songs[0].hub_id + this.songs[0].video_id);
+          currentSongRef.remove();
+        }
         break;
       case 1:
       this.state = 1;
+        var hubRef = firebase.database().ref("Hubs/" + this.hubService.currentHub.name);
+        hubRef.child("currentlyPlaying/" + this.songs[0].hub_id + this.songs[0].video_id).update({
+          video_id: this.songs[0].video_id,
+          down_votes: 0,
+          hub_id: this.songs[0].hub_id,
+          playing: false,
+          song_name: this.songs[0].song_name,
+          time_added: this.songs[0].time_added,
+          up_votes: 0,
+          user_id: this.songs[0].user_id,
+          username: this.usersService.currentUser.username,
+          thumbnail: this.songs[0].thumbnail,
+          rank: 0
+        });
+        var songRef = firebase.database().ref("Songs/" + this.songs[0].hub_id + this.songs[0].video_id);
+        songRef.remove();
         console.log("video is playing");
         break;
       case 2:

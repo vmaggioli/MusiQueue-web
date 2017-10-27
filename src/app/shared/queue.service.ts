@@ -9,18 +9,45 @@ import { UsersService } from './users.service';
 @Injectable()
 export class QueueService {
   public queue: FirebaseListObservable<Song[]>;
+  public currentSong: Song;
 
   constructor(public db: AngularFireDatabase,
               private auth: AuthService,
               private usersService: UsersService) { }
 
   getQueue(hubUID: string): FirebaseListObservable<Song[]> {
-    return this.db.list('/Songs', {
+    /*var currentSongRef = firebase.database().ref("Hubs/" + hubUID + "/currentlyPlaying");
+    currentSongRef.once("value", song => {
+      if (song.val() != null) {
+        this.currentSong = song.val(); //new Song(song.val().down_votes, song.val().hub_id, song.val().playing, 0, song.val().song_name, song.val().thumbnail, song.val().time_added, 0, song.val().user_id, song.val().video_id;
+        
+      }
+    });*/
+    var currentSong = this.db.list("Hubs/" + hubUID + "/currentlyPlaying");
+    var restOfList = this.db.list('/Songs', {
       query: {
         orderByChild: 'hub_id',
         equalTo: hubUID
       }
     });
+    currentSong.subscribe(current => {
+      current.forEach(song => {
+        this.queue.push(current);
+      });
+    });
+    restOfList.subscribe(songs => {
+      songs.forEach(song => {
+        console.log(song.hub_id);
+        this.queue.push(song);
+      });
+    });
+    return this.queue;
+    /*return this.db.list('/Songs', {
+      query: {
+        orderByChild: 'hub_id',
+        equalTo: hubUID
+      }
+    });*/
   }
 
   addSong(title: string, thumbnail: string, videoId: string, hubId: string) {

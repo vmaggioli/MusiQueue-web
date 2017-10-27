@@ -101,4 +101,10 @@ export class UserHubViewComponent {
     this.queueService.downvote(song);
   }
 
+  removeSong(song) {
+    if (confirm("Are you sure you want to remove " + song.song_name + "?")) {
+      this.hubService.removeSong(this.hubService.currentHub.name, song);
+    }
+  }
+
 }

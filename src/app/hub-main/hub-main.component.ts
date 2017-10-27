@@ -103,12 +103,12 @@ export class HubMainComponent  {
         console.log("finished");
         this.state = 0;
 
-        if (this.songs.length > 1)
+        //if (this.songs.length > 1)
           this.player.loadVideoById(this.songs[1].video_id);
         var last = this.songs.length - 1;
         this.queueService.removeSong(this.hubService.currentHub.name, this.songs[0].video_id);
-        if (last == 0)
-          this.hasSongs = false;
+        //if (last == 0)
+          //this.hasSongs = false;
         break;
       case 1:
       this.state = 1;

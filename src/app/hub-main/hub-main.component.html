@@ -68,7 +68,7 @@
 
           <ul *ngIf="isUsers" class="list-gorup">
             <!-- USERS -->
-            <li class="list-group-item" *ngFor="let user of hubUsers">
+            <li class="list-group-item" *ngFor="let user of hubUsers | slice:0:2">
               <span class="pull-right">
                 <button *ngIf="user.uid != usersService.currentUser.uid" (click)="removeUser(user)" type="button" class="btn btn-danger">
                   <span class="glyphicon glyphicon-remove"></span>

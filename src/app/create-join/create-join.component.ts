@@ -26,6 +26,11 @@ export class CreateJoinComponent {
 
   gotoJoinHub(name:string) {
     this.name = name;
+    if(0==name.length)
+    {
+      confirm("Please enter a proper value");
+      return;
+    }
     if(name.indexOf(' ') != -1) {
       confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
       return;
@@ -66,7 +71,6 @@ export class CreateJoinComponent {
       confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
       return;
     }
-    
     if (this.name.length) {
       this.usersService.updateUsername(this.usersService.currentUser.uid, this.name);
     }

@@ -106,7 +106,7 @@ export class HubMainComponent  {
 
         if (this.songs.length > 1) {
           var hubRef = firebase.database().ref("Hubs/" + this.hubService.currentHub.name);
-          hubRef.child("currentlyPlaying/" + this.songs[1].hub_id + this.songs[1].video_id).update({
+          hubRef.child("currentlyPlaying").update({
             video_id: this.songs[1].video_id,
             down_votes: 0,
             hub_id: this.songs[1].hub_id,
@@ -121,22 +121,18 @@ export class HubMainComponent  {
           });
           var songRef = firebase.database().ref("Songs/" + this.songs[1].hub_id + this.songs[1].video_id);
           var songVoteRef = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + this.songs[1].hub_id + this.songs[1].video_id);
-          var currentSongRef = firebase.database().ref("Hubs/" + this.hubService.currentHub.name + "/currentlyPlaying/" + this.songs[1].hub_id + this.songs[1].video_id);
+          var currentSongRef = firebase.database().ref("Hubs/" + this.hubService.currentHub.name + "/currentlyPlaying");
           songRef.remove();
-          songVoteRef.once("value", songID => {
-            if (songID.val() != null) {
-              songVoteRef.remove();
-            }
-          });
+          songVoteRef.remove();
           currentSongRef.once("value", songID => {
             this.player.loadVideoById(songID.val().video_id);
           });
         }
         var last = this.songs.length - 1;
-        this.queueService.removeSong(this.hubService.currentHub.name, this.songs[0]);
+        this.queueService.removeSong(this.hubService.currentHub.name);
         if (last == 0) {
           this.hasSongs = false;
-          var currentSongRef = firebase.database().ref("Hubs/" + this.hubService.currentHub.name + "/currentlyPlaying/" + this.songs[0].hub_id + this.songs[0].video_id);
+          var currentSongRef = firebase.database().ref("Hubs/" + this.hubService.currentHub.name + "/currentlyPlaying");
           currentSongRef.remove();
         }
         break;
@@ -263,12 +259,6 @@ export class HubMainComponent  {
   removeSong(song) {
     if (confirm("Are you sure you want to remove " + song.song_name + "?")) {
       this.hubService.removeSong(this.hubService.currentHub.name, song);
-    }
-  }
-
-  removeSongFromPlaylist(song) {
-    if (confirm("Are you sure you want to remove " + song.song_name + "?")) {
-      this.queueService.removeSongFromPlaylist(song);
     }
   }
 

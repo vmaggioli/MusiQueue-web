@@ -67,21 +67,9 @@ export class QueueService {
     });
   }
 
-  removeSong(hubId: string, song:Song) {
-    var songRef = firebase.database().ref('Hubs/' + hubId + '/currentlyPlaying' + song.hub_id + song.video_id);
+  removeSong(hubId: string) {
+    var songRef = firebase.database().ref('Hubs/' + hubId + '/currentlyPlaying');
     songRef.remove();
-  }
-
-  removeSongFromPlaylist(song) {
-    var songRef = firebase.database().ref("Songs/" + song.hub_id + song.video_id);
-    songRef.remove();
-    firebase.database().ref("Users/" + song.user_id + "/songs/" + name + song.video_id).remove();
-    var songVoteRef = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
-    songVoteRef.once("value", songID => {
-      if (songID.val() != null) {
-        songVoteRef.remove();
-      }
-    });
   }
 
   upvote(song) {

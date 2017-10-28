@@ -13,10 +13,10 @@ import { UserHubViewComponent } from './user-hub-view/user-hub-view.component';
 import { HubLoginComponent } from './hub-login/hub-login.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent }
+  { path: '', component: HomeComponent },
   { path: 'hub-main', component: HubMainComponent, canActivate: [LoginGuard] },
   { path: 'hub-main/users', component: HubUsersComponent, canActivate: [LoginGuard] },
-  { path: 'create-join', component: CreateJoinComponent, canActivate: [LoginGuard] },
+  { path: 'create-join', component: CreateJoinComponent, canActivate: [LoginGuard]},
   { path: 'create-hub', component: CreateHubComponent, canActivate: [LoginGuard] },
   { path: 'join-hub', component: JoinHubComponent, canActivate: [LoginGuard] },
   { path: 'user-hub-view', component: UserHubViewComponent, canActivate: [LoginGuard]},

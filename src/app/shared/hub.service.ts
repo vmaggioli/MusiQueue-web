@@ -16,7 +16,6 @@ export class HubService {
   createHub(closed: string, creator: string, last_active: string, latitude: string, longitude: string, name: string, pin: string, users: string, wifi: string){
     var date = Date.now();
     var hubRef = firebase.database().ref('Hubs/');
-    console.log("current hub is : " + this.currentHub.name);
     hubRef.child(name).set({
       closed: closed,
       creator: this.auth.getCurrentUser().displayName,
@@ -39,7 +38,7 @@ export class HubService {
     this.db.list("Hubs").subscribe(searchHubs => {
       searchHubs.forEach(hub => {
         if (name.length <= hub.name.length) {
-          if (name == hub.name.substring(0, name.length)) {
+          if (name == hub.name.substring(0, name.length) {
             hubsBySearch.push(hub);
           }
         }
@@ -77,8 +76,8 @@ export class HubService {
   }
 
   removeUser(name, user) {
-    firebase.database().ref("Hubs/" + name + "/users/" + user.uid).remove();
-    firebase.database().ref("Users/" + user.uid + "/hub_list/" + name).remove();
+    // firebase.database().ref("Hubs/" + name + "/users/" + user.uid).remove();
+    // firebase.database().ref("Users/" + user.uid + "/hub_list/" + name).remove();
   }
 
   removeSong(name, song) {

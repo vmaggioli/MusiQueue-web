@@ -141,6 +141,16 @@ li {
   padding: 4px 6px 2px 6px;
 }
 
+#removedSong {
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  color: red;
+}
+#removedSong:hover {
+  cursor: pointer;
+}
+
 main {
   background: #eee;
 	display: block;

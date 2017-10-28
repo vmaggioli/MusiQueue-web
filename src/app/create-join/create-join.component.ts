@@ -10,7 +10,7 @@ import { NgModel } from '@angular/forms';
   styleUrls: ['./create-join.component.css']
 })
 
-export class CreateJoinComponent {
+export class CreateJoinComponent implements OnInit {
 
   name: string;
   public uname: string;
@@ -32,6 +32,7 @@ export class CreateJoinComponent {
     else {
       this.usersService.updateUsername(this.usersService.currentUser.uid,this.usersService.currentUser.email);
     }
+    
     //this.router.navigate(['join-hub']);
     this.router.navigate(['create-hub']);
   }
@@ -44,7 +45,9 @@ export class CreateJoinComponent {
     else {
       this.usersService.updateUsername(this.usersService.currentUser.uid,this.usersService.currentUser.email);
     }
+
     //this.router.navigate(['create-hub']); GOTTEM
+
     this.router.navigate(['join-hub']);
   }
 }

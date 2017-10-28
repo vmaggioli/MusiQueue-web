@@ -13,10 +13,10 @@ export class YoutubeService {
 
   search(query: string): YTSong[] {
     console.log("inSearch");
-    this.songs = [];
+    //this.songs = [];
     this.http
       .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}`+
-          '&maxResults=8' +
+          '&maxResults=7' +
           '&type=video' +
           '&key=AIzaSyDtCJTBSLt9M1Xi_EBr49Uk4W8q4HhFHPU')
       .map(response => {

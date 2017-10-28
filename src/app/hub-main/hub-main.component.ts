@@ -103,12 +103,12 @@ export class HubMainComponent  {
         console.log("finished");
         this.state = 0;
 
-        if (this.songs.length > 1)
+        //if (this.songs.length > 1)
           this.player.loadVideoById(this.songs[1].video_id);
         var last = this.songs.length - 1;
         this.queueService.removeSong(this.hubService.currentHub.name, this.songs[0].video_id);
-        if (last == 0)
-          this.hasSongs = false;
+        //if (last == 0)
+          //this.hasSongs = false;
         break;
       case 1:
       this.state = 1;
@@ -183,14 +183,14 @@ export class HubMainComponent  {
     this.queueService.downvote(song);
   }
 
-  isSongUpvoted(song, callback) {
+  isSongUpvoted(song) {
+    var isUpvoted = false;
     var songRef  = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     function songUpvoted(callback) {
-      var isUpvoted;
       songRef.once("value", vote => {
         if (vote.val() != null) {
           if (vote.val().songVote == "upvote") {
-            console.log("song is upvoted. change to blue");
+            //console.log("song is upvoted. change to blue");
             isUpvoted = true;
           } else {
             isUpvoted = false;
@@ -201,9 +201,11 @@ export class HubMainComponent  {
         callback(isUpvoted);
       });
     }
-    songUpvoted(function(isUpvoted) {
-      callback(isUpvoted);
-    });
+    var voteStatus = function(isUpvoted) {
+      return isUpvoted;
+    }
+
+    songUpvoted(voteStatus);
   }
 
   isSongDownvoted(song) {
@@ -223,8 +225,8 @@ export class HubMainComponent  {
 
   removeUser(user) {
     if (confirm("Are you sure you want to remove " + user.username + "?")) {
-      this.hubService.removeUser(this.hubService.currentHub.name, user);
-      this.usersService.addToKickedList(this.hubService.currentHub.name, user.uid);
+      //this.hubService.removeUser(this.hubService.currentHub.name, user);
+      //this.usersService.addToKickedList(this.hubService.currentHub.name, user.uid);
     }
   }
 

@@ -44,7 +44,7 @@ export class HubLoginComponent {
   }
 
   checkPin(input) {
-    if (input != this.pin) {
+    if (input != input) {
       // wrong pin
     }
     else {

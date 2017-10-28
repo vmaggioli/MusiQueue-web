@@ -1,4 +1,4 @@
-<h1 id="hubTitle">{{ hubService.currentHub.name }}</h1>
+<h1 id="hubTitle">Hub:</h1>
 <div id="container">
   <div id="hubConsole">
 
@@ -41,6 +41,7 @@
                   <span class="glyphicon glyphicon-thumbs-down"></span>
                 </button>
                 <p id="rank">{{ song.up_votes - song.down_votes }}</p>
+                <div (click)="removeSong(song)" id=removedSong>&#10006;</div>
               </span>
               <span>
                 <span>{{ song.song_name }}</span><br>

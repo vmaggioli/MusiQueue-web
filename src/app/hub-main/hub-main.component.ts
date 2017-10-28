@@ -171,6 +171,11 @@ export class HubMainComponent  {
   }
 
   onSearch(input: string) {
+    if(0==input.length)
+    {
+      confirm("Please enter a value");
+      return;
+    }
     this.ytsongs = [];
     this.ytsongs = this.youtubeService.search(input);
   }

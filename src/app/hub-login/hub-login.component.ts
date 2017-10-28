@@ -54,11 +54,23 @@ export class HubLoginComponent {
         }
       });
     });
+
   }
 
   checkPin(input) {
-    if (input != this.pin) {
-      // wrong pin
+    if(0==input.length)
+    {
+      confirm("Please enter a proper value");
+      return;
+    }
+    else if(input.length<4||input.length>4)
+    {
+      confirm("Please enter a 4 digit pin");
+      return;
+    }
+    else if (input != this.pin) {
+        confirm("Pin is not correct");
+        return;
     }
     else {
       this.hubService.currentHub = this.hub;

@@ -66,6 +66,11 @@ export class JoinHubComponent {
   }
 
   searchHubs(hubName: string) {
+      if(!hubName||0==hubName.length)
+      {
+        confirm("Please enter a value");
+        return;
+      }
     this.hubsFromSearch = this.hubService.getHubsBySearch(hubName);
     this.displayingSearchHubs = true;
     this.displayingLocalHubs = false;

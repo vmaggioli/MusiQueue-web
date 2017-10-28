@@ -39,10 +39,21 @@ export class HubLoginComponent {
         this.creator = hub.creator;
         this.pin = hub.pin;
         this.hub = hub;
+
+        for (let user in hub.users) {
+          console.log(user);
+          if (user == this.usersService.currentUser.uid) {
+            this.hubService.currentHub = this.hub;
+            if (this.auth.getCurrentUser().displayName == this.creator) {
+              console.log("hubname: " + this.name);
+              this.router.navigate(['hub-main', {name: this.name}]);
+            } else {
+              this.router.navigate(['user-hub-view', {name: this.name}]);
+            }
+          }
+        }
       });
     });
-    
-
   }
 
   checkPin(input) {

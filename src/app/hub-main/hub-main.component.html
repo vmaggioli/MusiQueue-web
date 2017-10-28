@@ -56,7 +56,7 @@
                   <span class="glyphicon glyphicon-thumbs-down"></span>
                 </button>
                 <p id="rank">{{ song.up_votes - song.down_votes }}</p>
-                <div (click)="removeSong(song)" id=removeSong *ngIf="!(song == songs[0])">&#10006;</div>
+                <div (click)="removeSongFromPlaylist(song)" id=removeSong *ngIf="!(song == songs[0])">&#10006;</div>
               </span>
               <span>
                 <span>{{ song.song_name }}</span><br>

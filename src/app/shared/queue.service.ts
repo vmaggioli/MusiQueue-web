@@ -23,25 +23,24 @@ export class QueueService {
         
       }
     });*/
-    var currentSong = this.db.list("Hubs/" + hubUID + "/currentlyPlaying");
+    //var currentSong = this.db.list("Hubs/" + hubUID + "/currentlyPlaying");
     var restOfList = this.db.list('/Songs', {
       query: {
         orderByChild: 'hub_id',
         equalTo: hubUID
       }
     });
-    currentSong.subscribe(current => {
-      current.forEach(song => {
-        this.queue.push(current);
-      });
-    });
+    /*this.queue = currentSong;
     restOfList.subscribe(songs => {
       songs.forEach(song => {
         console.log(song.hub_id);
         this.queue.push(song);
       });
-    });
-    return this.queue;
+    });*/
+    /*restOfList.forEach(song => {
+      this.queue.push(song);
+    });*/
+    return restOfList;
     /*return this.db.list('/Songs', {
       query: {
         orderByChild: 'hub_id',
@@ -68,10 +67,16 @@ export class QueueService {
     });
   }
 
-  removeSong(hubId: string, videoId: string) {
-    var songRef = firebase.database().ref('Songs/' + hubId + videoId);
+  removeSong(hubId: string, song:Song) {
+    var songRef = firebase.database().ref('Hubs/' + hubId + '/currentlyPlaying' + song.hub_id + song.video_id);
     songRef.remove();
-    var songVoteRef = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + hubId + videoId);
+  }
+
+  removeSongFromPlaylist(song) {
+    var songRef = firebase.database().ref("Songs/" + song.hub_id + song.video_id);
+    songRef.remove();
+    firebase.database().ref("Users/" + song.user_id + "/songs/" + name + song.video_id).remove();
+    var songVoteRef = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     songVoteRef.once("value", songID => {
       if (songID.val() != null) {
         songVoteRef.remove();

@@ -59,7 +59,7 @@ export class HubMainComponent  {
   sortQueue(items) {
     console.log("entering sort");
     this.songs = items;
-    this.songs = this.songs.slice(0,1).concat(this.songs.sort((a, b) => {
+    this.songs.sort((a, b) => {
       let ar: number = a.rank;
       let br: number = b.rank;
       let ad: Date = a.time_added;
@@ -69,7 +69,7 @@ export class HubMainComponent  {
       else if (ad < bd) return -1;
       else if (ad > bd) return 1;
       else return 0;
-    }));
+    });
 
     if (this.songs.length > 0) {
       this.id = this.songs[0].video_id;
@@ -104,10 +104,36 @@ export class HubMainComponent  {
         console.log("finished");
         this.state = 0;
 
-        if (this.songs.length > 1)
-          this.player.loadVideoById(this.songs[1].video_id);
+        if (this.songs.length > 1) {
+          var hubRef = firebase.database().ref("Hubs/" + this.hubService.currentHub.name);
+          hubRef.child("currentlyPlaying/" + this.songs[1].hub_id + this.songs[1].video_id).update({
+            video_id: this.songs[1].video_id,
+            down_votes: 0,
+            hub_id: this.songs[1].hub_id,
+            playing: false,
+            song_name: this.songs[1].song_name,
+            time_added: this.songs[1].time_added,
+            up_votes: 0,
+            user_id: this.songs[1].user_id,
+            username: this.usersService.currentUser.username,
+            thumbnail: this.songs[1].thumbnail,
+            rank: 0
+          });
+          var songRef = firebase.database().ref("Songs/" + this.songs[1].hub_id + this.songs[1].video_id);
+          var songVoteRef = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + this.songs[1].hub_id + this.songs[1].video_id);
+          var currentSongRef = firebase.database().ref("Hubs/" + this.hubService.currentHub.name + "/currentlyPlaying/" + this.songs[1].hub_id + this.songs[1].video_id);
+          songRef.remove();
+          songVoteRef.once("value", songID => {
+            if (songID.val() != null) {
+              songVoteRef.remove();
+            }
+          });
+          currentSongRef.once("value", songID => {
+            this.player.loadVideoById(songID.val().video_id);
+          });
+        }
         var last = this.songs.length - 1;
-        this.queueService.removeSong(this.hubService.currentHub.name, this.songs[0].video_id);
+        this.queueService.removeSong(this.hubService.currentHub.name, this.songs[0]);
         if (last == 0) {
           this.hasSongs = false;
           var currentSongRef = firebase.database().ref("Hubs/" + this.hubService.currentHub.name + "/currentlyPlaying/" + this.songs[0].hub_id + this.songs[0].video_id);
@@ -116,22 +142,6 @@ export class HubMainComponent  {
         break;
       case 1:
       this.state = 1;
-        var hubRef = firebase.database().ref("Hubs/" + this.hubService.currentHub.name);
-        hubRef.child("currentlyPlaying/" + this.songs[0].hub_id + this.songs[0].video_id).update({
-          video_id: this.songs[0].video_id,
-          down_votes: 0,
-          hub_id: this.songs[0].hub_id,
-          playing: false,
-          song_name: this.songs[0].song_name,
-          time_added: this.songs[0].time_added,
-          up_votes: 0,
-          user_id: this.songs[0].user_id,
-          username: this.usersService.currentUser.username,
-          thumbnail: this.songs[0].thumbnail,
-          rank: 0
-        });
-        var songRef = firebase.database().ref("Songs/" + this.songs[0].hub_id + this.songs[0].video_id);
-        songRef.remove();
         console.log("video is playing");
         break;
       case 2:
@@ -253,6 +263,12 @@ export class HubMainComponent  {
   removeSong(song) {
     if (confirm("Are you sure you want to remove " + song.song_name + "?")) {
       this.hubService.removeSong(this.hubService.currentHub.name, song);
+    }
+  }
+
+  removeSongFromPlaylist(song) {
+    if (confirm("Are you sure you want to remove " + song.song_name + "?")) {
+      this.queueService.removeSongFromPlaylist(song);
     }
   }
 

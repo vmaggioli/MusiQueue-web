@@ -50,6 +50,16 @@ export class HubMainComponent  {
      }
 
   ngOnInit() {
+    firebase.database().ref("Hubs/" + this.hubService.currentHub.name + "/current_song").once("value", s => {
+      if (s.val() != null && s.val() != undefined) {
+        this.currentSong = new Song (
+          s.val().down_votes, s.val().hub_id, false, s.val().rank, s.val().song_name,
+          s.val().thumbnail, s.val().time_added, s.val().up_votes, s.val().user_id,
+          s.val().username, s.val().video_id
+        );
+        this.hasSongs = true;
+      }
+    });
     this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
       this.sortQueue(items);
     });
@@ -68,11 +78,11 @@ export class HubMainComponent  {
       else if (ad > bd) return 1;
       else return 0;
     });
-
     if (this.currentSong == undefined && this.songs.length > 0) {
       this.currentSong = this.songs[0];
       this.hasSongs = true;
       this.queueService.removeSong(this.hubService.currentHub.name, this.songs[0].video_id);
+      this.queueService.setCurrent(this.currentSong, this.hubService.currentHub.name);
     }
     else if (this.currentSong != undefined)
       this.hasSongs = true;
@@ -106,6 +116,7 @@ export class HubMainComponent  {
         if (this.songs.length > 0) {
           this.currentSong = this.songs[0];
           this.queueService.removeSong(this.hubService.currentHub.name, this.songs[0].video_id);
+          this.queueService.setCurrent(this.currentSong, this.hubService.currentHub.name);
         }
         if (this.currentSong != undefined)
           this.player.loadVideoById(this.currentSong.video_id);
@@ -142,6 +153,7 @@ export class HubMainComponent  {
         thumbnail, Date.now(), 0, this.usersService.currentUser.uid,
         this.usersService.currentUser.username, videoId
       );
+      this.queueService.setCurrent(this.currentSong, this.hubService.currentHub.name);
     }
     else
       this.queueService.addSong(title, thumbnail, videoId, this.hubService.currentHub.name);

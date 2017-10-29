@@ -52,6 +52,27 @@ export class QueueService {
     });
   }
 
+  setCurrent(song, hubId) {
+    firebase.database().ref("Hubs/").child(hubId).update(
+      {
+        current_song: {
+          down_votes: song.down_votes,
+          hub_id: hubId,
+          rank: song.rank,
+          song_name: song.song_name,
+          thumbnail: song.thumbnail,
+          time_added: song.time_added,
+          up_votes: song.up_votes,
+          user_id: song.user_id,
+          username: song.username,
+          video_id: song.video_id
+        }
+      });
+  }
+  getCurrent(hubid) {
+    return this.db.object("Hubs/" + hubid + "/current_song");
+  }
+
   upvote(song) {
     var ref = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     ref.once("value", songID => {

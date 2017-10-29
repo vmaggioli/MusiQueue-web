@@ -53,6 +53,9 @@ export class QueueService {
   }
 
   setCurrent(song, hubId) {
+    console.log(song);
+    console.log(song.video_id);
+    console.log("hub: " + hubId);
     firebase.database().ref("Hubs/").child(hubId).update(
       {
         current_song: {
@@ -72,7 +75,9 @@ export class QueueService {
   getCurrent(hubid) {
     return this.db.object("Hubs/" + hubid + "/current_song");
   }
-
+  removeCurrent(hubId) {
+    firebase.database().ref("Hubs/" + hubId + "/current_song").remove();
+  }
   upvote(song) {
     var ref = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     ref.once("value", songID => {

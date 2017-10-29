@@ -7,14 +7,14 @@ export class Song {
   rank: number;
   song_name: string;
   thumbnail: string;
-  time_added: Date;
+  time_added: number;
   up_votes: number;
   user_id: string;
   username: string;
   video_id: string;
   public constructor(
-    down_votes: number, hub_id: string, playing: boolean, rank: number, song_name: string,
-    thumbnail: string, time_added: Date, up_votes: number, user_id: string, username: string, video_id: string
+    down_votes, hub_id, playing, rank, song_name,
+    thumbnail, time_added, up_votes, user_id, username, video_id
   ) {
     this.down_votes = down_votes;
     this.hub_id = hub_id;

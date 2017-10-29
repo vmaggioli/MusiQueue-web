@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './shared/auth.service';
 import { UsersService } from "./shared/users.service";
+import * as firebase from 'firebase/app';
+import { HubService } from './shared/hub.service';
 
 
 @Component({
@@ -15,10 +17,15 @@ export class AppComponent {
 
   constructor(private router: Router,
               private auth: AuthService,
-              public usersService: UsersService) { }
+              public usersService: UsersService,
+              public hubService: HubService) { }
 
   ngOnInit() { }
 
+  clearListeners() {
+    console.log("CLEAR!");
+    firebase.database().ref("Hubs/" + this.hubService.currentHub.name).off();
+  }
   logoutWithGoogle() {
     console.log("uname: "+ this.usersService.currentUser.username);
     this.usersService.currentUser = null;

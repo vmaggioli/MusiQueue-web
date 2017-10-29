@@ -78,7 +78,6 @@ export class QueueService {
   removeCurrent(hubId) {
     firebase.database().ref("Hubs/" + hubId + "/current_song").remove();
   }
-
   upvote(song) {
     var ref = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     ref.once("value", songID => {

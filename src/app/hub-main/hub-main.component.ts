@@ -24,7 +24,6 @@ import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 
 export class HubMainComponent  {
   public player;
-  private id: string = '';
   private state: number;
   public songList: FirebaseListObservable<YTSong[]>;
   public queueList: FirebaseListObservable<Song[]>;
@@ -39,6 +38,7 @@ export class HubMainComponent  {
   public hubUsers: User[];
   public isUpvoted: boolean;
   public isDownvoted: boolean;
+  public currentSong: Song;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,7 +53,6 @@ export class HubMainComponent  {
     this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
       this.sortQueue(items);
     });
-    this.hasSongs = (this.songs != null) && (this.songs.length > 0);
   }
   sortQueue(items) {
     console.log("entering sort");
@@ -70,22 +69,23 @@ export class HubMainComponent  {
       else return 0;
     });
 
-    if (this.songs.length > 0) {
-      this.id = this.songs[0].video_id;
+    if (this.currentSong == undefined && this.songs.length > 0) {
+      this.currentSong = this.songs[0];
       this.hasSongs = true;
+      this.queueService.removeSong(this.hubService.currentHub.name, this.songs[0].video_id);
     }
+    else if (this.currentSong != undefined)
+      this.hasSongs = true;
     else
       this.hasSongs = false;
-    if (this.state < 1)
-      this.player.playVideo();
-    console.log("exiting sort");
+    if (this.state < 1 && this.hasSongs)
+      this.player.loadVideoById(this.currentSong.video_id);
   }
 
   savePlayer (player) {
     this.player = player;
-    console.log('player instance', this.player)
     if (this.state != -1)
-      this.player.loadVideoById(this.id);
+      this.player.loadVideoById(this.currentSong.video_id);
 	}
   /*
    * Player States:
@@ -102,13 +102,13 @@ export class HubMainComponent  {
       case 0:
         console.log("finished");
         this.state = 0;
-
-        if (this.songs.length > 1)
-          this.player.loadVideoById(this.songs[1].video_id);
-        var last = this.songs.length - 1;
-        this.queueService.removeSong(this.hubService.currentHub.name, this.songs[0].video_id);
-        if (last == 0)
-          this.hasSongs = false;
+        this.currentSong = undefined;
+        if (this.songs.length > 0) {
+          this.currentSong = this.songs[0];
+          this.queueService.removeSong(this.hubService.currentHub.name, this.songs[0].video_id);
+        }
+        if (this.currentSong != undefined)
+          this.player.loadVideoById(this.currentSong.video_id);
         break;
       case 1:
       this.state = 1;
@@ -136,7 +136,15 @@ export class HubMainComponent  {
     var title = youtubeItem.song_name;
     var thumbnail = youtubeItem.thumbnail; //there are other sizes
     var videoId = youtubeItem.video_id;
-    this.queueService.addSong(title, thumbnail, videoId, this.hubService.currentHub.name);
+    if (this.currentSong == undefined) {
+      this.currentSong = new Song(
+        0, this.hubService.currentHub.name, false, 0, title,
+        thumbnail, Date.now(), 0, this.usersService.currentUser.uid,
+        this.usersService.currentUser.username, videoId
+      );
+    }
+    else
+      this.queueService.addSong(title, thumbnail, videoId, this.hubService.currentHub.name);
     this.hasSongs = true;
     this.onSelected("queue");
   }
@@ -190,7 +198,6 @@ export class HubMainComponent  {
         var isUpvoted = false;
         if (vote.val() != null) {
           if (vote.val().songVote == "upvote") {
-            //console.log("song is upvoted. change to blue");
             isUpvoted = true;
           } else {
             isUpvoted = false;

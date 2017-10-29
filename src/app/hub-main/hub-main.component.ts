@@ -155,6 +155,7 @@ export class HubMainComponent  {
         thumbnail, Date.now(), 0, this.usersService.currentUser.uid,
         this.usersService.currentUser.username, videoId
       );
+      this.currentSong.video_id = videoId;
       this.queueService.setCurrent(this.currentSong, this.hubService.currentHub.name);
     }
     else

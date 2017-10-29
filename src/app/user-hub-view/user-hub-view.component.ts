@@ -46,8 +46,8 @@ export class UserHubViewComponent {
          this.currentSong = new Song (
            s.down_votes, s.hub_id, false, s.rank, s.song_name,
            s.thumbnail, s.time_added, s.up_votes, s.user_id,
-           s.username, s.video_id);
-           this.currentSong.video_id = s.video_id;
+           s.username, s.video_id
+         );
        }
      });
      this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {

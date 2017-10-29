@@ -53,11 +53,11 @@ export class HubMainComponent  {
     firebase.database().ref("Hubs/" + this.hubService.currentHub.name + "/current_song").once("value", s => {
       if (s.val() != null && s.val() != undefined) {
         this.currentSong = new Song (
-          s.val().down_votes, s.val().hub_id, s.val().playing, s.val().rank, s.val().song_name,
+          s.val().down_votes, s.val().hub_id, false, s.val().rank, s.val().song_name,
           s.val().thumbnail, s.val().time_added, s.val().up_votes, s.val().user_id,
-          s.val().username, s.val().video_id);
+          s.val().username, s.val().video_id
+        );
         this.currentSong.video_id = s.val().video_id;
-        console.log("video: " + this.currentSong.video_id);
         this.hasSongs = true;
       }
     });
@@ -95,7 +95,6 @@ export class HubMainComponent  {
 
   savePlayer (player) {
     this.player = player;
-    console.log("vidID : " + this.currentSong.video_id);
     if (this.state != -1)
       this.player.loadVideoById(this.currentSong.video_id);
 	}

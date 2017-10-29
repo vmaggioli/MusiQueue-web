@@ -57,6 +57,7 @@ export class HubMainComponent  {
           s.val().thumbnail, s.val().time_added, s.val().up_votes, s.val().user_id,
           s.val().username, s.val().video_id
         );
+        this.currentSong.video_id = s.val().video_id;
         this.hasSongs = true;
       }
     });
@@ -153,6 +154,7 @@ export class HubMainComponent  {
         thumbnail, Date.now(), 0, this.usersService.currentUser.uid,
         this.usersService.currentUser.username, videoId
       );
+      this.currentSong.video_id = videoId;
       this.queueService.setCurrent(this.currentSong, this.hubService.currentHub.name);
     }
     else

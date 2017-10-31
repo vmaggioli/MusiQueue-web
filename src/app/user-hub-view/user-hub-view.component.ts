@@ -6,6 +6,7 @@ import { UsersService } from '../shared/users.service';
 import { User } from '../objects/user';
 import { Song } from '../objects/song';
 import { Hub } from '../objects/hub';
+import { Vote } from '../objects/vote';
 import { YTSong } from '../objects/YTsong';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseListObservable } from 'angularfire2/database';
@@ -32,6 +33,7 @@ export class UserHubViewComponent {
   public users: User[];
   public  hubn: string ='';
   public currentSong: Song;
+  public votedSongs: Vote[];
 
   constructor(
     private route: ActivatedRoute,
@@ -67,12 +69,22 @@ export class UserHubViewComponent {
          //this.currentSong.username = s.username;
          //this.currentsong.video_id = s.video_id;
        }
-       else {
-
-       }
      });
      this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
        this.sortQueue(items);
+     });
+     this.queueService.getVotes(this.usersService.currentUser.uid).subscribe(songs => {
+       this.votedSongs = [];
+       songs.forEach(s => {
+         let key = s.$key;
+         if (this.hubService.currentHub.name.length <= key.length) {
+           let hubName = key.substring(0, this.hubService.currentHub.name.length);
+           let videoId = key.substring(this.hubService.currentHub.name.length);
+           if (hubName == this.hubService.currentHub.name) {
+             this.votedSongs.push(new Vote(s.songVote, hubName, videoId));
+           }
+         }
+       });
      });
      this.hubn = this.hubService.currentHub.name;
 
@@ -118,6 +130,35 @@ export class UserHubViewComponent {
       });
     }
   }
+
+  upIsPressed(song): boolean {
+    var toReturn: boolean;
+    this.votedSongs.forEach(s => {
+      if (s.video_id == song.video_id) {
+        if (s.vote_status == "upvote") {
+          toReturn = true;
+        } else {
+          toReturn = false;
+        }
+      }
+    });
+    return toReturn;
+  }
+
+  downIsPressed(song) {
+    var toReturn: boolean;
+    this.votedSongs.forEach(s => {
+      if (s.video_id == song.video_id) {
+        if (s.vote_status == "downvote") {
+          toReturn = true;
+        } else {
+          toReturn = false;
+        }
+      }
+    });
+    return toReturn;
+  }
+
 
   onSearch(input: string) {
     this.ytsongs = [];

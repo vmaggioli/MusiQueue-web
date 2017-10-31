@@ -45,10 +45,16 @@
             <!-- QUEUE -->
             <li class="list-group-item" *ngFor="let song of songs">
               <span class="pull-right">
-                <button (click)="upvote(song)" type="button" class="vote">
+                <button mat-raised-button
+                  (click)="upvote(song)"
+                  [ngClass] = "{'pressed': upIsPressed(song), 'unpressed': !upIsPressed(song)}"
+                  type="button" class="vote-button">
                   <span class="glyphicon glyphicon-thumbs-up"></span>
                 </button>
-                <button (click)="downvote(song)" type="butotn" class="vote">
+                <button mat-raised-button
+                  (click)="downvote(song)"
+                  [ngClass] = "{'pressed': downIsPressed(song), 'unpressed': !downIsPressed(song)}"
+                  type="button" class="vote-button">
                   <span class="glyphicon glyphicon-thumbs-down"></span>
                 </button>
                 <p id="rank">{{ song.up_votes - song.down_votes }}</p>

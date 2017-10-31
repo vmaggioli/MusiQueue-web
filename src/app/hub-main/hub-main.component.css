@@ -174,12 +174,7 @@ li {
   display: inline-block;
 }
 
-#upvoteButton {
-  min-width: 20px;
-  padding: 0px 6px 0px 6px;
-}
-
-#downvoteButton {
+.vote-button {
   min-width: 20px;
   padding: 0px 6px 0px 6px;
 }
@@ -192,6 +187,14 @@ li {
 }
 #removeSong:hover {
   cursor: pointer;
+}
+
+.unpressed {
+  background-color: white;
+}
+
+.pressed {
+  background-color: #F0F0F0;
 }
 
 main {

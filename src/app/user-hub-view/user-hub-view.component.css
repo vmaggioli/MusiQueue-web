@@ -147,8 +147,17 @@ li {
   display: inline-block;
 }
 
-.vote {
-  padding: 4px 6px 2px 6px;
+.vote-button {
+  min-width: 20px;
+  padding: 0px 6px 0px 6px;
+}
+
+.unpressed {
+  background-color: white;
+}
+
+.pressed {
+  background-color: #F0F0F0;
 }
 
 main {

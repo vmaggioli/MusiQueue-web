@@ -7,6 +7,7 @@ import { YoutubeService } from '../shared/youtube.service';
 import { YouTubePlayer } from 'youtube-player';
 import { Song } from '../objects/song';
 import { Hub } from '../objects/hub';
+import { Vote } from '../objects/vote';
 import { YTSong } from '../objects/YTsong';
 import { FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
@@ -39,6 +40,7 @@ export class HubMainComponent  {
   public isUpvoted: boolean;
   public isDownvoted: boolean;
   public currentSong: Song;
+  public votedSongs: Vote[];
 
   constructor(
     private route: ActivatedRoute,
@@ -66,16 +68,27 @@ export class HubMainComponent  {
         this.currentSong = new Song (down_votes, hub_id, playing, rank, song_name, thumbnail, time_added, up_votes, user_id, username, video_id);
         this.currentSong.video_id = s.val().video_id;
         this.currentSong.username = username;
-        console.log("username: " + username);
         this.hasSongs = true;
       }
     });
     this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
       this.sortQueue(items);
     });
+    this.queueService.getVotes(this.usersService.currentUser.uid).subscribe(songs => {
+      this.votedSongs = [];
+      songs.forEach(s => {
+        let key = s.$key;
+        if (this.hubService.currentHub.name.length <= key.length) {
+          let hubName = key.substring(0, this.hubService.currentHub.name.length);
+          let videoId = key.substring(this.hubService.currentHub.name.length);
+          if (hubName == this.hubService.currentHub.name) {
+            this.votedSongs.push(new Vote(s.songVote, hubName, videoId));
+          }
+        }
+      });
+    });
   }
   sortQueue(items) {
-    console.log("entering sort");
     this.songs = items;
     this.songs.sort((a, b) => {
       let ar: number = a.rank;
@@ -163,7 +176,6 @@ export class HubMainComponent  {
       this.currentSong = new Song(0, this.hubService.currentHub.name, false, 0, title,thumbnail, Date.now(), 0, this.usersService.currentUser.uid,this.usersService.currentUser.username, videoId);
       this.currentSong.username = this.usersService.currentUser.username;
       this.currentSong.video_id = videoId;
-      console.log(this.currentSong);
       this.queueService.setCurrent(this.currentSong, this.hubService.currentHub.name);
     }
     else
@@ -180,7 +192,6 @@ export class HubMainComponent  {
       this.hubService.getHubUsers(this.hubService.currentHub.name).subscribe(users => {
         this.hubUsers = [];
         users.forEach(user => {
-          console.log("adding users");
           this.hubUsers.push(user);
         });
       });
@@ -219,43 +230,32 @@ export class HubMainComponent  {
     this.queueService.downvote(song);
   }
 
-  isSongUpvoted(song, callback) {
-    var songRef  = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
-    function songUpvoted(callback) {
-      songRef.once("value", vote => {
-        var isUpvoted = false;
-        if (vote.val() != null) {
-          if (vote.val().songVote == "upvote") {
-            isUpvoted = true;
-          } else {
-            isUpvoted = false;
-          }
+  upIsPressed(song): boolean {
+    var toReturn: boolean;
+    this.votedSongs.forEach(s => {
+      if (s.video_id == song.video_id) {
+        if (s.vote_status == "upvote") {
+          toReturn = true;
         } else {
-          isUpvoted = false;
+          toReturn = false;
         }
-        callback(isUpvoted);
-      });
-    }
-    var voteStatus = function(isUpvoted) {
-      return isUpvoted;
-    }
-
-    songUpvoted(voteStatus);
-  }
-
-  isSongDownvoted(song) {
-    var songRef  = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
-    songRef.once("value", vote => {
-      if (vote.val() != null) {
-        if (vote.val().songVote == "downvote") {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return false;
       }
     });
+    return toReturn;
+  }
+
+  downIsPressed(song) {
+    var toReturn: boolean;
+    this.votedSongs.forEach(s => {
+      if (s.video_id == song.video_id) {
+        if (s.vote_status == "downvote") {
+          toReturn = true;
+        } else {
+          toReturn = false;
+        }
+      }
+    });
+    return toReturn;
   }
 
   removeUser(user) {

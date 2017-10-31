@@ -58,14 +58,14 @@
               <span class="pull-right">
                 <button mat-raised-button
                   (click)="upvote(song)"
-                  [style.background-color] = "isSongUpvoted(song) ? 'blue' : 'gray'"
-                  type="button" id="upvoteButton">
+                  [ngClass] = "{'pressed': upIsPressed(song), 'unpressed': !upIsPressed(song)}"
+                  type="button" class="vote-button">
                   <span class="glyphicon glyphicon-thumbs-up"></span>
                 </button>
                 <button mat-raised-button
                   (click)="downvote(song)"
-                  [style.background-color] = "isSongDownvoted(song) ? 'blue' : 'gray'"
-                  type="button" id="downvoteButton">
+                  [ngClass] = "{'pressed': downIsPressed(song), 'unpressed': !downIsPressed(song)}"
+                  type="button" class="vote-button">
                   <span class="glyphicon glyphicon-thumbs-down"></span>
                 </button>
                 <p id="rank">{{ song.up_votes - song.down_votes }}</p>

@@ -147,6 +147,10 @@ li {
   display: inline-block;
 }
 
+#leave-hub {
+  margin-left: 20px;
+}
+
 .vote-button {
   min-width: 20px;
   padding: 0px 6px 0px 6px;

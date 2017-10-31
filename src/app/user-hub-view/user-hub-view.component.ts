@@ -40,7 +40,8 @@ export class UserHubViewComponent {
     public usersService: UsersService,
     public queueService: QueueService,
     public youtubeService: YoutubeService,
-    public hubService: HubService) {
+    public hubService: HubService,
+    public router: Router) {
 
    }
 
@@ -171,6 +172,10 @@ export class UserHubViewComponent {
 
   downvote(song) {
     this.queueService.downvote(song);
+  }
+
+  leaveHub() {
+    this.router.navigate(['/']);
   }
 
 }

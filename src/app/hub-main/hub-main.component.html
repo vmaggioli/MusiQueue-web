@@ -53,9 +53,9 @@
           </ul>
 
 
-          <ul *ngIf="isQueue" class="list-group">
+          <ul id="queue-list" *ngIf="isQueue" class="list-group">
             <!-- QUEUE -->
-            <li class="list-group-item" *ngFor="let song of songs">
+            <li id="queue-item" class="list-group-item" *ngFor="let song of songs">
               <span class="pull-right">
                 <button mat-raised-button
                   (click)="upvote(song)"

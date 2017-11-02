@@ -69,7 +69,7 @@ describe('CreateJoinComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have username in input', () => {
+  it('should have username in input', async(() => {
     expect(usersService).toBeDefined();
     fixture.detectChanges();
     fixture.whenStable().then(() => {
@@ -78,5 +78,5 @@ describe('CreateJoinComponent', () => {
       expect(el.value).toBe("admin");
     });
 
-  });
+  }));
 });

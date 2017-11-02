@@ -34,7 +34,7 @@ export class QueueService {
       song_name: title,
       time_added: date,
       up_votes: 0,
-      user_id: this.auth.getCurrentUser().uid,
+      user_id: this.usersService.currentUser.uid,
       username: this.usersService.currentUser.username,
       thumbnail: thumbnail,
       rank: 0
@@ -53,9 +53,6 @@ export class QueueService {
   }
 
   setCurrent(song, hubId) {
-    console.log(song);
-    console.log(song.video_id);
-    console.log("hub: " + hubId);
     firebase.database().ref("Hubs/").child(hubId).update(
       {
         current_song: {

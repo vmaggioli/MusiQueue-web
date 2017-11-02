@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { MatCardModule, MatButtonModule, MatTabsModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 import { Animations } from '@angular/animations';
@@ -59,6 +59,7 @@ import { HubLoginComponent } from './hub-login/hub-login.component';
     BrowserAnimationsModule
 
   ],
+  schemas: [ NO_ERRORS_SCHEMA ],
   providers: [
     UsersService,
     AuthService,

@@ -93,8 +93,8 @@ export class HubMainComponent  {
     this.songs.sort((a, b) => {
       let ar: number = a.rank;
       let br: number = b.rank;
-      let ad: Date = a.time_added;
-      let bd: Date = b.time_added;
+      let ad: number = a.time_added;
+      let bd: number = b.time_added;
       if (ar < br) return 1;
       else if (ar > br) return -1;
       else if (ad < bd) return -1;

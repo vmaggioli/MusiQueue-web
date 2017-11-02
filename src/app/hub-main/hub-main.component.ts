@@ -74,6 +74,7 @@ export class HubMainComponent  {
     this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
       this.sortQueue(items);
     });
+
     this.queueService.getVotes(this.usersService.currentUser.uid).subscribe(songs => {
       this.votedSongs = [];
       songs.forEach(s => {
@@ -87,6 +88,7 @@ export class HubMainComponent  {
         }
       });
     });
+
   }
   sortQueue(items) {
     this.songs = items;

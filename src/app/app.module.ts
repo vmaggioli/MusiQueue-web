@@ -9,16 +9,18 @@ import { AppComponent } from './app.component';
 import * as firebase from "firebase";
 
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from './shared/auth.service';
 import { UsersService } from './shared/users.service';
 import { HubService } from './shared/hub.service';
 import { environment } from '../environments/environment';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { LoginGuard } from './shared/login-guard.module';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 
 import { HubMainComponent } from './hub-main/hub-main.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -50,21 +52,23 @@ import { HubLoginComponent } from './hub-login/hub-login.component';
     AngularFireAuthModule,
     YoutubePlayerModule,
     AppRoutingModule,
+    RouterModule,
     MatTabsModule,
     FormsModule,
     MatCardModule,
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    BrowserAnimationsModule
-
+    BrowserAnimationsModule,
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [
     UsersService,
     AuthService,
     LoginGuard,
-    HubService
+    HubService,
+    AngularFireAuth,
+    AngularFireDatabase,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
 import { CreateJoinComponent } from './create-join.component';
 import { MatCardModule, MatButtonModule, MatTabsModule, MatInputModule, MatFormFieldModule } from '@angular/material';
@@ -17,12 +19,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { YoutubeService } from '../shared/youtube.service';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { HttpModule } from "@angular/http";
+import { User } from '../objects/user';
 
 
 describe('CreateJoinComponent', () => {
   let component: CreateJoinComponent;
   let fixture: ComponentFixture<CreateJoinComponent>;
 
+  let usersService: UsersService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -61,5 +65,15 @@ describe('CreateJoinComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have username in input', () => {
+    inject([UsersService], (usersService) => {
+      usersService.currentUser = new User("admin", "cJLlE03u8bfoWJQePFAsAjZuN9i2", true, false, "mqmobileproject@gmail.com", Date.now(), []);
+      expect(usersService).toBeDefined();
+      let input = fixture.debugElement.query(By.css('uname_input'));
+      let el = input.nativeElement;
+      expect(el.value).toBe("admin");
+    });
   });
 });

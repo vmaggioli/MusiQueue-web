@@ -47,26 +47,21 @@ export class UserHubViewComponent {
 
    ngOnInit() {
      firebase.database().ref("Hubs/" + this.hubService.currentHub.name).on("child_changed", s1 => {
-       console.log(s1);
        if (s1.key == "current_song") {
          this.queueService.getCurrent(this.hubService.currentHub.name).subscribe(s => {
            if (s != null && s != undefined) {
              this.currentSong = new Song(s.down_votes, s.hub_id, false, s.rank, s.song_name,
                s.thumbnail, s.time_added, s.up_votes, s.user_id, s.username, s.video_id);
-             console.log(this.currentsong);
              //this.currentSong.username = s.username;
              //this.currentsong.video_id = s.video_id;
            }
+         });
        }
      });
      this.queueService.getCurrent(this.hubService.currentHub.name).subscribe(s => {
-       console.log(JSON.stringify(s));
        if (s != null && s != undefined) {
-          console.log("meh: " + s.down_votes+ s.hub_id+ false+ s.rank+ s.song_name+
-            s.thumbnail+ s.time_added+ s.up_votes+ s.user_id+ s.username+ s.video_id);
          this.currentSong = new Song(s.down_votes, s.hub_id, false, s.rank, s.song_name,
            s.thumbnail, s.time_added, s.up_votes, s.user_id, s.username, s.video_id);
-         console.log(this.currentsong);
          //this.currentSong.username = s.username;
          //this.currentsong.video_id = s.video_id;
        }
@@ -98,8 +93,8 @@ export class UserHubViewComponent {
      this.songs.sort((a, b) => {
        let ar: number = a.rank;
        let br: number = b.rank;
-       let ad: Date = a.time_added;
-       let bd: Date = b.time_added;
+       let ad: number = a.time_added;
+       let bd: number = b.time_added;
        if (ar < br) return 1;
        else if (ar > br) return -1;
        else if (ad < bd) return -1;

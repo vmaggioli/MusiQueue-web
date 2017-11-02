@@ -37,7 +37,7 @@ export class HubLoginComponent {
       });
       this.hubService.getHubByName(this.name).subscribe(hub => {
         this.creator = hub.creator;
-        this.pin = hub.pin;
+        this.pin = Number(hub.pin);
         this.hub = hub;
 
         for (let user in hub.users) {

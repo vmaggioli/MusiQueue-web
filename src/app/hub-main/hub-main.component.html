@@ -3,7 +3,8 @@
   <div id="hubConsole">
     <div id="left-console">
       <div id="video" *ngIf="hasSongs">
-        <youtube-player id="player" [videoId]="id" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
+        <!--<youtube-player id="player" [videoId]="id" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>-->
+        <youtube-player id="player" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
       </div>
       <div id="noVideo" *ngIf="!hasSongs">
         <p id="noSongsText"> Welcome to your hub. There are currently no songs in your playlist. Go to the "Songs" tab to add songs.</p>

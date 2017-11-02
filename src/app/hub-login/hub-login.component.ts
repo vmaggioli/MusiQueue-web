@@ -29,12 +29,14 @@ export class HubLoginComponent {
     this.route.params.subscribe(params => {
       this.name = params['name'];
       name = this.name;
-      firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/kicked_list").orderByValue().equalTo(name).once("value", snap => {
-        if (snap != null && snap.val() != null) {
-          confirm("Sorry, you have previously been kicked out of this Hub and are not allowed to rejoin.");
-          this.router.navigate(['join-hub']);
-        }
-      });
+      if (this.usersService != undefined && this.usersService.currentUser != undefined) {
+        firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/kicked_list").orderByValue().equalTo(name).once("value", snap => {
+          if (snap != null && snap.val() != null) {
+            confirm("Sorry, you have previously been kicked out of this Hub and are not allowed to rejoin.");
+            this.router.navigate(['join-hub']);
+          }
+        });
+      }
       this.hubService.getHubByName(this.name).subscribe(hub => {
         this.creator = hub.creator;
         this.pin = Number(hub.pin);

@@ -6,13 +6,13 @@ export class Hub {
   creator: string;
   creator_uid: string;
   pin: string;
-  last_active: Date;
+  last_active: number;
   hub_uid: string;
   users: User[];
   songs: Song[];
   public constructor (
     name: string, creator: string, creator_uid: string, pin: string,
-    last_active: Date, users: User[], songs: Song[]
+    last_active: number, users: User[], songs: Song[]
   ) {
     this.name = name;
     this.creator = creator;

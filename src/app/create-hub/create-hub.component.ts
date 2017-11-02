@@ -17,10 +17,10 @@ export class CreateHubComponent {
 
   name: string;
   passwd: string;
-  location = {};
+  location = undefined;
   constructor(
-    private router: Router
-    public hubService: HubService
+    private router: Router,
+    public hubService: HubService,
     public usersService: UsersService) {
 
   }
@@ -32,7 +32,7 @@ export class CreateHubComponent {
   gotoHubMain(name:string,passwd:string) {
     this.passwd = passwd;
     this.name = name;
-    
+
         if(name.indexOf(' ') != -1) {
       confirm("Hub name cannot use certain special characters ( . , ? | / [ ] )");
       return;
@@ -74,15 +74,15 @@ export class CreateHubComponent {
       return;
     }
 
-    if(isValidPW(this.passwd) && isValidName(this.name)) {
+    if(this.isValidPW(this.passwd) && this.isValidName(this.name)) {
       var hubRef = firebase.database().ref("Hubs/" + this.name);
       hubRef.once("value", hubName => {
         if (hubName.val() == null) {
-          this.hubService.currentHub = new Hub(this.name, "user", "user", this.passwd, "date", [], []);
+          this.hubService.currentHub = new Hub(this.name, "user", "user", this.passwd, Date.now(), [], []);
           if (this.location.longitude != undefined) {
             this.hubService.createHub("false", "user", "date", this.location.latitude, this.location.longitude, this.name, this.passwd, "users", "wifi");
           } else {
-            this.hubService.createHub("false", "user", "date", 0, 0, this.name, this.passwd, "users", "wifi");
+            this.hubService.createHub("false", "user", "date", "0", "0", this.name, this.passwd, "users", "wifi");
           }
           this.usersService.addHubUnderUser(this.usersService.currentUser.uid, this.name);
           this.usersService.addUserToHub(this.usersService.currentUser.uid, this.name);
@@ -103,18 +103,18 @@ export class CreateHubComponent {
       this.location = pos.coords;
     });
   }
-}
 
-var isValidPW(passwd) {
-  if(Number(passwd).toString() === "NaN" || passwd.length != 4) {
-    return false;
+  isValidPW(passwd) {
+    if(Number(passwd).toString() === "NaN" || passwd.length != 4) {
+      return false;
+    }
+    return true;
   }
-  return true;
 
-}
-var isValidName(hubName){
-  if(hubName.length < 1 || hubName.indexOf(' ') != -1) {
-    return false;
+  isValidName(hubName){
+    if(hubName.length < 1 || hubName.indexOf(' ') != -1) {
+      return false;
+    }
+    return true;
   }
-  return true;
 }

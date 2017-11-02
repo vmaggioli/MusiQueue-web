@@ -21,7 +21,8 @@ export class CreateJoinComponent {
   }
 
   ngOnInit() {
-    this.uname = this.usersService.currentUser.username;
+    if (this.usersService != undefined && this.usersService.currentUser != undefined)
+      this.uname = this.usersService.currentUser.username;
   }
 
   gotoJoinHub(name:string) {

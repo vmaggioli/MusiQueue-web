@@ -59,6 +59,8 @@ describe('CreateJoinComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateJoinComponent);
+    usersService = TestBed.get(UsersService);
+    usersService.currentUser = new User("admin", "cJLlE03u8bfoWJQePFAsAjZuN9i2", true, false, "mqmobileproject@gmail.com", Date.now(), []);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -68,12 +70,13 @@ describe('CreateJoinComponent', () => {
   });
 
   it('should have username in input', () => {
-    inject([UsersService], (usersService) => {
-      usersService.currentUser = new User("admin", "cJLlE03u8bfoWJQePFAsAjZuN9i2", true, false, "mqmobileproject@gmail.com", Date.now(), []);
-      expect(usersService).toBeDefined();
-      let input = fixture.debugElement.query(By.css('uname_input'));
+    expect(usersService).toBeDefined();
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      let input = fixture.debugElement.query(By.css('#uname_input'));
       let el = input.nativeElement;
       expect(el.value).toBe("admin");
     });
+
   });
 });

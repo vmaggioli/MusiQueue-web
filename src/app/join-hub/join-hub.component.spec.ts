@@ -60,6 +60,32 @@ describe('JoinHubComponent', () => {
     fixture.detectChanges();
   });
 
+  it('should have search parameter in results', async(() => {
+    let input = fixture.debugElement.query(By.css('#search-input'));
+    let el = input.nativeElement;
+    el.value = "brian";
+    let searchButton = fixture.debugElement.query(By.css('#search-button'));
+    let searchButtonEl = searchButton.nativeElement;
+    searchButtonEl.click();
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      let result = fixture.debugElement.query(By.css('.hub-search-list'));
+      let results = result.children;
+      results.forEach(res => {
+        console.log(res.context.$implicit);
+      });
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        let result = fixture.debugElement.query(By.css('.hub-search-list'));
+        let results = result.children;
+        results.forEach(res => {
+          let good = res.context.$implicit.name.indexOf("brian") >= 0;
+          expect(good).toBe(true);
+        });
+      });
+    });
+  }));
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });

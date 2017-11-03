@@ -76,9 +76,9 @@ export class HubService {
   }
 
   removeUser(name, user) {
-    // firebase.database().ref("Hubs/" + name + "/users/" + user.uid).remove();
-    // firebase.database().ref("Users/" + user.uid + "/hub_list/" + name).remove();
-  }
+    firebase.database().ref("Hubs/" + name + "/users/" + user.uid).remove();
+    firebase.database().ref("Users/" + user.uid + "/hub_list/" + name).remove();
+   }
 
   removeSong(name, song) {
     firebase.database().ref("Songs/" + name + song.video_id).remove();

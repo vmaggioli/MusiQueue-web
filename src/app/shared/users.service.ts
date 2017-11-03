@@ -121,7 +121,6 @@ export class UsersService {
 
   addToKickedList(hub: string, user: string) {
     firebase.database().ref("/Users/" + user + "/kicked_list").push(hub);
-    console.log("added to kick list");
   }
 
 }

@@ -108,7 +108,22 @@ export class UserHubViewComponent {
     var title = youtubeItem.song_name;
     var thumbnail = youtubeItem.thumbnail; //there are other sizes
     var videoId = youtubeItem.video_id;
-    this.queueService.addSong(title, thumbnail, videoId, this.hubService.currentHub.name);
+    var abort = false;
+    this.songs.forEach(song => {
+      if (song.video_id == videoId) {
+        confirm(song.song_name + " is already on the queue");
+        abort = true;
+      }
+    });
+    if (abort) return;
+    if (this.currentSong == undefined) {
+      this.currentSong = new Song(0, this.hubService.currentHub.name, false, 0, title,thumbnail, Date.now(), 0, this.usersService.currentUser.uid,this.usersService.currentUser.username, videoId);
+      this.currentSong.username = this.usersService.currentUser.username;
+      this.currentSong.video_id = videoId;
+      this.queueService.setCurrent(this.currentSong, this.hubService.currentHub.name);
+    }
+    else
+      this.queueService.addSong(title, thumbnail, videoId, this.hubService.currentHub.name);
     this.onSelected("queue");
   }
 

@@ -6,7 +6,7 @@
 		<mat-card-subtitle>
 			<div class="hub">Search for a Hub:</div>
 			<input id="hub-search" type="text" #Hub>
-			<button mat-raised-button color="accent" (click)="searchHubs(Hub.value)">Search</button>
+			<button id="search-button" mat-raised-button color="accent" (click)="searchHubs(Hub.value)">Search</button>
 			<br>
 			<button mat-raised-button color="primary" (click)="searchLocation()">Search By Location</button>
 			<button mat-raised-button color="primary" (click)="recentHubs()">Find Recent Hubs</button>

@@ -38,7 +38,6 @@ export class HubService {
     var hubsBySearch: Hub[] = [];
     this.db.list("Hubs").subscribe(searchHubs => {
       searchHubs.forEach(hub => {
-        console.log("hub: " + hub.name);
         if (name.length <= hub.name.length) {
           if (name.toLowerCase() == hub.name.substring(0, name.length).toLowerCase()) {
             hubsBySearch.push(hub);

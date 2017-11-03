@@ -89,4 +89,15 @@ describe('JoinHubComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('search input should exist', () => {
+    const input = fixture.debugElement.query(By.css('#hub-search'));
+    expect(input).toBeTruthy();
+  });
+
+  it('should init search empty', () => {
+    const input = fixture.debugElement.query(By.css('#hub-search'));
+    const spanInput = input.nativeElement;
+    expect(spanInput.innerHTML).toEqual('');
+  });
 });

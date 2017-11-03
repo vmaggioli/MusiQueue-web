@@ -174,6 +174,14 @@ export class HubMainComponent  {
     var title = youtubeItem.song_name;
     var thumbnail = youtubeItem.thumbnail; //there are other sizes
     var videoId = youtubeItem.video_id;
+    var abort = false;
+    this.songs.forEach(song => {
+      if (song.video_id == videoId) {
+        confirm(song.song_name + " is already on the queue");
+        abort = true;
+      }
+    });
+    if (abort) return;
     if (this.currentSong == undefined) {
       this.currentSong = new Song(0, this.hubService.currentHub.name, false, 0, title,thumbnail, Date.now(), 0, this.usersService.currentUser.uid,this.usersService.currentUser.username, videoId);
       this.currentSong.username = this.usersService.currentUser.username;

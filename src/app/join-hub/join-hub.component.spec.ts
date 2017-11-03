@@ -61,7 +61,7 @@ describe('JoinHubComponent', () => {
   });
 
   it('should have search parameter in results', async(() => {
-    let input = fixture.debugElement.query(By.css('#search-input'));
+    let input = fixture.debugElement.query(By.css('#hub-search'));
     let el = input.nativeElement;
     el.value = "brian";
     let searchButton = fixture.debugElement.query(By.css('#search-button'));

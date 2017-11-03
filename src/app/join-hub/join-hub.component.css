@@ -31,3 +31,9 @@ a:hover {
   color: black;
   text-decoration: none;
 }
+
+.recent {
+  margin: auto;
+  text-align: center;
+  color: gray;
+}

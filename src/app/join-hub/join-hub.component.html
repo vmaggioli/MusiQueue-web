@@ -23,6 +23,7 @@
 						</a>
 					</li>
 				</ul>
+				<p *ngIf="displayingRecentHubs" class="recent">Most Recent</p>
 				<ul *ngIf="displayingRecentHubs" class = "hub-search-list">
 					<li *ngFor="let hub of recentHubsOfUser" class="list-group-item selectable">
 						<a class="list-route" [routerLink]="['/hub-login', hub.name]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
@@ -33,6 +34,7 @@
 						</a>
 					</li>
 				</ul>
+				<p *ngIf="displayingRecentHubs" class="recent">Least Recent</p>
 				<ul *ngIf="displayingSearchHubs" class = "hub-search-list">
 					<li *ngFor="let hub of hubsFromSearch" class="list-group-item selectable">
 						<a class="list-route" [routerLink]="['/hub-login', hub.name]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">

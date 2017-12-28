@@ -26,9 +26,9 @@
       <mat-tab-group [(selectedIndex)]="tabIdx" (selectedTabChange)="onSelected($event)">
 
         <mat-tab label="Queue" (click)="onSelected('queue')" [ngClass]="{ 'selected' : isQueue }">
-            <ul id="queue-list"><!-- *ngIf="isQueue" class="list-group">-->
+            <ul id="queue-list" class="scroll-list"><!-- *ngIf="isQueue" class="list-group">-->
               <!-- QUEUE -->
-              <li id="queue-item" class="list-group-item" *ngFor="let song of songs">
+              <li id="queue-item" class="list-group-item man-adjust" *ngFor="let song of songs">
                 <span class="pull-right">
                   <button mat-raised-button
                     (click)="upvote(song)"
@@ -76,9 +76,9 @@
         </mat-tab>
 
         <mat-tab label="Users" (click)="onSelected('users')" [ngClass]="{ 'selected' : isUsers }">
-            <ul class="list-gorup">
+            <ul class="list-gorup man-adjust">
               <!-- USERS -->
-              <li class="list-group-item" *ngFor="let user of hubUsers">
+              <li class="list-group-item man-adjust" *ngFor="let user of hubUsers">
                 <span class="pull-right">
                   <button *ngIf="user.uid != usersService.currentUser.uid" (click)="removeUser(user)" type="button" class="btn btn-danger">
                     <span class="glyphicon glyphicon-remove"></span>

@@ -120,6 +120,9 @@ export class HubMainComponent  {
 
   savePlayer (player) {
     this.player = player;
+    this.player.a.height = 200;
+    this.player.a.width = 300;
+    console.log(this.player);
     if (this.state != -1)
       this.player.loadVideoById(this.currentSong.video_id);
 	}

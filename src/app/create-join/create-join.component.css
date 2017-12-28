@@ -1,13 +1,8 @@
-
-#buttonContainer {
-	text-align: center;
-}
-
 #crtjoin {
   margin-bottom: 50px;
 }
 
-#card {
+.mat-card-create-join {
   text-align: cneter;
   margin: auto;
   width: 350px;;
@@ -16,4 +11,21 @@
 #content {
   text-align: center;
   margin: auto;
+}
+
+mat-card-header {
+	background-color: #303f9e;
+	color: white;
+	margin-bottom: 25px;
+}
+
+.mat-raised-button {
+	background-color: #303f9e;
+	color: white;
+	margin: 10px;
+}
+
+.center-text {
+	text-align: center;
+	width: 100%;
 }

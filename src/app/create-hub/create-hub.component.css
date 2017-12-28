@@ -1,17 +1,31 @@
-button {
-  margin-top: 10px;
-}
-
 p {
   margin-top: 2px;
   margin-bottom: 2px;
 }
 
 #geo-locat {
-  padding: 40px;
+  padding: 20px 20px 10px 20px;
 }
-.centered {
+
+.mat-card-create-hub {
   text-align: center;
   width: 500px;
   margin: auto;
+}
+
+.center-text {
+  text-align: center;
+  width: 100%;
+}
+
+mat-card-header {
+   background-color: #303f9e;
+   color: white;
+   margin-bottom: 20px;
+}
+
+.mat-raised-button {
+	background-color: #303f9e;
+	color: white;
+	margin: 10px;
 }

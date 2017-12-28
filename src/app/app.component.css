@@ -1,0 +1,29 @@
+.container-fluid {
+  background-color: #e0e0e0;
+  padding: 8px;
+  width: 100%;
+}
+
+.navbar-brand {
+  color: #303f9e;
+  font-weight: bold;
+  font-size: 18px;
+  height: 30px;
+  padding: 5px 10px 20px 10px;
+}
+
+.navbar-brand:hover {
+  border-radius: 20px;
+  background-color: #303f9e;
+  color: #c0c0c0;
+}
+
+.set-right {
+  float: right;
+  cursor: pointer;
+}
+
+.spacer {
+  float: left;
+  visibility: hidden;
+}

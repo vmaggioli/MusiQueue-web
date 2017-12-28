@@ -41,6 +41,7 @@ export class HubMainComponent  {
   public isDownvoted: boolean;
   public currentSong: Song;
   public votedSongs: Vote[];
+  public tabIdx: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -191,11 +192,12 @@ export class HubMainComponent  {
     else
       this.queueService.addSong(title, thumbnail, videoId, this.hubService.currentHub.name);
     this.hasSongs = true;
-    this.onSelected("queue");
+    this.tabIdx = 0;
+    this.onSelected(0);
   }
 
-  onSelected(tab: string) {
-    if (tab == "users") {
+  onSelected(tab) {
+    if (this.tabIdx == 2) {
       this.isQueue = false;
       this.isSongs = false;
       this.isUsers = true;
@@ -206,13 +208,13 @@ export class HubMainComponent  {
         });
       });
     }
-    else if (tab == "songs") {
+    else if (this.tabIdx == 1) {
       this.isQueue = false;
       this.isUsers = false;
       this.isSongs = true;
       this.ytsongs = [];
     }
-    else if (tab == "queue") {
+    else if (this.tabIdx == 0) {
       this.isUsers = false;
       this.isSongs = false;
       this.isQueue = true;

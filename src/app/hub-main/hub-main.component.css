@@ -2,11 +2,10 @@
 #queue-item {}
 #hubTitle {
   text-align: center;
-  padding-bottom: 50px;
+  padding-bottom: 10px;
 }
 
 #hubConsole {
-/*  display:inline-block;*/
   position: absolute;
   width: 70%;
   left:50%;
@@ -19,6 +18,10 @@
   float: left;
   width: 50%;
   padding: 20px;
+  height: 100%;
+}
+#player {
+  width: 50%;
 }
 
 #left-console {
@@ -37,6 +40,7 @@
   float:left;
   clear:both;
   padding-bottom: 20px;
+  padding-left: 20px;
 }
 
 #current-song-thumb {
@@ -53,8 +57,8 @@
 #itemList {
   float: right;
   width: 50%;
-  margin-top: -47.6px;
   margin-bottom: 25px;
+  padding-right: 20px;
 }
 
 #addButton {
@@ -70,14 +74,12 @@
 .list-group-item {
   display: inline-block;
   width: 100%;
+  margin-left: -20px;
 }
 
 .thumbnail-text {
   float: left;
   margin-right: 10px;
-}
-
-.text {
 }
 
 .right {
@@ -95,81 +97,14 @@ li {
   cursor: pointer;
 }
 
-.right p {
-	position: relative;
-	display: inline-block;
-	/*padding: 1.5em 1.5em 1em;*/
-	color: inherit;
-	text-decoration: none;
-	/*margin: 0 -7px;*/
+input {
+  left: -20px;
+  top: -10px;
 }
 
-.right p::before {
-	content: ''; /* To generate the box */
-	position: absolute;
-	top: 0; right: 0; bottom: .5em; left: 0;
-	z-index: -1;
-	border-bottom: none;
-	border-radius: 10px 10px 0 0;
-	background: #eee;
-	box-shadow: 0 2px hsla(0,0%,100%,.5) inset;
-	transform: perspective(5px) rotateX(2deg);
-	transform-origin: bottom;
-}
-
-.right p {
-	padding: 1.5em 1em 1em 2em;
-}
-
-.right p::before {
-	transform-origin: bottom right;
-}
-
-.right p.selected {
-	z-index: 2;
-}
-
-.right p.selected::before {
-	background: #ddd;
-}
-
-.right p:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-#custom-search-input{
-    padding: 3px;
-    border: solid 1px #E4E4E4;
-    border-radius: 6px;
-    background-color: #fff;
-    margin-right: 20px;
-}
-
-#custom-search-input input{
-    border: 0;
-    box-shadow: none;
-    font-size: 18px;
-}
-
-#custom-search-input button{
-    margin: 2px 0 0 0;
-    background: none;
-    box-shadow: none;
-    border: 0;
-    color: #666666;
-    padding: 0 8px 0 10px;
-    border-left: solid 1px #ccc;
-}
-
-#custom-search-input button:hover{
-    border: 0;
-    box-shadow: none;
-    border-left: solid 1px #ccc;
-}
-
-#custom-search-input .glyphicon-search{
-    font-size: 18px;
+.btn {
+  background-color: #303f9e;
+  border-width: 0px;
 }
 
 #rank {
@@ -179,6 +114,7 @@ li {
 .vote-button {
   min-width: 20px;
   padding: 0px 6px 0px 6px;
+  color: #303f9e;
 }
 
 #removeSong {
@@ -193,17 +129,20 @@ li {
 
 .unpressed {
   background-color: white;
+  color: #303f9e;
 }
 
 .pressed {
-  background-color: #F0F0F0;
+  background-color: #303f9e;
+  color: white;
 }
 
-main {
-  background: #eee;
-	display: block;
-  left:0;
-  margin-right: 20px;
-  margin-top: 13.8px;
-	padding: 1em;
+.mat-tab-label, .mat-tab-label-active {
+  min-width: 0!important;
+  padding: 0px 10px 0px 10px!important;
+  margin: 0px 10px 0px 10px!important;
+}
+
+ul {
+  margin-top: 5px;
 }

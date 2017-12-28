@@ -1,5 +1,5 @@
-.centered {
-  width: 75%;
+.mat-card-join-hub {
+  width: 60%;
   margin: auto;
   text-align: center;
 }
@@ -20,7 +20,7 @@ input {
 
 #list-container {
   max-width: 600px;
-  margin: auto
+  margin: auto;
 }
 
 a:hover {
@@ -30,4 +30,17 @@ a:hover {
 .list-route {
   color: black;
   text-decoration: none;
+}
+
+.center-text {
+  text-align: center;
+  width: 100%;
+}
+
+.cat-button {
+  margin-bottom: 20px;
+}
+
+.hub {
+  font-size: 16px;
 }

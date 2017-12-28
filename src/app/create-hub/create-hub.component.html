@@ -1,38 +1,35 @@
+<mat-card class="mat-card-create-hub" [ngStyle]="{'padding':'0px 0px 20px 0px'}">
+	<mat-card-header>
+		<h2 class="center-text"> Create a Hub</h2>
+	</mat-card-header>
 
-<div class="centered">
-	<mat-card>
-		<mat-card-title>
-			<h1 id="title"> Create a Hub</h1>
-		</mat-card-title>
+	<mat-card-content>
+		<div ng-app>
+			<div id="swag" ng-controller="crtHubCtrl">
+				<mat-form-field hintLabel="max 24 characters">
+					<input matInput placeholder="Hub Name" type="text" maxlength="24" #hubName>
+					<mat-hint align="end">{{ hubName.value?.length || 0}}/24</mat-hint>
+				</mat-form-field>
+				<br>
+				<br>
+				<mat-form-field hintLabel="4 digit number">
+					<input matInput placeholder="Hub Pass Pin" type="number" max="9999" #pin>
+					<mat-hint align="end">{{ pin.value?.length || 0}}/4</mat-hint>
+				</mat-form-field>
+			</div>
+		</div>
+	</mat-card-content>
 
-		<mat-card-content>
-			<div ng-app>
-				<div id="swag" ng-controller="crtHubCtrl">
-					<mat-form-field hintLabel="max 24 characters">
-						<input matInput placeholder="Hub Name" type="text" maxlength="24" #hubName>
-						<mat-hint align="end">{{ hubName.value?.length || 0}}/24</mat-hint>
-					</mat-form-field>
-					<br>
-					<br>
-					<mat-form-field hintLabel="4 digit number">
-						<input matInput placeholder="Hub Pass Pin" type="number" max="9999" #pin>
-						<mat-hint align="end">{{ pin.value?.length || 0}}/4</mat-hint>
-					</mat-form-field>
-				</div>
-			</div>
-		</mat-card-content>
-
-		<mat-card-footer>
-			<div id="createHub">
-				<button mat-raised-button color="primary" (click)='gotoHubMain(hubName.value,pin.value)'>Create Hub</button>
-			</div>
-			<div id="geo-locat">
-				<p>Allow Location will grab your current location and allow users</p>
-				<p>to search for your hub based on your current location!</p>
-				<p>If you don't want to enable your location now you can always</p>
-				<p>update it later.</p>
-				<button mat-raised-button color="primary" (click)="locate()">Allow Location</button>
-			</div>
-		</mat-card-footer>
-	</mat-card>
-</div>
+	<mat-card-footer>
+		<div id="createHub">
+			<button mat-raised-button (click)='gotoHubMain(hubName.value,pin.value)'>Create Hub</button>
+		</div>
+		<div id="geo-locat">
+			<p>Allow Location will grab your current location and allow users</p>
+			<p>to search for your hub based on your current location!</p>
+			<p>If you don't want to enable your location now you can always</p>
+			<p>update it later.</p>
+			<button mat-raised-button (click)="locate()">Allow Location</button>
+		</div>
+	</mat-card-footer>
+</mat-card>

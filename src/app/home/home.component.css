@@ -1,5 +1,21 @@
-#card {
+.mat-card-home {
   text-align: center;
   width: 500px;
   margin: auto;
+}
+
+mat-card-header {
+   background-color: #303f9e;
+   color: white;
+   margin-bottom: 20px;
+}
+
+.mat-raised-button {
+  background-color: #303f9e;
+  color: white;
+}
+
+.center-text {
+  text-align: center;
+  width: 100%;
 }

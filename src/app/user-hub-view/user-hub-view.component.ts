@@ -27,6 +27,7 @@ export class UserHubViewComponent {
   public queueList: FirebaseListObservable<Song[]>;
   public isQueue: boolean = true;
   public isSongs: boolean = false;
+  public isUsers: boolean = false;
   public currentHub: Hub;
   public songs: Song[];
   public ytsongs: YTSong[];
@@ -34,6 +35,7 @@ export class UserHubViewComponent {
   public  hubn: string ='';
   public currentSong: Song;
   public votedSongs: Vote[];
+  public tabIdx: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -124,16 +126,28 @@ export class UserHubViewComponent {
     }
     else
       this.queueService.addSong(title, thumbnail, videoId, this.hubService.currentHub.name);
-    this.onSelected("queue");
+    this.tabIdx = 0;
+    this.onSelected(0);
   }
 
-  onSelected(tab: string) {
-    if (tab == "songs") {
+  onSelected(tab) {
+    if (this.tabIdx == 2) {
+      this.isQueue = false;
+      this.isSongs = false;
+      this.isUsers = true;
+      this.hubService.getHubUsers(this.hubService.currentHub.name).subscribe(users => {
+        this.hubUsers = [];
+        users.forEach(user => {
+          this.hubUsers.push(user);
+        });
+      });
+    }
+    else if (this.tabIdx == 1) {
       this.isQueue = false;
       this.isSongs = true;
       this.ytsongs = [];
     }
-    else if (tab == "queue") {
+    else if (this.tabIdx == 0) {
       this.isSongs = false;
       this.isQueue = true;
       this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {

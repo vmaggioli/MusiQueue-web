@@ -35,7 +35,6 @@
 }
 
 
-
 #video {
   float: left;
   width: 50%;
@@ -155,8 +154,8 @@ input {
 
 .mat-tab-label, .mat-tab-label-active {
   min-width: 0!important;
-  padding: 0px 10px 0px 10px!important;
-  margin: 0px 10px 0px 10px!important;
+  padding: 0px 2px 0px 2px!important;
+  margin: 0px auto 0px auto!important;
 }
 
 ul {

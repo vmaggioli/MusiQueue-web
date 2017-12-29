@@ -54,7 +54,7 @@
         </mat-tab>
 
       	<mat-tab label="Songs" (click)="onSelected('songs')" [ngClass]="{ 'selected' : isSongs }">
-            <div id="col-lg-6 custom-search-input"><!-- *ngIf="isSongs">-->
+            <div id="col-lg-6"><!-- *ngIf="isSongs">-->
               <div class="input-group">
                 <input #searchInput type="text" class="form-control" placeholder="Search" />
                 <span class="input-group-btn">
@@ -76,9 +76,9 @@
         </mat-tab>
 
         <mat-tab label="Users" (click)="onSelected('users')" [ngClass]="{ 'selected' : isUsers }">
-            <ul class="list-gorup man-adjust">
+            <ul class="list-group">
               <!-- USERS -->
-              <li class="list-group-item man-adjust" *ngFor="let user of hubUsers">
+              <li class="list-group-item" *ngFor="let user of hubUsers">
                 <span class="pull-right">
                   <button *ngIf="user.uid != usersService.currentUser.uid" (click)="removeUser(user)" type="button" class="btn btn-danger">
                     <span class="glyphicon glyphicon-remove"></span>

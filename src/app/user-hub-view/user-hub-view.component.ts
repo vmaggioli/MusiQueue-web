@@ -31,6 +31,7 @@ export class UserHubViewComponent {
   public currentHub: Hub;
   public songs: Song[];
   public ytsongs: YTSong[];
+  public hubUsers: User[];
   public users: User[];
   public  hubn: string ='';
   public currentSong: Song;

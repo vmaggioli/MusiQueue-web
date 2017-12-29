@@ -112,10 +112,10 @@ li {
   cursor: pointer;
 }
 
-input {
+/*input {
   left: -20px;
   top: -10px;
-}
+}*/
 
 .btn {
   background-color: #303f9e;

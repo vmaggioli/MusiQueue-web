@@ -9,13 +9,14 @@ p {
 
 .mat-card-create-hub {
   text-align: center;
-  width: 500px;
+  max-width: 500px;
   margin: auto;
 }
 
 .center-text {
   text-align: center;
   width: 100%;
+  margin-left: -15px;
 }
 
 mat-card-header {
@@ -28,4 +29,8 @@ mat-card-header {
 	background-color: #303f9e;
 	color: white;
 	margin: 10px;
+}
+
+.margin {
+  padding: 20px;
 }

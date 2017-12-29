@@ -1,6 +1,6 @@
 .mat-card-home {
   text-align: center;
-  width: 500px;
+  max-width: 500px;
   margin: auto;
 }
 
@@ -18,4 +18,9 @@ mat-card-header {
 .center-text {
   text-align: center;
   width: 100%;
+  margin-left: -15px;
+}
+
+.margin {
+  padding: 20px;
 }

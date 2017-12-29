@@ -1,6 +1,5 @@
 <h1 id="hubTitle">{{ hubService.currentHub.name }}</h1>
-<div id="container">
-  <div id="hubConsole">
+  <div id="hubConsoleUser">
     <div id="current-playing">
       <h3>Currently Playing:</h3>
       <div class="list-group-item" *ngIf="currentSong != undefined">
@@ -73,5 +72,4 @@
 
       </mat-tab-group>
     </div>
-  </div>
 <router-outlet></router-outlet>

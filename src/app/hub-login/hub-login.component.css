@@ -1,7 +1,7 @@
 .mat-card-hub-login {
   text-align: center;
   margin: auto;
-  width: 350px;
+  max-width: 350px;
 }
 
 mat-card-header {
@@ -19,6 +19,10 @@ margin-bottom: 20px;
   text-align: center;
   width: 100%;
   margin-left: -15px;
+}
+
+.margin {
+  padding: 20px;
 }
 
 #search-input {}

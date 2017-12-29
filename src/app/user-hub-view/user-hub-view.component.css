@@ -3,13 +3,11 @@
   margin-bottom: 25px;
 }
 
-#hubConsole {
-  position: absolute;
-  width: 70%;
+#hubConsoleUser {
+  max-width: 900px;
   left:50%;
-  transform: translateX(-50%);
   background-color: Gainsboro;
-  margin-bottom: 50px;
+  margin: 20px auto 20px auto;
   padding:10px;
 }
 

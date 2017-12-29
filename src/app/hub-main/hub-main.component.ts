@@ -89,7 +89,7 @@ export class HubMainComponent  {
         }
       });
     });
-
+    this.usersService.updateUserActivity(this.usersService.currentUser.uid, this.hubService.currentHub.name);
   }
   sortQueue(items) {
     this.songs = items;

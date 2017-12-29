@@ -97,6 +97,13 @@ export class UsersService {
     });
   }
 
+  updateUserActivity(userId: string, hubId: string) {
+    var userRef = firebase.database().ref("Users/" + userId + "/hub_list/" + hubId);
+    userRef.update({
+      last_active: Date.now();
+    })
+  }
+
   removeUserFromHub(userID: string, hubUID: string) {
     this.db.object("Users/" + userID + "/hub_list/" + hubUID).remove();
   }

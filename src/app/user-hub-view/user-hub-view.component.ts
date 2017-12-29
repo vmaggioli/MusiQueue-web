@@ -86,7 +86,7 @@ export class UserHubViewComponent {
        });
      });
      this.hubn = this.hubService.currentHub.name;
-
+     this.usersService.updateUserActivity(this.usersService.currentUser.uid, this.hubn);
      // listen for if user gets kicked out
      this.usersService.listenForBoot();
    }
@@ -145,11 +145,13 @@ export class UserHubViewComponent {
     }
     else if (this.tabIdx == 1) {
       this.isQueue = false;
+      this.isUsers = false;
       this.isSongs = true;
       this.ytsongs = [];
     }
     else if (this.tabIdx == 0) {
       this.isSongs = false;
+      this.isUsers = false;
       this.isQueue = true;
       this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
         this.sortQueue(items);

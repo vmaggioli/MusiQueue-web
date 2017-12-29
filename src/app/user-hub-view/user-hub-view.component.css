@@ -5,19 +5,30 @@
 
 #hubConsoleUser {
   max-width: 900px;
-  left:50%;
-  background-color: Gainsboro;
+  max-height: 1000px;
   margin: 20px auto 20px auto;
   padding:10px;
+  background-color: Gainsboro;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  flex-wrap: wrap;
 }
 
 mat-tab-group {
   left: 0;
   margin: auto;
+  flex: 1;
+  min-width: 70%;
+}
+
+.user-scroll-list {
+  max-height: 600px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 #current-playing {
-  left: 0;
   margin: auto;
   margin-bottom: 10px;
   max-width: 400px;
@@ -28,13 +39,6 @@ mat-tab-group {
   margin-right: 5px;
 }
 
-#songsList {
-  margin: auto;
-  width: 90%;
-  margin-top: -47.6px;
-  margin-bottom: 25px;
-}
-
 #addButton {
   position: absolute;
   right: 5px;
@@ -43,7 +47,7 @@ mat-tab-group {
 
 .list-group {
   line-height: 30px;
-  max-width: 700px;
+  max-width: 600px;
   margin: 5px auto;
 }
 
@@ -56,12 +60,6 @@ mat-tab-group {
   margin-right: 10px;
 }
 
-.right {
-	position: relative;
-	z-index: 1;
-	white-space: nowrap;
-}
-
 .btn {
   background-color: #303f9e;
   border-width: 0px;
@@ -72,32 +70,30 @@ li {
   line-height: 20px;
 }
 
+.numbered {
+  display: list-item!important;
+  list-style-position: inside;
+}
+
 .selectable:hover {
   background: #ddd;
   cursor: pointer;
 }
 
-input {
-  left: -20px;
-  top: -10px;
-}
-
 .input-group {
-  max-width: 700px;
+  max-width: 500px;
   margin: auto;
+  margin-top: 5px;
 }
 
 #rank {
   display: inline-block;
 }
 
-#leave-hub {
-  margin-left: 20px;
-}
-
 .vote-button {
   min-width: 20px;
   padding: 0px 6px 0px 6px;
+  margin: 2px;
 }
 
 .unpressed {
@@ -116,6 +112,17 @@ input {
   margin: 0px auto 0px auto!important;
 }
 
-ul {
+ol ul {
   margin-top: 5px;
+}
+
+.song-name {
+  font-size: 16px;
+  color: #303f9e;
+}
+
+.song-user-name {
+  margin-left: 15px;
+  font-style: italic;
+  color: gray;
 }

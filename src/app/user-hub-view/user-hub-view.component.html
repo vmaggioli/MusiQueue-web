@@ -68,6 +68,10 @@
               </ul>
           </mat-tab>
 
+          <mat-tab label="Chat" (click)="onSelected('chat')" [ngClass]="{ 'selected' : isChat }">
+            <h3>Not Yet Implemented</h3>
+          </mat-tab>
+
       </mat-tab-group>
     </div>
 <router-outlet></router-outlet>

@@ -1,10 +1,34 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- <div class="navbar-header" style="width: 100%"> -->
-    <a class="spacer">..</a>
-    <a (click)="clearListeners()" class="navbar-brand" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">MusiQueue Home</a>
-    <a *ngIf="this.auth.getCurrentUser() != null" class="navbar-brand set-right" (click)="logoutWithGoogle()">Logout</a>
-    <!-- </div> -->
+<mat-drawer #drawer mode="over" class="drawer">
+  <div class="drawer-content-wrapper">
+    <div class="drawer-head">
+      <h4 class="drawer-heading">MusiQueue Menu</h4>
+      <mat-icon (click)="drawer.toggle()" class="return-button">arrow_back</mat-icon>
+    </div>
+    <ul class="menu-items">
+      <li class="list-group-item menu-list-item" (click)="onProfileSelected()">
+        <mat-icon class="menu-item-icon">account_circle</mat-icon>
+        <p class="menu-item-text">Profile</p>
+      </li>
+      <li class="list-group-item menu-list-item" (click)="onUserHubsSelected()">
+        <mat-icon class="menu-item-icon">list</mat-icon>
+        <p class="menu-item-text">Your Hubs</p>
+      </li>
+      <li class="list-group-item menu-list-item" (click)="onLeaderboardSelected()">
+        <mat-icon class="menu-item-icon">star</mat-icon>
+        <p class="menu-item-text">Leaderboard</p>
+      </li>
+      <li class="list-group-item menu-list-item"  (click)="logoutWithGoogle()">
+        <mat-icon class="menu-item-icon">exit_to_app</mat-icon>
+        <p class="menu-item-text">Logout</p>
+      </li>
+    </ul>
   </div>
+</mat-drawer>
+<nav class="navbar navbar-default">
+ <div class="container-fluid">
+   <mat-icon *ngIf="this.auth.getCurrentUser() != null" class="menu-icon" (click)="drawer.toggle()">menu</mat-icon>
+   <a class="spacer">..</a>
+   <a (click)="clearListeners()" class="navbar-brand" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">MusiQueue Home</a>
+ </div>
 </nav>
 <router-outlet></router-outlet>

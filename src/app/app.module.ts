@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { MatCardModule, MatButtonModule, MatTabsModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { MatCardModule, MatButtonModule, MatTabsModule, MatInputModule, MatFormFieldModule, MatIconModule, MatMenuModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
 import { Animations } from '@angular/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -31,6 +31,9 @@ import { CreateHubComponent } from './create-hub/create-hub.component';
 import { JoinHubComponent } from './join-hub/join-hub.component';
 import { UserHubViewComponent } from './user-hub-view/user-hub-view.component';
 import { HubLoginComponent } from './hub-login/hub-login.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { OwnedHubsComponent } from './owned-hubs/owned-hubs.component';
+import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,9 @@ import { HubLoginComponent } from './hub-login/hub-login.component';
     JoinHubComponent,
     UserHubViewComponent,
     HubLoginComponent,
+    UserProfileComponent,
+    OwnedHubsComponent,
+    LeaderboardsComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +66,10 @@ import { HubLoginComponent } from './hub-login/hub-login.component';
     MatInputModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
+    MatIconModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatToolbarModule,
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [

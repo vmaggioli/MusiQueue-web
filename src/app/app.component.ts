@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from './shared/auth.service';
 import { UsersService } from "./shared/users.service";
 import * as firebase from 'firebase/app';
 import { HubService } from './shared/hub.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -14,27 +14,43 @@ import { HubService } from './shared/hub.service';
 })
 export class AppComponent {
   title = 'MusiQueue-web';
+  drawer: any;
 
-  constructor(private router: Router,
+  constructor(
               private auth: AuthService,
               public usersService: UsersService,
-              public hubService: HubService) { }
+              public hubService: HubService,
+              public route: ActivatedRoute,
+              public router: Router) {
+                this.route.params.subscribe(params => console.log(""));
+              }
 
   ngOnInit() { }
 
   clearListeners() {
-    console.log("CLEAR!");
     firebase.database().ref("Hubs/" + this.hubService.currentHub.name).off();
   }
-  logoutWithGoogle() {
-    console.log("uname: "+ this.usersService.currentUser.username);
-    this.usersService.currentUser = null;
 
+  logoutWithGoogle() {
+    this.usersService.currentUser = null;
     this.auth.logoutWithGoogle().then((result) => {
-      console.log(this.auth.getCurrentUser());
       if (this.auth.getCurrentUser() == null) {
         this.router.navigateByUrl('');
       }
     });
+    location.reload();
+  }
+
+  onProfileSelected() {
+    this.router.navigate(['user-profile', this.usersService.currentUser.uid])
+  }
+
+  onUserHubsSelected() {
+    this.router.navigate(['owned-hubs', this.usersService.currentUser.uid])
+  }
+
+  onLeaderboardSelected() {
+    this.router.navigate(['leaderboards'])
+
   }
 }

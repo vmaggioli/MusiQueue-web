@@ -34,6 +34,7 @@ export class HubMainComponent  {
   public isQueue: boolean = true;
   public isSongs: boolean = false;
   public isUsers: boolean = false;
+  public isChat: boolean = false;
   public songs: Song[];
   public ytsongs: YTSong[];
   public hubUsers: User[];
@@ -203,6 +204,7 @@ export class HubMainComponent  {
     if (this.tabIdx == 2) {
       this.isQueue = false;
       this.isSongs = false;
+      this.isChat = false;
       this.isUsers = true;
       this.hubService.getHubUsers(this.hubService.currentHub.name).subscribe(users => {
         this.hubUsers = [];
@@ -214,16 +216,24 @@ export class HubMainComponent  {
     else if (this.tabIdx == 1) {
       this.isQueue = false;
       this.isUsers = false;
+      this.isChat = false;
       this.isSongs = true;
       this.ytsongs = [];
     }
     else if (this.tabIdx == 0) {
       this.isUsers = false;
       this.isSongs = false;
+      this.isChat = false;
       this.isQueue = true;
       this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
         this.sortQueue(items);
       });
+    }
+    else if (this.tabIdx == 3) {
+      this.isUsers = false;
+      this.isSongs = false;
+      this.isQueue = false;
+      this.isChat = true;
     }
   }
 

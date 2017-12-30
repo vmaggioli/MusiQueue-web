@@ -1,9 +1,8 @@
-
-<div class="centered">
-	<mat-card>
-		<mat-card-title>
-			<h1 id="title"> Create a Hub</h1>
-		</mat-card-title>
+<div class="margin">
+	<mat-card class="mat-card-create-hub" [ngStyle]="{'padding':'0px 0px 20px 0px'}">
+		<mat-card-header>
+			<h2 class="center-text"> Create a Hub</h2>
+		</mat-card-header>
 
 		<mat-card-content>
 			<div ng-app>
@@ -24,14 +23,14 @@
 
 		<mat-card-footer>
 			<div id="createHub">
-				<button mat-raised-button color="primary" (click)='gotoHubMain(hubName.value,pin.value)'>Create Hub</button>
+				<button mat-raised-button (click)='gotoHubMain(hubName.value,pin.value)'>Create Hub</button>
 			</div>
 			<div id="geo-locat">
 				<p>Allow Location will grab your current location and allow users</p>
 				<p>to search for your hub based on your current location!</p>
 				<p>If you don't want to enable your location now you can always</p>
 				<p>update it later.</p>
-				<button mat-raised-button color="primary" (click)="locate()">Allow Location</button>
+				<button mat-raised-button (click)="locate()">Allow Location</button>
 			</div>
 		</mat-card-footer>
 	</mat-card>

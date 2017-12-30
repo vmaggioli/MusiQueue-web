@@ -11,6 +11,9 @@ import { CreateHubComponent } from './create-hub/create-hub.component';
 import { JoinHubComponent } from './join-hub/join-hub.component';
 import { UserHubViewComponent } from './user-hub-view/user-hub-view.component';
 import { HubLoginComponent } from './hub-login/hub-login.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { OwnedHubsComponent } from './owned-hubs/owned-hubs.component';
+import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent }
@@ -21,7 +24,9 @@ const appRoutes: Routes = [
   { path: 'join-hub', component: JoinHubComponent, canActivate: [LoginGuard] },
   { path: 'user-hub-view', component: UserHubViewComponent, canActivate: [LoginGuard]},
   { path: 'hub-login/:name', component: HubLoginComponent, canActivate: [LoginGuard]},
-
+  { path: 'user-profile/:name', component: UserProfileComponent, canActivate: [LoginGuard]},
+  { path: 'owned-hubs/:name', component: OwnedHubsComponent, canActivate: [LoginGuard]},
+  { path: 'leaderboards', component: LeaderboardsComponent, canActivate: [LoginGuard]},
 ]
 @NgModule({
   imports: [

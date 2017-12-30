@@ -1,16 +1,19 @@
-.centered {
-  width: 75%;
+.mat-card-join-hub {
+  max-width: 700px;
   margin: auto;
   text-align: center;
+  padding-bottom: 20px;
 }
 
 .hub-search-list {
-  width: 100%;
+  max-width: 600px;
+  margin: 20px 20px auto -20px;
   line-height: 5px;
+
 }
 
 input {
-  margin: 20px;
+  margin: auto;
 }
 
 .selectable:hover {
@@ -20,7 +23,7 @@ input {
 
 #list-container {
   max-width: 600px;
-  margin: auto
+  margin: auto;
 }
 
 a:hover {
@@ -30,4 +33,31 @@ a:hover {
 .list-route {
   color: black;
   text-decoration: none;
+}
+
+.center-text {
+  text-align: center;
+  width: 100%;
+  margin-left: -15px;
+}
+
+.hub {
+  font-size: 16px;
+  margin: 20px;
+}
+
+#search-button {
+  margin-bottom: 30px;
+}
+
+.margin {
+  padding: 20px;
+}
+
+.cat-button {
+  margin-top: 0;
+}
+
+p {
+  line-height: 20px;
 }

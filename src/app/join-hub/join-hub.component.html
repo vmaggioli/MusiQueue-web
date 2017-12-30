@@ -1,17 +1,16 @@
-<div class="centered">
-	<mat-card>
-		<mat-card-title>
-			<h2>Join a Hub</h2>
-		</mat-card-title>
-		<mat-card-subtitle>
+<div class="margin">
+	<mat-card class="mat-card-join-hub" [ngStyle]="{'padding':'0px 0px 20px 0px'}">
+		<mat-card-header>
+			<h2 class="center-text">Join a Hub</h2>
+		</mat-card-header>
+		<mat-card-content>
 			<div class="hub">Search for a Hub:</div>
 			<input id="hub-search" type="text" #Hub>
 			<button id="search-button" mat-raised-button color="accent" (click)="searchHubs(Hub.value)">Search</button>
 			<br>
-			<button mat-raised-button color="primary" (click)="searchLocation()">Search By Location</button>
-			<button mat-raised-button color="primary" (click)="recentHubs()">Find Recent Hubs</button>
-		</mat-card-subtitle>
-		<mat-card-content>
+			<button mat-raised-button (click)="searchLocation()" class="cat-button">Search By Location</button>
+			<button mat-raised-button (click)="recentHubs()" class="cat-button">Find Recent Hubs</button>
+			<br>
 			<div id="list-container">
 				<ul *ngIf="displayingLocalHubs" class="hub-search-list">
 					<li *ngFor="let hub of locHubs" class="list-group-item selectable">
@@ -23,7 +22,7 @@
 						</a>
 					</li>
 				</ul>
-				<ul *ngIf="displayingRecentHubs" class = "hub-search-list">
+				<ul *ngIf="displayingRecentHubs" class="hub-search-list">
 					<li *ngFor="let hub of recentHubsOfUser" class="list-group-item selectable">
 						<a class="list-route" [routerLink]="['/hub-login', hub.name]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
 							<div>
@@ -33,7 +32,7 @@
 						</a>
 					</li>
 				</ul>
-				<ul *ngIf="displayingSearchHubs" class = "hub-search-list">
+				<ul *ngIf="displayingSearchHubs" class="hub-search-list">
 					<li *ngFor="let hub of hubsFromSearch" class="list-group-item selectable">
 						<a class="list-route" [routerLink]="['/hub-login', hub.name]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
 							<div>

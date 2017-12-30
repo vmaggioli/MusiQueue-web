@@ -34,6 +34,7 @@ export class HubMainComponent  {
   public isQueue: boolean = true;
   public isSongs: boolean = false;
   public isUsers: boolean = false;
+  public isChat: boolean = false;
   public songs: Song[];
   public ytsongs: YTSong[];
   public hubUsers: User[];
@@ -41,6 +42,7 @@ export class HubMainComponent  {
   public isDownvoted: boolean;
   public currentSong: Song;
   public votedSongs: Vote[];
+  public tabIdx: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -88,7 +90,7 @@ export class HubMainComponent  {
         }
       });
     });
-
+    this.usersService.updateUserActivity(this.usersService.currentUser.uid, this.hubService.currentHub.name);
   }
   sortQueue(items) {
     this.songs = items;
@@ -119,6 +121,9 @@ export class HubMainComponent  {
 
   savePlayer (player) {
     this.player = player;
+    this.player.a.height = 200;
+    this.player.a.width = 300;
+    console.log(this.player);
     if (this.state != -1)
       this.player.loadVideoById(this.currentSong.video_id);
 	}
@@ -191,13 +196,15 @@ export class HubMainComponent  {
     else
       this.queueService.addSong(title, thumbnail, videoId, this.hubService.currentHub.name);
     this.hasSongs = true;
-    this.onSelected("queue");
+    this.tabIdx = 0;
+    this.onSelected(0);
   }
 
-  onSelected(tab: string) {
-    if (tab == "users") {
+  onSelected(tab) {
+    if (this.tabIdx == 2) {
       this.isQueue = false;
       this.isSongs = false;
+      this.isChat = false;
       this.isUsers = true;
       this.hubService.getHubUsers(this.hubService.currentHub.name).subscribe(users => {
         this.hubUsers = [];
@@ -206,19 +213,27 @@ export class HubMainComponent  {
         });
       });
     }
-    else if (tab == "songs") {
+    else if (this.tabIdx == 1) {
       this.isQueue = false;
       this.isUsers = false;
+      this.isChat = false;
       this.isSongs = true;
       this.ytsongs = [];
     }
-    else if (tab == "queue") {
+    else if (this.tabIdx == 0) {
       this.isUsers = false;
       this.isSongs = false;
+      this.isChat = false;
       this.isQueue = true;
       this.queueService.getQueue(this.hubService.currentHub.name).subscribe(items => {
         this.sortQueue(items);
       });
+    }
+    else if (this.tabIdx == 3) {
+      this.isUsers = false;
+      this.isSongs = false;
+      this.isQueue = false;
+      this.isChat = true;
     }
   }
 

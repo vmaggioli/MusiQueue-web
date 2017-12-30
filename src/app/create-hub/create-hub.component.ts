@@ -79,7 +79,7 @@ export class CreateHubComponent {
       hubRef.once("value", hubName => {
         if (hubName.val() == null) {
           this.hubService.currentHub = new Hub(this.name, "user", "user", this.passwd, Date.now(), [], []);
-          if (this.location.longitude != undefined) {
+          if (this.location != undefined && this.location.longitude != undefined) {
             this.hubService.createHub("false", "user", "date", this.location.latitude, this.location.longitude, this.name, this.passwd, "users", "wifi");
           } else {
             this.hubService.createHub("false", "user", "date", "0", "0", this.name, this.passwd, "users", "wifi");

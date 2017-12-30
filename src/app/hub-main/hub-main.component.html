@@ -1,101 +1,95 @@
 <h1 id="hubTitle">{{ hubService.currentHub.name }}</h1>
-<div id="container">
-  <div id="hubConsole">
-    <div id="left-console">
-      <div id="video" *ngIf="hasSongs">
-        <!--<youtube-player id="player" [videoId]="id" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>-->
-        <youtube-player id="player" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
-      </div>
-      <div id="noVideo" *ngIf="!hasSongs">
-        <p id="noSongsText"> Welcome to your hub. There are currently no songs in your playlist. Go to the "Songs" tab to add songs.</p>
-      </div>
+<div id="hubConsoleMain">
+  <div id="left-console">
+    <div id="video" *ngIf="hasSongs">
+      <!--<youtube-player id="player" [videoId]="id" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>-->
+      <youtube-player id="player" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
+    </div>
+    <div id="noVideo" *ngIf="!hasSongs">
+      <p id="noSongsText"> Welcome to your hub. There are currently no songs in your playlist. Go to the "Songs" tab to add songs.</p>
+    </div>
 
-      <div id="current-playing">
-        <h3>Currently Playing:</h3>
-        <div class="list-group-item" *ngIf="currentSong != undefined">
-          <img id="current-song-thumb" src={{currentSong.thumbnail}} class="img-thumbnail" width="100" height="80"/>
-          <div>
-            <span>{{ currentSong.song_name }}</span><br>
-            <span>{{ currentSong.username }}</span>
-          </div>
+    <div id="current-playing">
+      <h3>Currently Playing:</h3>
+      <div class="list-group-item" *ngIf="currentSong != undefined">
+        <img id="current-song-thumb" src={{currentSong.thumbnail}} class="img-thumbnail" width="100" height="80"/>
+        <div>
+          <span class="song-name">{{ currentSong.song_name }}</span><br>
+          <span class="song-user-name">{{ currentSong.username }}</span>
         </div>
       </div>
     </div>
+  </div>
 
-    <div id="itemList">
-      <div id="tabList">
-        <nav class="right">
-          <p (click)="onSelected('queue')" [ngClass]="{ 'selected' : isQueue }">Queue</p>
-        	<p (click)="onSelected('songs')" [ngClass]="{ 'selected' : isSongs }">Songs</p>
-          <p (click)="onSelected('users')" [ngClass]="{ 'selected' : isUsers }">Users</p>
-        </nav>
-        <div id="custom-search-input" *ngIf="isSongs">
-          <div class="input-group col-sm-12">
-            <input #searchInput type="text" class="form-control input-sm" placeholder="Search" />
-            <span class="input-group-btn">
-                <button (click)="onSearch(searchInput.value)"class="btn btn-info btn-lg" type="button">
-                    <i class="glyphicon glyphicon-search"></i>
-                </button>
-            </span>
-          </div>
-        </div>
-        <main>
+  <div id="itemList">
+      <mat-tab-group [(selectedIndex)]="tabIdx" (selectedTabChange)="onSelected($event)">
 
+        <mat-tab label="Queue" (click)="onSelected('queue')" [ngClass]="{ 'selected' : isQueue }">
+            <ol id="queue-list" class="scroll-list">
+              <li id="queue-item" class="list-group-item man-adjust numbered" *ngFor="let song of songs">
+                <span class="pull-right">
+                  <button mat-raised-button
+                    (click)="upvote(song)"
+                    [ngClass] = "{'pressed': upIsPressed(song), 'unpressed': !upIsPressed(song)}"
+                    type="button" class="vote-button">
+                    <i class="glyphicon glyphicon-thumbs-up"></i>
+                  </button>
+                  <button mat-raised-button
+                    (click)="downvote(song)"
+                    [ngClass] = "{'pressed': downIsPressed(song), 'unpressed': !downIsPressed(song)}"
+                    type="button" class="vote-button">
+                    <i class="glyphicon glyphicon-thumbs-down"></i>
+                  </button>
+                  <p id="rank"><span *ngIf="song.rank > -1">+</span>{{ song.up_votes - song.down_votes }}</p>
+                  <div (click)="removeSong(song)" id=removeSong>&#10006;</div>
+                </span>
+                <span>
+                  <span class="song-name">{{ song.song_name }}</span><br>
+                  <span class="song-user-name">{{ song.username }}</span>
+                </span>
+              </li>
+            </ol>
+        </mat-tab>
 
-        	<ul *ngIf="isSongs" class="list-group">
-            <!-- SONG SEARCH -->
-            <li *ngFor="let ytsong of ytsongs" (click)="onSongClicked( ytsong )" class="list-group-item selectable">
-                <div class="thumbnail-text">
-                  <img src={{ytsong.thumbnail}} class="img-thumbnail" width="100" height="80"/>
-                </div>
-                <div class="text">{{ ytsong.song_name }}</div>
-            </li>
-          </ul>
+      	<mat-tab label="Songs" (click)="onSelected('songs')" [ngClass]="{ 'selected' : isSongs }">
+            <div id="col-lg-6">
+              <div class="input-group">
+                <input #searchInput type="text" class="form-control" placeholder="Search" />
+                <span class="input-group-btn">
+                    <button (click)="onSearch(searchInput.value)"class="btn btn-info " type="button">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </span>
+              </div>
+            </div>
+            	<ul class="list-group">
+                <li *ngFor="let ytsong of ytsongs" (click)="onSongClicked( ytsong )" class="list-group-item selectable">
+                    <div class="thumbnail-text">
+                      <img src={{ytsong.thumbnail}} class="img-thumbnail" width="100" height="80"/>
+                    </div>
+                    <div class="text">{{ ytsong.song_name }}</div>
+                </li>
+              </ul>
+        </mat-tab>
 
+        <mat-tab label="Users" (click)="onSelected('users')" [ngClass]="{ 'selected' : isUsers }">
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let user of hubUsers">
+                <span class="pull-right">
+                  <button *ngIf="user.uid != usersService.currentUser.uid" (click)="removeUser(user)" type="button" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </button>
+                </span>
+                <span>{{ user.username }}</span>
+              </li>
+            </ul>
+        </mat-tab>
 
-          <ul id="queue-list" *ngIf="isQueue" class="list-group">
-            <!-- QUEUE -->
-            <li id="queue-item" class="list-group-item" *ngFor="let song of songs">
-              <span class="pull-right">
-                <button mat-raised-button
-                  (click)="upvote(song)"
-                  [ngClass] = "{'pressed': upIsPressed(song), 'unpressed': !upIsPressed(song)}"
-                  type="button" class="vote-button">
-                  <span class="glyphicon glyphicon-thumbs-up"></span>
-                </button>
-                <button mat-raised-button
-                  (click)="downvote(song)"
-                  [ngClass] = "{'pressed': downIsPressed(song), 'unpressed': !downIsPressed(song)}"
-                  type="button" class="vote-button">
-                  <span class="glyphicon glyphicon-thumbs-down"></span>
-                </button>
-                <p id="rank">{{ song.up_votes - song.down_votes }}</p>
-                <div (click)="removeSong(song)" id=removeSong>&#10006;</div>
-              </span>
-              <span>
-                <span>{{ song.song_name }}</span><br>
-                <span>{{ song.username }}</span>
-              </span>
-            </li>
-          </ul>
+        <mat-tab label="Chat" (click)="onSelected('chat')" [ngClass]="{ 'selected' : isChat }">
+          <h3>Not Yet Implemented</h3>
+        </mat-tab>
+      </mat-tab-group>
 
-
-          <ul *ngIf="isUsers" class="list-gorup">
-            <!-- USERS -->
-            <li class="list-group-item" *ngFor="let user of hubUsers">
-              <span class="pull-right">
-                <button *ngIf="user.uid != usersService.currentUser.uid" (click)="removeUser(user)" type="button" class="btn btn-danger">
-                  <span class="glyphicon glyphicon-remove"></span>
-                </button>
-              </span>
-              <span>{{ user.username }}</span>
-            </li>
-          </ul>
-
-
-        </main>
-      </div>
-    </div>
   </div>
 </div>
 <router-outlet></router-outlet>

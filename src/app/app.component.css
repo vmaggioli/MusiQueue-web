@@ -1,0 +1,109 @@
+.container-fluid {
+  background-color: #e0e0e0;
+  padding: 8px;
+  width: 100%;
+}
+
+.navbar-brand {
+  color: #303f9e;
+  font-weight: bold;
+  font-size: 18px;
+  height: 30px;
+  padding: 5px 10px 20px 10px;
+}
+
+.navbar-brand:hover {
+  border-radius: 20px;
+  background-color: #303f9e;
+  color: #c0c0c0;
+}
+
+.spacer {
+  padding-right: 20px;
+  float: left;
+  visibility: hidden;
+}
+
+.menu-icon {
+  float: left;
+}
+
+.drawer {
+  padding: 0;
+  min-width: 200px;
+  max-width: 320px;
+  border: 1px solid Gainsboro;
+}
+
+.drawer-head {
+  display: inline-block;
+  width: 100%;
+  background-color: Gainsboro;
+  padding: 0;
+}
+
+.drawer-heading {
+  margin: 0;
+  margin-left: 10px;
+  float: left;
+  color: #303f9e;
+  line-height: 56px;
+}
+
+mat-icon:hover {
+  cursor: pointer;
+}
+
+.return-button{
+  float: right;
+  color: Gainsboro;
+  line-height: 56px;
+  height: 100%;
+  width: 30px;
+  text-align: center;
+  background-color: #303f9e;
+}
+
+.menu-items {
+  list-style: none;
+  margin-left: -40px;
+  /*padding-left: 20px;
+  padding-right: 20px;*/
+}
+
+.menu-list-item {
+  width: 100%;
+  display: inline-block;
+  padding: 0;
+  cursor: pointer;
+}
+
+.menu-list-item:hover {
+  background-color: Gainsboro;
+}
+
+/*.menu-list-item:hover > p {
+  background-color: #303f9e;
+  color: white;
+}*/
+
+.menu-item-icon {
+  float:left;
+  color: #303f9e;
+  height: 100%;
+  width: 30px;
+  line-height: 32px;
+  margin: 10px;
+  font-size: 30px;
+}
+
+.menu-item-text {
+  float: left;
+  color: gray;
+  line-height: 32px;
+  margin: 10px 0 10px 0;
+}
+
+.drawer-content-wrapper {
+  display: block;
+}

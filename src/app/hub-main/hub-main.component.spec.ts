@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { HubMainComponent } from './hub-main.component';
-import { MatCardModule, MatButtonModule, MatTabsModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { MatCardModule, MatButtonModule, MatTabsModule, MatInputModule, MatFormFieldModule, MatTabsModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
@@ -33,6 +33,7 @@ describe('HubMainComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        MatTabsModule,
         MatCardModule,
         MatButtonModule,
         MatTabsModule,

@@ -1,0 +1,61 @@
+.mat-card-profile-form {
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+}
+
+.margin {
+  padding: 20px;
+}
+
+mat-card-header {
+	background-color: #303f9e;
+	color: white;
+	margin-bottom: 25px;
+}
+
+.center-text {
+	text-align: center;
+	width: 100%;
+  margin-left: -15px;
+}
+
+.image-block {
+  display: flex;
+  margin-bottom: 30px!important;
+}
+
+img {
+  margin: 0 20px 0 0;
+  flex: 1;
+}
+
+input {
+  flex: 1;
+}
+
+.in-line-block {
+  display: inline-block;
+  margin: 5px 0 5px 0;
+}
+
+p {
+  float: left;
+  margin-right: 10px;
+}
+
+.text-input {
+  float: right;
+}
+
+.button-container {
+  width: 100%;
+  text-align: center;
+}
+
+.submit-button {
+  min-width: 50px;
+  margin: 25px auto 15px auto;
+  background-color: #303f9e;
+  color: white;
+}

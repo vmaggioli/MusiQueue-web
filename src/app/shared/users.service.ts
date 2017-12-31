@@ -4,7 +4,7 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Router, ActivatedRoute, ParamMap} from '@angular/router';
-
+import 'firebase/storage';
 
 import { User } from '../objects/user';
 
@@ -60,7 +60,8 @@ export class UsersService {
         email: u.val().email,
         kicked: u.val().kicked,
         last_active: date,
-        username: u.val().username
+        username: u.val().username,
+        location: "none"
       });
     });
   }
@@ -122,7 +123,25 @@ export class UsersService {
 
   addToKickedList(hub: string, user: string) {
     firebase.database().ref("/Users/" + user + "/kicked_list").push(hub);
-    console.log("added to kick list");
+  }
+
+  updatePic(user: string, pic: string) {
+    var storageRef = firebase.storage().ref();
+    var imagesRef = storageRef.child('images/' + user);
+    imagesRef.putString(pic, 'base64');
+  }
+
+  getPic(user: string): FirebaseObservable {
+    return firebase.storage().ref().child('images/' + user).getDownloadURL();
+  }
+
+  updateProfile(user, username, location) {
+    this.currentUser.location = location;
+    this.currentUser.username = username;
+    firebase.database().ref("/Users/" + user).update({
+      username: username,
+      location: location
+    });
   }
 
 }

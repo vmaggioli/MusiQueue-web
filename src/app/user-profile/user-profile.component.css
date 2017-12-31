@@ -1,0 +1,74 @@
+.mat-card-user-profile {
+  max-width: 700px;
+  margin: auto;
+}
+
+.margin {
+  padding: 20px;
+}
+
+img {
+  border-radius: 50%;
+  margin: 0px 50px 20px 0;
+}
+
+@media(min-width: 600px) {
+  img {
+    height: 150px;
+    width: 150px;
+  }
+}
+@media(min-wdith: 500px) and (max-width: 600px) {
+  img {
+    height: 100px;
+    width: 100px;
+  }
+}
+@media(min-width: 100px) and (max-width: 500px) {
+  img {
+    height: 75px;
+    width: 75px;
+  }
+}
+
+.image-container  {
+  flex: 1;
+}
+
+.user-name {
+  flex: 3;
+  font-size: 24px;
+}
+
+.mode-edit-icon {
+  flex: 1;
+  float: left;
+  line-height: 30px;
+  margin: 2px 5px 5px 5px;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+.edit-button {
+  background-color: #303f9e;
+  color: white;
+  width: 75px;
+  display: inline-block;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+}
+
+.edit-button:hover {
+  cursor: pointer;
+}
+
+.edit-text {
+  display: right;
+  font-size: 16px;
+  margin: 0 5px 0 0;
+}

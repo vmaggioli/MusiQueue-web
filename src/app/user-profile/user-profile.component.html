@@ -1,3 +1,16 @@
-<p>
-  user-profile works!
-</p>
+<mat-drawer-container class="drawer-container">
+  <div class="margin">
+    <mat-card class="mat-card-user-profile">
+      <div class="top">
+        <div class="image-container">
+          <img [src]="url" height="100">
+        </div>
+        <p class="user-name">{{ this.usersService.currentUser.username }}</p>
+        <div *ngIf="isOwnerProfile" class="edit-button" (click)="editProfile()">
+          <mat-icon class="mode-edit-icon">edit</mat-icon>
+          <p class="edit-text">Edit</p>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</mat-drawer-container>

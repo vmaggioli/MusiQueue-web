@@ -1,0 +1,30 @@
+<mat-drawer-container class="drawer-container">
+  <div class="margin">
+    <mat-card class="mat-card-profile-form" [ngStyle]="{'padding':'0px 0px 20px 0px'}">
+      <mat-card-header>
+        <h2 class="center-text">Profile Editor</h2>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="image-block in-line-block">
+          <img [src]="url" height="100">
+          <input type='file' id="selectedFile" style="display: none"/>
+          <input type="button" value="Change Photo" onclick="document.getElementById('selectedFile').click();"/>
+        </div>
+        <br/>
+        <div class="name-block in-line-block">
+          <p>Username:</p>
+          <input type="text" class="name-input text-input" placeholder="John Smith" [(ngModel)]="username" #uname/>
+        </div>
+        <br/>
+        <div class="location-block in-line-block">
+          <p>Location:</p>
+          <input type="text" class="location-input text-input" placeholder="Fort Wayne, Indiana" [(ngModel)]="location" #loc/>
+        </div>
+        <br/>
+        <div class="button-container">
+          <button mat-raised-button class="submit-button" type="submit" (click)="onSubmit()">Submit</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</mat-drawer-container>

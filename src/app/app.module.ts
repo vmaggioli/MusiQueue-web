@@ -20,6 +20,7 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { LoginGuard } from './shared/login-guard.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ImageUploadModule } from 'angular2-image-upload';
 
 
 import { HubMainComponent } from './hub-main/hub-main.component';
@@ -34,6 +35,7 @@ import { HubLoginComponent } from './hub-login/hub-login.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { OwnedHubsComponent } from './owned-hubs/owned-hubs.component';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
+import { ProfileFormComponent } from './profile-form/profile-form.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
     UserProfileComponent,
     OwnedHubsComponent,
     LeaderboardsComponent,
+    ProfileFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +73,7 @@ import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
     MatMenuModule,
     MatSidenavModule,
     MatToolbarModule,
+    ImageUploadModule.forRoot(),
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [

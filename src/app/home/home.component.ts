@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // need to force initial user data for compilation
-    this.usersService.currentUser = new User("", "", true, false, "", Date.now(), []);
+    this.usersService.currentUser = new User("", "", true, false, "", Date.now(), "", []);
     this.usname = "";
     this.auth.getAuthState().subscribe((user) => {
       if (user != null) {
@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
       return;
     }
     if (this.user)
-      this.usersService.currentUser = new User(this.usname, this.user.uid, true, false, this.user.email, Date.now(), []);
+      this.usersService.currentUser = new User(this.usname, this.user.uid, true, false, this.user.email, Date.now(), "none", []);
     else
       this.usersService.currentUser.username = this.usname;
     this.router.navigate(['create-join']);

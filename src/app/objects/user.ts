@@ -7,10 +7,11 @@ export class User {
   public kicked: boolean;
   public email: string;
   public last_active: number;
+  public location: string;
   public hub_list: Hub[];
   public constructor (
     username: string, uid :string, active: boolean, kicked: boolean,
-    email: string, last_active: number, hub_list: Hub[]
+    email: string, last_active: number, location: string, hub_list: Hub[]
   ) {
     this.username = username;
     this.uid = uid;
@@ -18,6 +19,7 @@ export class User {
     this.kicked = kicked;
     this.email = email;
     this.last_active = last_active;
+    this.location = location;
     this.hub_list = hub_list;
   }
 

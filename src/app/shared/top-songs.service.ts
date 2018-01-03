@@ -15,7 +15,7 @@ export class TopSongsService {
     None of this function is returning anything. it will all happen asynchronously
     so it doesn't matter much if it takes a second or two to complete
    */
-  addTopSong(userid, songId) {
+  addTopSong(userid, songId, title, thumbnail) {
     firebase.database().ref("/TopSongs/" + userid + "/num_songs").once('value', snap => {
       var ref = firebase.database().ref("/TopSongs/" + userid);
 
@@ -27,6 +27,8 @@ export class TopSongsService {
         ref.child(songId).update({
           count: 1,
           time_added: Date.now(),
+          title: title,
+          thumbnail: thumbnail,
         });
       }
       else {
@@ -52,6 +54,8 @@ export class TopSongsService {
             ref.child(songId).update({
               count: 1,
               time_added: Date.now(),
+              title: title,
+              thumbnail: thumbnail,
             });
           }
 
@@ -64,7 +68,8 @@ export class TopSongsService {
               // CREATE LIST OF SONGS
               snap3.forEach(song => {
                 if (song.key != "num_songs") {
-                  songs[i] = new TopSong(song.key, song.child("time_added").val(), song.child("count").val());
+                  songs[i] = new TopSong(song.key, song.child("time_added").val(), song.child("count").val(),
+                    song.child("title").val(), song.child("thumbnail").val());
                   i = i + 1;
                 }
               });
@@ -106,7 +111,9 @@ export class TopSongsService {
                 ref.child(lowestList[0].video_id).remove();
                 ref.child(songId).update({
                   count: 1,
-                  time_added: Date.now()
+                  time_added: Date.now(),
+                  title: title,
+                  thumbnail: thumbnail,
                 });
               }
 
@@ -141,4 +148,7 @@ export class TopSongsService {
     });
   }
 
+  getTopSongs(userId) {
+    return firebase.database().ref("/TopSongs/" + userId).once('value');
+  }
 }

@@ -190,7 +190,7 @@ export class HubMainComponent  {
       }
     });
     if (abort) return;
-    this.topSongsService.addTopSong(this.usersService.currentUser.uid, videoId);
+    this.topSongsService.addTopSong(this.usersService.currentUser.uid, videoId, title, thumbnail);
     if (this.currentSong == undefined) {
       this.currentSong = new Song(0, this.hubService.currentHub.name, false, 0, title,thumbnail, Date.now(), 0, this.usersService.currentUser.uid,this.usersService.currentUser.username, videoId);
       this.currentSong.username = this.usersService.currentUser.username;

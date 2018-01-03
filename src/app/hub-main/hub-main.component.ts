@@ -4,6 +4,7 @@ import { UsersService } from '../shared/users.service';
 import { QueueService } from '../shared/queue.service';
 import { HubService } from '../shared/hub.service';
 import { YoutubeService } from '../shared/youtube.service';
+import { TopSongsService } from '../shared/top-songs.service';
 import { YouTubePlayer } from 'youtube-player';
 import { Song } from '../objects/song';
 import { Hub } from '../objects/hub';
@@ -20,7 +21,7 @@ import { Router, ActivatedRoute, ParamMap} from '@angular/router';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './hub-main.component.html',
   styleUrls: ['./hub-main.component.css'],
-  providers: [QueueService, YoutubeService],
+  providers: [QueueService, YoutubeService, TopSongsService],
 })
 
 export class HubMainComponent  {
@@ -49,7 +50,9 @@ export class HubMainComponent  {
     public usersService: UsersService,
     public queueService: QueueService,
     public youtubeService: YoutubeService,
-    public hubService: HubService) {
+    public hubService: HubService,
+    public topSongsService: TopSongsService,
+  ) {
 
      }
 
@@ -187,6 +190,7 @@ export class HubMainComponent  {
       }
     });
     if (abort) return;
+    this.topSongsService.addTopSong(this.usersService.currentUser.uid, videoId);
     if (this.currentSong == undefined) {
       this.currentSong = new Song(0, this.hubService.currentHub.name, false, 0, title,thumbnail, Date.now(), 0, this.usersService.currentUser.uid,this.usersService.currentUser.username, videoId);
       this.currentSong.username = this.usersService.currentUser.username;
@@ -209,7 +213,9 @@ export class HubMainComponent  {
       this.hubService.getHubUsers(this.hubService.currentHub.name).subscribe(users => {
         this.hubUsers = [];
         users.forEach(user => {
-          this.hubUsers.push(user);
+          this.usersService.getUserById(user.$key).subscribe(User => {
+            this.hubUsers.push(User);
+          });
         });
       });
     }

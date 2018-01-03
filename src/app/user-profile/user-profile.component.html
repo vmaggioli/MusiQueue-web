@@ -3,12 +3,27 @@
     <mat-card class="mat-card-user-profile">
       <div class="top">
         <div class="image-container">
-          <img [src]="url" height="100">
+          <img [src]="url" height:100px>
         </div>
-        <p class="user-name">{{ this.usersService.currentUser.username }}</p>
+        <div class="profile-head-text">
+          <p class="user-name">{{ this.usersService.currentUser.username }}</p>
+          <p class="user-location">{{ this.usersService.currentUser.location }}</p>
+        </div>
         <div *ngIf="isOwnerProfile" class="edit-button" (click)="editProfile()">
           <mat-icon class="mode-edit-icon">edit</mat-icon>
           <p class="edit-text">Edit</p>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="stats">
+          <p class="stat">Upvotes: </p>
+          <p class="stat">Downvotes: </p>
+          <p class="stat">Medals: </p>
+          <p class="stat">Score: </p>
+          <p class="stat">Rank: </p>
+        </div>
+        <div class="top-songs">
+          <p class="songs-title">{{ this.usersService.currentUser.username }}'s Favorite Songs</p>
         </div>
       </div>
     </mat-card>

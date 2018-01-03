@@ -25,6 +25,7 @@ export class ProfileFormComponent implements OnInit {
     });
     this.location = this.usersService.currentUser.location;
     this.username = this.usersService.currentUser.username;
+    console.log("location: " + this.location + ", username: " + this.username);
   }
 
   onSelectFile(event) {

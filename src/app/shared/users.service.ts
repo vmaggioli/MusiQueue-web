@@ -10,7 +10,6 @@ import { User } from '../objects/user';
 
 @Injectable()
 export class UsersService {
-  public allUsers: FirebaseListObservable<User[]>;
   public hubUserKeys: FirebaseListObservable<any[]>;
   public hubUsers: FirebaseListObservable<User[]>;
   public hubUser: FirebaseObjectObservable<User>;
@@ -20,7 +19,6 @@ export class UsersService {
               public route: ActivatedRoute,
               public router: Router
             ) {
-    this.allUsers = db.list('/Users');
   }
 
   getUserById(id) {
@@ -50,46 +48,17 @@ export class UsersService {
   }
 
   addUserToHub(userID: string, hubUID: string) {
-    var date = Date.now();
-    var ref = firebase.database().ref('Users/' + userID)
-    ref.once("value", u => {
-      var hub = firebase.database().ref("Hubs/" + hubUID);
-      hub.child("/users/" + userID).update({
-        uid: userID,
-        active: u.val().active,
-        email: u.val().email,
-        kicked: u.val().kicked,
-        last_active: date,
-        username: u.val().username,
-        location: "none"
-      });
+    firebase.database().ref("Hubs/" + hubUID).child("/users/" + userID).update({
+      last_active: Date.now()
     });
   }
 
   addHubUnderUser(userID: string, hubUID: string) {
-    var date = Date.now();
-    var userRef = firebase.database().ref("Users/" + userID);
-    if (!this.userIsPartOfHub(userID, hubUID)) {
-      var ref = firebase.database().ref("Hubs/" + hubUID);
-      ref.once("value", newHub => {
-        userRef.child("hub_list/" + hubUID).set({
-          closed: newHub.val().closed,
-          creator: newHub.val().creator,
-          last_active: date,
-          latitude: newHub.val().latitude,
-          longitude: newHub.val().longitude,
-          name: newHub.val().name,
-          pin: newHub.val().pin,
-          //users: this.auth.getCurrentUser().displayName,
-          wifi: newHub.val().wifi
-        });
-      });
-    } else {
-      userRef.child("hub_list/" + hubUID).update({
+    var userRef = firebase.database().ref("Users/" + userID).child("hub_list/" + hubUID).update({
         last_active: date
       });
     }
-}
+
 
   updateUsername(userId: string, username: string) {
     var userRef = firebase.database().ref("Users/" + userId);
@@ -111,7 +80,7 @@ export class UsersService {
 
   getRecentHubs() {
     var date = Date.now();
-    var maxTimeSinceActivity = date - (7 * 24 * 60 * 60 * 1000);
+    var maxTimeSinceActivity = date - (7 * 24 * 60 * 60 * 1000); // 1 week
     return this.db.list("Users/" + this.currentUser.uid + "/hub_list", {
       query: {
         orderByChild: "last_active",
@@ -143,5 +112,4 @@ export class UsersService {
       location: location
     });
   }
-
 }

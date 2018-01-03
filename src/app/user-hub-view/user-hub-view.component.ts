@@ -141,7 +141,9 @@ export class UserHubViewComponent {
       this.hubService.getHubUsers(this.hubService.currentHub.name).subscribe(users => {
         this.hubUsers = [];
         users.forEach(user => {
-          this.hubUsers.push(user);
+          this.usersService.getUserById(user.$key).subscribe(User => {
+            this.hubUsers.push(User);
+          });
         });
       });
     }

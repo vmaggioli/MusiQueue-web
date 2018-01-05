@@ -134,3 +134,7 @@
 ol {
   padding: 0;
 }
+
+.selectable {
+  cursor: pointer;
+}

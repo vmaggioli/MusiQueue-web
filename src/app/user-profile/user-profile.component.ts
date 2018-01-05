@@ -17,13 +17,17 @@ export class UserProfileComponent implements OnInit {
   public isOwnerProfile: boolean = false;
   public topSongs: TopSong[];
   public curUser: User;
+  public friends: User[]
+  public tabIdx: number = 0;
 
   constructor(
     public usersService: UsersService,
     public route: ActivatedRoute,
     public router: Router,
     public topSongsService: TopSongsService,
-  ) { }
+  ) {
+
+   }
 
   ngOnInit() {
     // need to extract uid from url instead
@@ -86,6 +90,9 @@ export class UserProfileComponent implements OnInit {
             this.topSongs.push(songs[i]);
         }
       });
+
+      this.handleFriends();
+      this.tabIdx = 0;
     });
   }
 
@@ -97,4 +104,24 @@ export class UserProfileComponent implements OnInit {
     this.usersService.addFriend(this.usersService.currentUser.uid, this.curUser.uid);
   }
 
+  handleFriends() {
+    this.friends = []
+    this.usersService.getFriends(this.curUser.uid).then(snap => {
+      snap.forEach(s => {
+        this.usersService.getUserByIdOnce(s.key).then(user => {
+          this.friends.push(user.val());
+        });
+      });
+    });
+  }
+
+  onSelected(event) {
+    if (this.tabIdx == 1) {
+      this.handleFriends();
+    }
+  }
+
+  onFriendSelected(friend) {
+    this.router.navigate(['user-profile', friend.uid]);
+  }
 }

@@ -23,8 +23,13 @@ export class UsersService {
             ) {
   }
 
+
   getUserById(id) {
     return this.db.object("Users/" + id);
+  }
+
+  getUserByIdOnce(id) {
+    return firebase.database().ref("Users/" + id).once('value');
   }
 
   listenForBoot() {
@@ -129,5 +134,9 @@ export class UsersService {
         confirm("A friend request has been sent!");
       }
     });
+  }
+
+  getFriends(user) {
+    return firebase.database().ref("Friends/" + user).once('value');
   }
 }

@@ -3,7 +3,7 @@
     <mat-card class="mat-card-user-profile">
       <div class="top">
         <div class="image-container">
-          <img *ngIf="url != null" class="user-pic" [src]="url" height:100px>
+          <img class="user-pic" [src]="url" height:100px>
         </div>
         <div class="profile-heading">
           <div class="profile-head-text">
@@ -29,15 +29,35 @@
       </div>
       <div class="bottom">
         <div class="top-songs">
-          <p class="songs-title">{{ this.curUser.username }}'s Favorite Songs</p>
-          <ol>
-            <li class="list-group-item numbered" *ngFor="let song of topSongs">
-              <div class="top-song-list-item">
-                <img src={{song.thumbnail}} class="img-thumbnail" width="100" height="80"/>
-                <p class="song-title-text">{{ song.title }}</p>
-              </div>
-            </li>
-          </ol>
+          <mat-tab-group [(selectedIndex)]="tabIdx" (selectedTabChange)="onSelected($event)">
+
+            <mat-tab label="Favorite Songs">
+              <ol>
+                <li class="list-group-item numbered" *ngFor="let song of topSongs">
+                  <div class="top-song-list-item">
+                    <img src={{song.thumbnail}} class="img-thumbnail" width="100" height="80"/>
+                    <p class="song-title-text">{{ song.title }}</p>
+                  </div>
+                </li>
+              </ol>
+            </mat-tab>
+
+            <mat-tab label="Friends">
+              <ol>
+                <li class="list-group-item numbered selectable" *ngFor="let friend of friends" (click)="onFriendSelected(friend)">
+                  <p>{{ friend.username }}</p>
+                </li>
+              </ol>
+            </mat-tab>
+
+            <mat-tab label="Medals">
+              <ol>
+                <li>
+                </li>
+              </ol>
+            </mat-tab>
+
+          </mat-tab-group>
         </div>
       </div>
     </mat-card>

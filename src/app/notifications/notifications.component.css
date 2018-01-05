@@ -1,0 +1,79 @@
+.mat-card-notifs {
+  max-width: 700px;
+  margin: auto;
+}
+
+mat-card-header {
+   background-color: #303f9e;
+   color: white;
+   margin-bottom: 20px;
+}
+
+.mat-raised-button {
+  background-color: #303f9e;
+  color: white;
+}
+
+.center-text {
+  text-align: center;
+  width: 100%;
+  margin-left: -15px;
+}
+
+.margin {
+  padding: 20px;
+}
+
+.list-group {
+  line-height: 30px;
+  max-width: 600px;
+  margin: 5px auto;
+}
+
+.list-group-item {
+  display: flex;
+  width: 100%;
+}
+
+.user-photo {
+  max-width: 75px;
+  max-height: 75px;
+  flex: 2;
+}
+
+.friend-notif-text {
+  flex: 7;
+  margin: 0;
+  padding: 0;
+  height: 20px;
+  line-height: 20px;
+}
+
+.buttons {
+  flex: 8;
+}
+
+.resp-button {
+  float: right;
+  margin: 22.5px 2px;
+  padding: 0;
+  color: white;
+  width: 30px!important;
+  min-width: 30px!important;
+  height: 30px;
+  line-height: 30px;
+}
+
+mat-icon {
+  height: 30px;
+  line-height: 30px;
+  margin: 0;
+}
+
+.close-button {
+  background-color: red;
+}
+
+.check-button {
+  background-color: green;
+}

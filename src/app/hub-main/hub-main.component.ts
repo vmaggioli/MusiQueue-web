@@ -46,7 +46,8 @@ export class HubMainComponent  {
   public tabIdx: number;
 
   constructor(
-    private route: ActivatedRoute,
+    public router: Router,
+    public route: ActivatedRoute,
     public usersService: UsersService,
     public queueService: QueueService,
     public youtubeService: YoutubeService,
@@ -299,6 +300,12 @@ export class HubMainComponent  {
   removeSong(song) {
     if (confirm("Are you sure you want to remove " + song.song_name + "?")) {
       this.hubService.removeSong(this.hubService.currentHub.name, song);
+    }
+  }
+
+  onUserClicked(user) {
+    if(confirm("Are you sure you want to leave the page? The music will stop playing.")) {
+      this.router.navigate(['user-profile', user]);
     }
   }
 

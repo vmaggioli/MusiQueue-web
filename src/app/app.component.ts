@@ -49,8 +49,15 @@ export class AppComponent {
     this.router.navigate(['owned-hubs', this.usersService.currentUser.uid]);
   }
 
+  onNotificationsSelected() {
+    this.router.navigate(['notifications', this.usersService.currentUser.uid]);
+  }
+
+  onHowToSelected() {
+    this.router.navigate(['how-to']);
+  }
+
   onLeaderboardSelected() {
     this.router.navigate(['leaderboards']);
-
   }
 }

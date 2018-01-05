@@ -20,8 +20,12 @@ export class ProfileFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.usersService.getPic(this.usersService.currentUser.uid).then(p => {
-      this.url = p;
+    this.usersService.getPic(uid).then(found => {
+      this.url = found;
+    }, notFound => {
+      this.usersService.getPic("__stock__").then(p => {
+        this.url= p;
+      });
     });
     this.location = this.usersService.currentUser.location;
     this.username = this.usersService.currentUser.username;

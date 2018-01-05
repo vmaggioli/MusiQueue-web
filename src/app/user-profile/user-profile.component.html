@@ -3,27 +3,33 @@
     <mat-card class="mat-card-user-profile">
       <div class="top">
         <div class="image-container">
-          <img class="user-pic" [src]="url" height:100px>
+          <img *ngIf="url != null" class="user-pic" [src]="url" height:100px>
         </div>
-        <div class="profile-head-text">
-          <p class="user-name">{{ this.usersService.currentUser.username }}</p>
-          <p class="user-location">{{ this.usersService.currentUser.location }}</p>
+        <div class="profile-heading">
+          <div class="profile-head-text">
+            <p class="user-name">{{ this.curUser.username }}</p>
+            <p class="user-location">{{ this.curUser.location }}</p>
+          </div>
+          <div class="stats">
+            <p class="stat">Upvotes: {{ this.curUser.upvotes }}</p>
+            <p class="stat">Downvotes: {{ this.curUser.downvotes }}</p>
+            <p class="stat">Medals: {{ this.curUser.medal_count }}</p>
+            <p class="stat">Score: {{ this.curUser.upvotes - this.curUser.downvotes + this.curUser.medal_score }}</p>
+            <p class="stat">Rank: Not Yet Implemented</p>
+          </div>
         </div>
         <div *ngIf="isOwnerProfile" class="edit-button" (click)="editProfile()">
           <mat-icon class="mode-edit-icon">edit</mat-icon>
           <p class="edit-text">Edit</p>
         </div>
+        <div *ngIf="!isOwnerProfile" class="edit-button" (click)="addFriend()">
+          <mat-icon class="mode-edit-icon">add</mat-icon>
+          <p class="edit-text">Add</p>
+        </div>
       </div>
       <div class="bottom">
-        <div class="stats">
-          <p class="stat">Upvotes: </p>
-          <p class="stat">Downvotes: </p>
-          <p class="stat">Medals: </p>
-          <p class="stat">Score: </p>
-          <p class="stat">Rank: </p>
-        </div>
         <div class="top-songs">
-          <p class="songs-title">{{ this.usersService.currentUser.username }}'s Favorite Songs</p>
+          <p class="songs-title">{{ this.curUser.username }}'s Favorite Songs</p>
           <ol>
             <li class="list-group-item numbered" *ngFor="let song of topSongs">
               <div class="top-song-list-item">

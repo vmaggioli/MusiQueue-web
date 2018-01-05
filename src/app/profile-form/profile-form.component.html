@@ -5,10 +5,9 @@
         <h2 class="center-text">Profile Editor</h2>
       </mat-card-header>
       <mat-card-content>
-        <div class="image-block in-line-block">
+        <div class="in-line-block">
           <img [src]="url" height="100">
-          <input type='file' id="selectedFile" style="display: none"/>
-          <input type="button" value="Change Photo" onclick="document.getElementById('selectedFile').click();"/>
+          <input type='file' id="selectedFile" (change)="onSelectFile($event)" />
         </div>
         <br/>
         <div class="name-block in-line-block">

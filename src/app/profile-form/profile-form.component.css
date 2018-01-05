@@ -34,6 +34,11 @@ input {
   flex: 1;
 }
 
+#selectedFile {
+  width: 92px!important;
+  float: right;
+}
+
 .in-line-block {
   display: inline-block;
   margin: 5px 0 5px 0;

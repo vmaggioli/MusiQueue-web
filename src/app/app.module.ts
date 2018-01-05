@@ -15,6 +15,7 @@ import { AuthService } from './shared/auth.service';
 import { UsersService } from './shared/users.service';
 import { HubService } from './shared/hub.service';
 import { environment } from '../environments/environment';
+import { NotifService } from './shared/notif.service';
 import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { LoginGuard } from './shared/login-guard.module';
@@ -36,6 +37,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { OwnedHubsComponent } from './owned-hubs/owned-hubs.component';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 import { ProfileFormComponent } from './profile-form/profile-form.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { HowToComponent } from './how-to/how-to.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +55,8 @@ import { ProfileFormComponent } from './profile-form/profile-form.component';
     OwnedHubsComponent,
     LeaderboardsComponent,
     ProfileFormComponent,
+    NotificationsComponent,
+    HowToComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +88,7 @@ import { ProfileFormComponent } from './profile-form/profile-form.component';
     HubService,
     AngularFireAuth,
     AngularFireDatabase,
+    NotifService,
   ],
   bootstrap: [AppComponent]
 })

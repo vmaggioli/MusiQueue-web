@@ -3,6 +3,7 @@ import { QueueService } from '../shared/queue.service';
 import { YoutubeService } from '../shared/youtube.service';
 import { HubService } from '../shared/hub.service';
 import { UsersService } from '../shared/users.service';
+import { TopSongsService } from '../shared/top-songs.service';
 import { User } from '../objects/user';
 import { Song } from '../objects/song';
 import { Hub } from '../objects/hub';
@@ -19,7 +20,7 @@ import * as firebase from 'firebase/app';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './user-hub-view.component.html',
   styleUrls: ['./user-hub-view.component.css'],
-  providers: [QueueService, YoutubeService]
+  providers: [QueueService, YoutubeService, TopSongsService]
 })
 export class UserHubViewComponent {
 
@@ -40,7 +41,7 @@ export class UserHubViewComponent {
   public tabIdx: number;
 
   constructor(
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     public usersService: UsersService,
     public queueService: QueueService,
     public youtubeService: YoutubeService,
@@ -120,6 +121,7 @@ export class UserHubViewComponent {
       }
     });
     if (abort) return;
+    this.topSongsService.addTopSong(this.usersService.currentUser.uid, videoId, title, thumbnail);
     if (this.currentSong == undefined) {
       this.currentSong = new Song(0, this.hubService.currentHub.name, false, 0, title,thumbnail, Date.now(), 0, this.usersService.currentUser.uid,this.usersService.currentUser.username, videoId);
       this.currentSong.username = this.usersService.currentUser.username;
@@ -218,4 +220,7 @@ export class UserHubViewComponent {
     this.router.navigate(['/']);
   }
 
+  onUserClicked(user) {
+    this.router.navigate(['user-profile', user]);
+  }
 }

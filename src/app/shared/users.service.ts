@@ -7,6 +7,7 @@ import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 import 'firebase/storage';
 
 import { User } from '../objects/user';
+import { NotifService } from '../shared/notif.service';
 
 @Injectable()
 export class UsersService {
@@ -17,7 +18,8 @@ export class UsersService {
 
   constructor(public db: AngularFireDatabase,
               public route: ActivatedRoute,
-              public router: Router
+              public router: Router,
+              public notifService: NotifService,
             ) {
   }
 
@@ -55,7 +57,7 @@ export class UsersService {
 
   addHubUnderUser(userID: string, hubUID: string) {
     var userRef = firebase.database().ref("Users/" + userID).child("hub_list/" + hubUID).update({
-        last_active: date
+        last_active: Date.now()
       });
     }
 
@@ -95,13 +97,18 @@ export class UsersService {
   }
 
   updatePic(user: string, pic: string) {
+    console.log("saving image");
     var storageRef = firebase.storage().ref();
     var imagesRef = storageRef.child('images/' + user);
     imagesRef.putString(pic, 'base64');
   }
 
   getPic(user: string): FirebaseObservable {
-    return firebase.storage().ref().child('images/' + user).getDownloadURL();
+    var ref = firebase.storage().ref().child('images/' + user);
+    console.log(ref);
+    if (ref != null)
+      return ref.getDownloadURL();
+    return null;
   }
 
   updateProfile(user, username, location) {
@@ -110,6 +117,17 @@ export class UsersService {
     firebase.database().ref("/Users/" + user).update({
       username: username,
       location: location
+    });
+  }
+
+  addFriend(user, friend) {
+    var friendRef = firebase.database().ref("Friends/" + user + "/" + friend).once('value', res => {
+      if (res.val() != null)
+        confirm("This User is already one of your friends!");
+      else {
+        this.notifService.addFriendRequest(user, friend);
+        confirm("A friend request has been sent!");
+      }
     });
   }
 }

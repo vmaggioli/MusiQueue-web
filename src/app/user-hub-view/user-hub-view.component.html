@@ -29,7 +29,7 @@
                   type="button" class="vote-button">
                   <i class="glyphicon glyphicon-thumbs-down"></i>
                 </button>
-                <p id="rank"><span *ngIf="song.rank > -1">+</span>{{ song.up_votes - song.down_votes }}</p>
+                <p id="rank"><span *ngIf="song.rank > -1">+</span>{{ song.rank }}</p>
               </span>
               <span>
                 <span class="song-name">{{ song.song_name }}</span><br>
@@ -62,7 +62,7 @@
 
           <mat-tab label="Users" (click)="onSelected('users')" [ngClass]="{ 'selected' : isUsers }">
               <ul class="list-group user-scroll-list">
-                <li class="list-group-item" *ngFor="let user of hubUsers">
+                <li class="list-group-item selectable" *ngFor="let user of hubUsers"  (click)="onUserClicked(user.uid)">
                   <span>{{ user.username }}</span>
                 </li>
               </ul>

@@ -3,6 +3,7 @@ import { UsersService } from '../shared/users.service';
 import { TopSongsService } from '../shared/top-songs.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TopSong } from '../objects/topSong';
+import { User } from '../objects/user';
 
 @Component({
   selector: 'lsl-user-profile',
@@ -15,6 +16,7 @@ export class UserProfileComponent implements OnInit {
   public url: string;
   public isOwnerProfile: boolean = false;
   public topSongs: TopSong[];
+  public curUser: User;
 
   constructor(
     public usersService: UsersService,
@@ -32,8 +34,19 @@ export class UserProfileComponent implements OnInit {
       else
         this.isOwnerProfile = false;
 
-      this.usersService.getPic(uid).then(p => {
-        this.url = p;
+      this.usersService.getPic(uid).then(found => {
+        this.url = found;
+      }, notFound => {
+        this.usersService.getPic("__stock__").then(p => {
+          this.url= p;
+        });
+      });
+
+      this.usersService.getUserById(uid).subscribe(u => {
+        this.curUser = u;
+        // TODO: IMPLEMENT MEDALS AND REMOVE HARD-CODED VALUES
+        this.curUser.medal_count = 0;
+        this.curUser.medal_score = 0;
       });
 
       this.topSongsService.getTopSongs(uid).then(snap => {
@@ -78,6 +91,10 @@ export class UserProfileComponent implements OnInit {
 
   editProfile() {
     this.router.navigate(['profile-form', this.usersService.currentUser.uid]);
+  }
+
+  addFriend() {
+    this.usersService.addFriend(this.usersService.currentUser.uid, this.curUser.uid);
   }
 
 }

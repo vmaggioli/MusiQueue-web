@@ -1,3 +1,65 @@
-<p>
-  user-profile works!
-</p>
+<mat-drawer-container class="drawer-container">
+  <div class="margin">
+    <mat-card class="mat-card-user-profile">
+      <div class="top">
+        <div class="image-container">
+          <img class="user-pic" [src]="url" height:100px>
+        </div>
+        <div class="profile-heading">
+          <div class="profile-head-text">
+            <p class="user-name">{{ this.curUser.username }}</p>
+            <p class="user-location">{{ this.curUser.location }}</p>
+          </div>
+          <div class="stats">
+            <p class="stat">Upvotes: {{ this.curUser.upvotes }}</p>
+            <p class="stat">Downvotes: {{ this.curUser.downvotes }}</p>
+            <p class="stat">Medals: {{ this.curUser.medal_count }}</p>
+            <p class="stat">Score: {{ this.curUser.upvotes - this.curUser.downvotes + this.curUser.medal_score }}</p>
+            <p class="stat">Rank: Not Yet Implemented</p>
+          </div>
+        </div>
+        <div *ngIf="isOwnerProfile" class="edit-button" (click)="editProfile()">
+          <mat-icon class="mode-edit-icon">edit</mat-icon>
+          <p class="edit-text">Edit</p>
+        </div>
+        <div *ngIf="!isOwnerProfile" class="edit-button" (click)="addFriend()">
+          <mat-icon class="mode-edit-icon">add</mat-icon>
+          <p class="edit-text">Add</p>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="top-songs">
+          <mat-tab-group [(selectedIndex)]="tabIdx" (selectedTabChange)="onSelected($event)">
+
+            <mat-tab label="Favorites">
+              <ol>
+                <li class="list-group-item numbered" *ngFor="let song of topSongs">
+                  <div class="top-song-list-item">
+                    <img src={{song.thumbnail}} class="prof-img-thumbnail" width="100" height="80"/>
+                    <p class="song-title-text">{{ song.title }}</p>
+                  </div>
+                </li>
+              </ol>
+            </mat-tab>
+
+            <mat-tab label="Friends">
+              <ol>
+                <li class="list-group-item numbered selectable" *ngFor="let friend of friends" (click)="onFriendSelected(friend)">
+                  <p class="list-text">{{ friend.username }}</p>
+                </li>
+              </ol>
+            </mat-tab>
+
+            <mat-tab label="Medals">
+              <ol>
+                <li>
+                </li>
+              </ol>
+            </mat-tab>
+
+          </mat-tab-group>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</mat-drawer-container>

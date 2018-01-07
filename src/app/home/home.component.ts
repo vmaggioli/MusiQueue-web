@@ -13,7 +13,7 @@ import { User } from '../objects/user';
 })
 export class HomeComponent implements OnInit {
   topics: FirebaseListObservable<any[]>;
-  user = null;
+  //user = null;
   loggedIn: boolean = false;
   usname: string = "";
 
@@ -24,11 +24,17 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // need to force initial user data for compilation
-    this.usersService.currentUser = new User("", "", true, false, "", Date.now(), []);
+    this.usersService.currentUser = new User("", "", true, false, "", Date.now(), "none", []);
     this.usname = "";
     this.auth.getAuthState().subscribe((user) => {
       if (user != null) {
-        this.user = user
+        this.usersService.getUserById(user.uid).subscribe(u => {
+          if (u) {
+            this.usersService.currentUser = new User(u.username, u.uid, u.active, u.kicked, u.email, u.last_active, u.location, u.hub_list);
+            console.log("uid: " + this.usersService.currentUser.uid + ", location: " + this.usersService.currentUser.location);
+          }
+        });
+        //this.user = user
         this.loggedIn = true;
         var ref = firebase.database().ref("Users/" + user.uid);
         if (this.usname == null || this.usname == "") {
@@ -57,7 +63,9 @@ export class HomeComponent implements OnInit {
       return;
     }
     if (this.user)
-      this.usersService.currentUser = new User(this.usname, this.user.uid, true, false, this.user.email, Date.now(), []);
+      this.usersService.currentUser = new User(this.usname,
+        this.usersService.currentUser.uid, true, false, this.usersService.currentUser.email,
+        Date.now(), this.usersService.currentUser.location, []);
     else
       this.usersService.currentUser.username = this.usname;
     this.router.navigate(['create-join']);

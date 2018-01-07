@@ -82,103 +82,99 @@ export class QueueService {
   upvote(song) {
     var ref = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     ref.once("value", songID => {
-      console.log("songID: " + songID.val());
+
       if (songID.val() == null || songID.val().songVote == "null") {
-        var songRef = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/up_votes');
-        songRef.transaction(function(upvotes) {
+        firebase.database().ref("Users/" + song.user_id + "/upvotes").transaction(function(upvotes) {
+          if (upvotes ==  null || upvotes == 0)
+            return 1;
           return upvotes + 1;
         });
-        var songRef2 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank');
-        songRef2.transaction(function(rank) {
+        firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank').transaction(function(rank) {
           return rank + 1;
         });
-        var songToUpvote = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id + "/songVote");
-        songToUpvote.transaction(function(songVote) {
+        firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id + "/songVote").transaction(function(songVote) {
           return "upvote";
         });
+
       } else if (songID.val().songVote == "downvote") {
-        var songRef1 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/down_votes');
-        songRef1.transaction(function(downvotes) {
-          return downvotes - 1;
-        });
-        var songRef2 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/up_votes');
-        songRef2.transaction(function(upvotes) {
+        firebase.database().ref("Users/" + song.user_id + "/upvotes").transaction(function(upvotes) {
+          if (upvotes ==  null || upvotes == 0)
+            return 1;
           return upvotes + 1;
         });
-        var songRef3 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank');
-        songRef3.transaction(function(rank) {
+        firebase.database().ref("Users/" + song.user_id + "/downvotes").transaction(function(downvotes) {
+          if (downvotes ==  null || downvotes == 0)
+            return 0;
+          return downvotes - 1;
+        });
+        firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank').transaction(function(rank) {
           return rank + 2;
         });
-        var songToUpvote = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id + "/songVote");
-        songToUpvote.transaction(function(songVote) {
+        firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id + "/songVote").transaction(function(songVote) {
           return "upvote";
         });
+
       } else if (songID.val().songVote == "upvote") {
-        var songRef1 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/up_votes');
-        songRef1.transaction(function(upvotes) {
+        firebase.database().ref("Users/" + song.user_id + "/upvotes").transaction(function(upvotes) {
+          if (upvotes ==  null || upvotes == 0)
+            return 0;
           return upvotes - 1;
         });
-        var songRef1 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank');
-        songRef1.transaction(function(rank) {
+        firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank').transaction(function(rank) {
           return rank - 1;
         });
-        var songToUpvote = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id + "/songVote");
-        songToUpvote.transaction(function(songVote) {
+        firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id + "/songVote").transaction(function(songVote) {
           return "null";
         });
       }
     });
-
-
   }
 
   downvote(song) {
     var ref = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     ref.once("value", songID => {
+
       if (songID.val() == null || songID.val().songVote == "null") {
-        var songRef = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/down_votes');
-        songRef.transaction(function(downvotes) {
+        firebase.database().ref("Users/" + song.user_id + "/downvotes").transaction(function(downvotes) {
+          if (downvotes ==  null || downvotes == 0)
+            return 1;
           return downvotes + 1;
         });
-        var songRef2 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank');
-        songRef2.transaction(function(rank) {
+        firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank').transaction(function(rank) {
           return rank - 1;
         });
-
-        var songToUpvote = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id + "/songVote");
-        songToUpvote.transaction(function(songVote) {
+        firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id + "/songVote").transaction(function(songVote) {
           return "downvote";
         });
+
       } else if (songID.val().songVote == "upvote") {
-        var songRef1 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/up_votes');
-        songRef1.transaction(function(upvotes) {
+        firebase.database().ref("Users/" + song.user_id + "/upvotes").transaction(function(upvotes) {
+          if (upvotes ==  null || upvotes == 0)
+            return 0;
           return upvotes - 1;
         });
-        var songRef2 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/down_votes');
-        songRef2.transaction(function(downvotes) {
+        firebase.database().ref("Users/" + song.user_id + "/downvotes").transaction(function(downvotes) {
+          if (downvotes ==  null || downvotes == 0)
+            return 1;
           return downvotes + 1;
         });
-        var songRef3 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank');
-        songRef3.transaction(function(rank) {
+        firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank').transaction(function(rank) {
           return rank - 2;
         });
-
-        var songToUpvote = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id + "/songVote");
-        songToUpvote.transaction(function(songVote) {
+        firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id + "/songVote").transaction(function(songVote) {
           return "downvote";
         });
+
       } else if (songID.val().songVote == "downvote") {
-        var songRef1 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/down_votes');
-        songRef1.transaction(function(downvotes) {
+        firebase.database().ref("Users/" + song.user_id + "/downvotes").transaction(function(downvotes) {
+          if (downvotes ==  null || downvotes == 0)
+            return 0;
           return downvotes - 1;
         });
-        var songRef2 = firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank');
-        songRef2.transaction(function(rank) {
+        firebase.database().ref('/Songs/'+song.hub_id+song.video_id+'/rank').transaction(function(rank) {
           return rank + 1;
         });
-
-        var songToUpvote = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id + "/songVote");
-        songToUpvote.transaction(function(songVote) {
+        firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id + "/songVote").transaction(function(songVote) {
           return "null";
         });
       }

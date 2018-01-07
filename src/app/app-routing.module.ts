@@ -13,7 +13,10 @@ import { UserHubViewComponent } from './user-hub-view/user-hub-view.component';
 import { HubLoginComponent } from './hub-login/hub-login.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { OwnedHubsComponent } from './owned-hubs/owned-hubs.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { HowToComponent } from './how-to/how-to.component';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
+import { ProfileFormComponent } from './profile-form/profile-form.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent }
@@ -26,7 +29,11 @@ const appRoutes: Routes = [
   { path: 'hub-login/:name', component: HubLoginComponent, canActivate: [LoginGuard]},
   { path: 'user-profile/:name', component: UserProfileComponent, canActivate: [LoginGuard]},
   { path: 'owned-hubs/:name', component: OwnedHubsComponent, canActivate: [LoginGuard]},
+  { path: 'notifications/:name', component: NotificationsComponent, canActivate: [LoginGuard]},
+  { path: 'how-to', component: HowToComponent, canActivate: [LoginGuard]},
   { path: 'leaderboards', component: LeaderboardsComponent, canActivate: [LoginGuard]},
+  { path: 'profile-form/:name', component: ProfileFormComponent, canActivate: [LoginGuard]},
+
 ]
 @NgModule({
   imports: [

@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { MatCardModule, MatButtonModule, MatTabsModule, MatInputModule, MatFormFieldModule, MatIconModule, MatMenuModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
+import { MatCardModule, MatButtonModule, MatTabsModule, MatInputModule,
+  MatFormFieldModule, MatIconModule, MatMenuModule, MatSidenavModule,
+  MatToolbarModule, MatSnackBarModule } from '@angular/material';
 import { Animations } from '@angular/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -15,11 +17,13 @@ import { AuthService } from './shared/auth.service';
 import { UsersService } from './shared/users.service';
 import { HubService } from './shared/hub.service';
 import { environment } from '../environments/environment';
+import { NotifService } from './shared/notif.service';
 import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { LoginGuard } from './shared/login-guard.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ImageUploadModule } from 'angular2-image-upload';
 
 
 import { HubMainComponent } from './hub-main/hub-main.component';
@@ -34,6 +38,9 @@ import { HubLoginComponent } from './hub-login/hub-login.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { OwnedHubsComponent } from './owned-hubs/owned-hubs.component';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
+import { ProfileFormComponent } from './profile-form/profile-form.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { HowToComponent } from './how-to/how-to.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +56,9 @@ import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
     UserProfileComponent,
     OwnedHubsComponent,
     LeaderboardsComponent,
+    ProfileFormComponent,
+    NotificationsComponent,
+    HowToComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +80,8 @@ import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
     MatMenuModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatSnackBarModule,
+    ImageUploadModule.forRoot(),
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [
@@ -79,6 +91,7 @@ import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
     HubService,
     AngularFireAuth,
     AngularFireDatabase,
+    NotifService,
   ],
   bootstrap: [AppComponent]
 })

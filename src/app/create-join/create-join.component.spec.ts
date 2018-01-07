@@ -60,7 +60,7 @@ describe('CreateJoinComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateJoinComponent);
     usersService = TestBed.get(UsersService);
-    usersService.currentUser = new User("admin", "cJLlE03u8bfoWJQePFAsAjZuN9i2", true, false, "mqmobileproject@gmail.com", Date.now(), []);
+    usersService.currentUser = new User("admin", "cJLlE03u8bfoWJQePFAsAjZuN9i2", true, false, "mqmobileproject@gmail.com", Date.now(), "none", []);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

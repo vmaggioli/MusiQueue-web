@@ -4,13 +4,13 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Router, ActivatedRoute, ParamMap} from '@angular/router';
-
+import 'firebase/storage';
 
 import { User } from '../objects/user';
+import { NotifService } from '../shared/notif.service';
 
 @Injectable()
 export class UsersService {
-  public allUsers: FirebaseListObservable<User[]>;
   public hubUserKeys: FirebaseListObservable<any[]>;
   public hubUsers: FirebaseListObservable<User[]>;
   public hubUser: FirebaseObjectObservable<User>;
@@ -18,13 +18,18 @@ export class UsersService {
 
   constructor(public db: AngularFireDatabase,
               public route: ActivatedRoute,
-              public router: Router
+              public router: Router,
+              public notifService: NotifService,
             ) {
-    this.allUsers = db.list('/Users');
   }
+
 
   getUserById(id) {
     return this.db.object("Users/" + id);
+  }
+
+  getUserByIdOnce(id) {
+    return firebase.database().ref("Users/" + id).once('value');
   }
 
   listenForBoot() {
@@ -50,45 +55,17 @@ export class UsersService {
   }
 
   addUserToHub(userID: string, hubUID: string) {
-    var date = Date.now();
-    var ref = firebase.database().ref('Users/' + userID)
-    ref.once("value", u => {
-      var hub = firebase.database().ref("Hubs/" + hubUID);
-      hub.child("/users/" + userID).update({
-        uid: userID,
-        active: u.val().active,
-        email: u.val().email,
-        kicked: u.val().kicked,
-        last_active: date,
-        username: u.val().username
-      });
+    firebase.database().ref("Hubs/" + hubUID).child("/users/" + userID).update({
+      last_active: Date.now()
     });
   }
 
   addHubUnderUser(userID: string, hubUID: string) {
-    var date = Date.now();
-    var userRef = firebase.database().ref("Users/" + userID);
-    if (!this.userIsPartOfHub(userID, hubUID)) {
-      var ref = firebase.database().ref("Hubs/" + hubUID);
-      ref.once("value", newHub => {
-        userRef.child("hub_list/" + hubUID).set({
-          closed: newHub.val().closed,
-          creator: newHub.val().creator,
-          last_active: date,
-          latitude: newHub.val().latitude,
-          longitude: newHub.val().longitude,
-          name: newHub.val().name,
-          pin: newHub.val().pin,
-          //users: this.auth.getCurrentUser().displayName,
-          wifi: newHub.val().wifi
-        });
-      });
-    } else {
-      userRef.child("hub_list/" + hubUID).update({
-        last_active: date
+    var userRef = firebase.database().ref("Users/" + userID).child("hub_list/" + hubUID).update({
+        last_active: Date.now()
       });
     }
-}
+
 
   updateUsername(userId: string, username: string) {
     var userRef = firebase.database().ref("Users/" + userId);
@@ -110,7 +87,7 @@ export class UsersService {
 
   getRecentHubs() {
     var date = Date.now();
-    var maxTimeSinceActivity = date - (7 * 24 * 60 * 60 * 1000);
+    var maxTimeSinceActivity = date - (7 * 24 * 60 * 60 * 1000); // 1 week
     return this.db.list("Users/" + this.currentUser.uid + "/hub_list", {
       query: {
         orderByChild: "last_active",
@@ -122,7 +99,44 @@ export class UsersService {
 
   addToKickedList(hub: string, user: string) {
     firebase.database().ref("/Users/" + user + "/kicked_list").push(hub);
-    console.log("added to kick list");
   }
 
+  updatePic(user: string, pic: string) {
+    console.log("saving image");
+    var storageRef = firebase.storage().ref();
+    var imagesRef = storageRef.child('images/' + user);
+    imagesRef.putString(pic, 'base64');
+  }
+
+  getPic(user: string): FirebaseObservable {
+    var ref = firebase.storage().ref().child('images/' + user);
+    console.log(ref);
+    if (ref != null)
+      return ref.getDownloadURL();
+    return null;
+  }
+
+  updateProfile(user, username, location) {
+    this.currentUser.location = location;
+    this.currentUser.username = username;
+    firebase.database().ref("/Users/" + user).update({
+      username: username,
+      location: location
+    });
+  }
+
+  addFriend(user, friend) {
+    var friendRef = firebase.database().ref("Friends/" + user + "/" + friend).once('value', res => {
+      if (res.val() != null)
+        confirm("This User is already one of your friends!");
+      else {
+        this.notifService.addFriendRequest(user, friend);
+        confirm("A friend request has been sent!");
+      }
+    });
+  }
+
+  getFriends(user) {
+    return firebase.database().ref("Friends/" + user).once('value');
+  }
 }

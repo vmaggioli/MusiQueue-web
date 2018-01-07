@@ -42,15 +42,22 @@ export class AppComponent {
   }
 
   onProfileSelected() {
-    this.router.navigate(['user-profile', this.usersService.currentUser.uid])
+    this.router.navigate(['user-profile', this.usersService.currentUser.uid]);
   }
 
   onUserHubsSelected() {
-    this.router.navigate(['owned-hubs', this.usersService.currentUser.uid])
+    this.router.navigate(['owned-hubs', this.usersService.currentUser.uid]);
+  }
+
+  onNotificationsSelected() {
+    this.router.navigate(['notifications', this.usersService.currentUser.uid]);
+  }
+
+  onHowToSelected() {
+    this.router.navigate(['how-to']);
   }
 
   onLeaderboardSelected() {
-    this.router.navigate(['leaderboards'])
-
+    this.router.navigate(['leaderboards']);
   }
 }

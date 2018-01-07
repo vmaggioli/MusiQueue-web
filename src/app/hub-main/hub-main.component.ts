@@ -4,11 +4,14 @@ import { UsersService } from '../shared/users.service';
 import { QueueService } from '../shared/queue.service';
 import { HubService } from '../shared/hub.service';
 import { YoutubeService } from '../shared/youtube.service';
+import { TopSongsService } from '../shared/top-songs.service';
+import { MessagesService } from '../shared/messages.service';
 import { YouTubePlayer } from 'youtube-player';
 import { Song } from '../objects/song';
 import { Hub } from '../objects/hub';
 import { Vote } from '../objects/vote';
 import { YTSong } from '../objects/YTsong';
+import { Message } from '../objects/message';
 import { FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
@@ -20,7 +23,7 @@ import { Router, ActivatedRoute, ParamMap} from '@angular/router';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './hub-main.component.html',
   styleUrls: ['./hub-main.component.css'],
-  providers: [QueueService, YoutubeService],
+  providers: [QueueService, YoutubeService, TopSongsService, MessagesService],
 })
 
 export class HubMainComponent  {
@@ -43,13 +46,18 @@ export class HubMainComponent  {
   public currentSong: Song;
   public votedSongs: Vote[];
   public tabIdx: number;
+  public messages: Message[];
 
   constructor(
-    private route: ActivatedRoute,
+    public router: Router,
+    public route: ActivatedRoute,
     public usersService: UsersService,
     public queueService: QueueService,
     public youtubeService: YoutubeService,
-    public hubService: HubService) {
+    public hubService: HubService,
+    public topSongsService: TopSongsService,
+    public messagesService: MessagesService,
+  ) {
 
      }
 
@@ -91,6 +99,7 @@ export class HubMainComponent  {
       });
     });
     this.usersService.updateUserActivity(this.usersService.currentUser.uid, this.hubService.currentHub.name);
+    this.messagesService.cleanMessages(this.hubService.currentHub.name);
   }
   sortQueue(items) {
     this.songs = items;
@@ -187,6 +196,7 @@ export class HubMainComponent  {
       }
     });
     if (abort) return;
+    this.topSongsService.addTopSong(this.usersService.currentUser.uid, videoId, title, thumbnail);
     if (this.currentSong == undefined) {
       this.currentSong = new Song(0, this.hubService.currentHub.name, false, 0, title,thumbnail, Date.now(), 0, this.usersService.currentUser.uid,this.usersService.currentUser.username, videoId);
       this.currentSong.username = this.usersService.currentUser.username;
@@ -209,7 +219,9 @@ export class HubMainComponent  {
       this.hubService.getHubUsers(this.hubService.currentHub.name).subscribe(users => {
         this.hubUsers = [];
         users.forEach(user => {
-          this.hubUsers.push(user);
+          this.usersService.getUserById(user.$key).subscribe(User => {
+            this.hubUsers.push(User);
+          });
         });
       });
     }
@@ -234,6 +246,15 @@ export class HubMainComponent  {
       this.isSongs = false;
       this.isQueue = false;
       this.isChat = true;
+      this.messagesService.cleanMessages(this.hubService.currentHub.name);
+      this.messagesService.getMessages(this.hubService.currentHub.name).subscribe(m => {
+        this.messages = m;
+        this.messages.sort((a, b) => {
+          if (a.time < b.time) return -1;
+          else if (a.time > b.time) return 1;
+          else return 0;
+        });
+      });
     }
   }
 
@@ -294,6 +315,16 @@ export class HubMainComponent  {
     if (confirm("Are you sure you want to remove " + song.song_name + "?")) {
       this.hubService.removeSong(this.hubService.currentHub.name, song);
     }
+  }
+
+  onUserClicked(user) {
+    if(confirm("Are you sure you want to leave the page? The music will stop playing.")) {
+      this.router.navigate(['user-profile', user]);
+    }
+  }
+
+  onMessageSend(message) {
+    this.messagesService.addMessage(this.hubService.currentHub.name, this.usersService.currentUser.uid, this.usersService.currentUser.username, message);
   }
 
 }

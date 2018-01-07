@@ -126,3 +126,67 @@ ol ul {
   font-style: italic;
   color: gray;
 }
+
+
+.message-list-container {
+  min-height: 400px;
+  max-height: 700px;
+  background-color: white;
+  margin: auto 5%;
+  width: 90%;
+}
+
+.message-list-item {
+  width: 75%;
+  margin: 10px;
+}
+
+.message-header {
+  width: 100%;
+  display: inline-block;
+  height: 22px;
+}
+
+.message-user {
+  float: left;
+}
+
+.message-time {
+  float: right;
+  color: lightgray;
+}
+
+.message-text {
+  margin: 0;
+  padding: 0;
+}
+
+.chat-box {
+  display: flex;
+  flex-direction: row;
+  margin: auto 20px;
+}
+
+.message-input {
+  flex: 9;
+}
+
+.message-send-button {
+  flex: 1;
+  background-color: #303f9e;
+  color: white;
+  line-height: 26px;
+  height: 26px;
+  width: 35px!important;
+  max-width: 35px!important;
+  min-width: 35px!important;
+  padding: 0;
+}
+
+.send-icon {
+  margin-top: -2px!important;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}

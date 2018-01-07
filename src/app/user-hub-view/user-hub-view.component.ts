@@ -4,10 +4,12 @@ import { YoutubeService } from '../shared/youtube.service';
 import { HubService } from '../shared/hub.service';
 import { UsersService } from '../shared/users.service';
 import { TopSongsService } from '../shared/top-songs.service';
+import { MessagesService } from '../shared/messages.service';
 import { User } from '../objects/user';
 import { Song } from '../objects/song';
 import { Hub } from '../objects/hub';
 import { Vote } from '../objects/vote';
+import { Message } from '../objects/message';
 import { YTSong } from '../objects/YTsong';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseListObservable } from 'angularfire2/database';
@@ -20,7 +22,7 @@ import * as firebase from 'firebase/app';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './user-hub-view.component.html',
   styleUrls: ['./user-hub-view.component.css'],
-  providers: [QueueService, YoutubeService, TopSongsService]
+  providers: [QueueService, YoutubeService, TopSongsService, MessagesService]
 })
 export class UserHubViewComponent {
 
@@ -39,6 +41,8 @@ export class UserHubViewComponent {
   public currentSong: Song;
   public votedSongs: Vote[];
   public tabIdx: number;
+  public messages: Message[];
+
 
   constructor(
     public route: ActivatedRoute,
@@ -46,7 +50,10 @@ export class UserHubViewComponent {
     public queueService: QueueService,
     public youtubeService: YoutubeService,
     public hubService: HubService,
-    public router: Router) {
+    public router: Router,
+    public messagesService: MessagesService,
+
+  ) {
 
    }
 
@@ -89,6 +96,7 @@ export class UserHubViewComponent {
      });
      this.hubn = this.hubService.currentHub.name;
      this.usersService.updateUserActivity(this.usersService.currentUser.uid, this.hubn);
+     this.messagesService.cleanMessages(this.hubService.currentHub.name);
      // listen for if user gets kicked out
      this.usersService.listenForBoot();
    }
@@ -170,7 +178,15 @@ export class UserHubViewComponent {
       this.isUsers = false;
       this.isQueue = false;
       this.isChat = true;
-
+      this.messagesService.cleanMessages(this.hubService.currentHub.name);
+      this.messagesService.getMessages(this.hubService.currentHub.name).subscribe(m => {
+        this.messages = m;
+        this.messages.sort((a, b) => {
+          if (a.time < b.time) return -1;
+          else if (a.time > b.time) return 1;
+          else return 0;
+        });
+      });
     }
   }
 
@@ -222,5 +238,9 @@ export class UserHubViewComponent {
 
   onUserClicked(user) {
     this.router.navigate(['user-profile', user]);
+  }
+
+  onMessageSend(message) {
+    this.messagesService.addMessage(this.hubService.currentHub.name, this.usersService.currentUser.uid, this.usersService.currentUser.username, message);
   }
 }

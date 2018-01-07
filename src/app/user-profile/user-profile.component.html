@@ -31,11 +31,11 @@
         <div class="top-songs">
           <mat-tab-group [(selectedIndex)]="tabIdx" (selectedTabChange)="onSelected($event)">
 
-            <mat-tab label="Favorite Songs">
+            <mat-tab label="Favorites">
               <ol>
                 <li class="list-group-item numbered" *ngFor="let song of topSongs">
                   <div class="top-song-list-item">
-                    <img src={{song.thumbnail}} class="img-thumbnail" width="100" height="80"/>
+                    <img src={{song.thumbnail}} class="prof-img-thumbnail" width="100" height="80"/>
                     <p class="song-title-text">{{ song.title }}</p>
                   </div>
                 </li>
@@ -45,7 +45,7 @@
             <mat-tab label="Friends">
               <ol>
                 <li class="list-group-item numbered selectable" *ngFor="let friend of friends" (click)="onFriendSelected(friend)">
-                  <p>{{ friend.username }}</p>
+                  <p class="list-text">{{ friend.username }}</p>
                 </li>
               </ol>
             </mat-tab>

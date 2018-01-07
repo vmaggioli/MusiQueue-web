@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UsersService } from '../shared/users.service';
 import { TopSongsService } from '../shared/top-songs.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,7 +9,8 @@ import { User } from '../objects/user';
   selector: 'lsl-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
-  providers: [TopSongsService]
+  providers: [TopSongsService],
+  encapsulation: ViewEncapsulation.None
 })
 export class UserProfileComponent implements OnInit {
 

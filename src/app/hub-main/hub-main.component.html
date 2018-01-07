@@ -86,7 +86,33 @@
         </mat-tab>
 
         <mat-tab label="Chat" (click)="onSelected('chat')" [ngClass]="{ 'selected' : isChat }">
-          <h3>Not Yet Implemented</h3>
+          <div class="message-list-container">
+            <ul class="message-list scroll-list">
+              <li class="message-list-item list-group-item" *ngFor="let message of messages"
+                [ngStyle]="{'float':message.userId == usersService.currentUser.uid ? 'right' : 'left'}">
+                <div class="message-item-contents user-message" *ngIf="message.userId == usersService.currentUser.uid">
+                  <div class="message-header">
+                    <p class="message-user">{{ message.username }}</p>
+                    <p class="message-time">{{ message.time | date: 'shortTime'}}</p>
+                  </div>
+                  <p class="message-text">{{ message.message }}</p>
+                </div>
+                <div class="message-item-contents friend-message" *ngIf="message.userId != usersService.currentUser.uid">
+                  <div class="message-header">
+                    <p class="message-user">{{ message.username }}</p>
+                    <p class="message-time">{{ message.time | date: 'shortTime'}}</p>
+                  </div>
+                  <p class="message-text">{{ message.message }}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="chat-box">
+            <input #messageInput type="text" class="message-input" placeholder="Type a message..."/>
+            <button mat-raised-button (click)="onMessageSend(messageInput.value)" class="message-send-button">
+              <mat-icon class="send-icon">send</mat-icon>
+            </button>
+          </div>
         </mat-tab>
       </mat-tab-group>
 

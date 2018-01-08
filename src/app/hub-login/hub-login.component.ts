@@ -38,16 +38,14 @@ export class HubLoginComponent {
         });
       }
       this.hubService.getHubByName(this.name).subscribe(hub => {
-        this.creator = hub.creator;
+        this.creator = hub.creator_name;
         this.pin = Number(hub.pin);
         this.hub = hub;
 
         for (let user in hub.users) {
-          console.log(user);
           if (user == this.usersService.currentUser.uid) {
             this.hubService.currentHub = this.hub;
-            if (this.auth.getCurrentUser().displayName == this.creator) {
-              console.log("hubname: " + this.name);
+            if (this.usersService.currentUser.uid == hub.creator) {
               this.router.navigate(['hub-main', {name: this.name}]);
             } else {
               this.router.navigate(['user-hub-view', {name: this.name}]);
@@ -60,12 +58,12 @@ export class HubLoginComponent {
   }
 
   checkPin(input) {
-    if(0==input.length)
+    if(input.length == 0)
     {
       confirm("Please enter a proper value");
       return;
     }
-    else if(input.length<4||input.length>4)
+    else if(input.length < 4 || input.length > 4)
     {
       confirm("Please enter a 4 digit pin");
       return;

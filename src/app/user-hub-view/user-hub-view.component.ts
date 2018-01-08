@@ -52,7 +52,7 @@ export class UserHubViewComponent {
     public hubService: HubService,
     public router: Router,
     public messagesService: MessagesService,
-
+    public topSongsService: TopSongsService,
   ) {
 
    }

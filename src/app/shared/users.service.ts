@@ -32,6 +32,13 @@ export class UsersService {
     return firebase.database().ref("Users/" + id).once('value');
   }
 
+  getUserName(id) {
+    return firebase.database().ref("Users/" + id + "/username").once('value').then(snap => {
+      console.log(snap.val());
+      return snap.val();
+    });
+  }
+
   listenForBoot() {
     firebase.database().ref("Users/" + this.currentUser.uid + "/hub_list").on("child_removed", hub => {
       let i : number = this.router.url.indexOf('=');

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Hub } from '../objects/hub';
 import { AuthService } from './auth.service';
+import { UsersService } from './users.service';
 
 @Injectable()
 export class HubService {
@@ -11,27 +12,41 @@ export class HubService {
   public currentHub: Hub;
   private hubsBySearch: FirebaseListObservable<Hub[]>;
   constructor(public db: AngularFireDatabase,
-              private auth: AuthService) { }
+              private auth: AuthService,
+              public usersService: UsersService,
+            ) { }
 
   createHub(closed: string, creator: string, last_active: string, latitude: string, longitude: string, name: string, pin: string, users: string, wifi: string){
     var date = Date.now();
     var hubRef = firebase.database().ref('Hubs/');
-    console.log("current hub is : " + this.currentHub.name);
     hubRef.child(name).set({
       closed: closed,
-      creator: this.auth.getCurrentUser().displayName,
+      creator: this.usersService.currentUser.uid,
+      creator_name: this.usersService.currentUser.username,
       last_active: date,
       latitude: latitude,
       longitude: longitude,
       name: name,
       pin: pin,
-      users: this.auth.getCurrentUser().displayName,
+      users: this.usersService.currentUser.username,
       wifi: wifi
     });
   }
 
+  getHubByNameOnce(name) {
+    return firebase.database().ref("Hubs/" + name).once('value');
+  }
+
   getHubByName(name): FirebaseObjectObservable<Hub> {
     return this.db.object("Hubs/" + name);
+  }
+
+  getHubUsersOnce(name) {
+    return firebase.database().ref("Hubs/" + name + "/users").once('value');
+  }
+
+  getCreator(hub) {
+    return firebase.database().ref("Hubs/" + hub + "/creator").once('value');
   }
 
   getHubsBySearch(name): Hub[] {
@@ -85,4 +100,9 @@ export class HubService {
     firebase.database().ref("Songs/" + name + song.video_id).remove();
     firebase.database().ref("Users/" + song.user_id + "/songs/" + name + song.video_id).remove();
   }
+
+  getHubsByUser(user) {
+    return firebase.database().ref("Users/" + user + "/hub_list").once('value');
+  }
+
 }

@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
     "@types/youtube": "0.0.31",
+    "angular-4-data-table-bootstrap-4": "^0.2.0",
     "angular2-image-upload": "^1.0.0-rc.0",
     "angularfire2": "^4.0.0-rc.2",
     "core-js": "^2.4.1",

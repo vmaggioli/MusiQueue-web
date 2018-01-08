@@ -1,0 +1,29 @@
+.mat-card-owned-hubs {
+  max-width: 700px;
+  margin: auto;
+}
+
+mat-card-header {
+   background-color: #303f9e;
+   color: white;
+   margin-bottom: 20px;
+}
+
+.mat-raised-button {
+  background-color: #303f9e;
+  color: white;
+}
+
+.center-text {
+  text-align: center;
+  width: 100%;
+  margin-left: -15px;
+}
+
+.margin {
+  padding: 20px;
+}
+
+tr:hover {
+  cursor: pointer;
+}

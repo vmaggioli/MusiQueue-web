@@ -3,7 +3,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { MatCardModule, MatButtonModule, MatTabsModule, MatInputModule,
   MatFormFieldModule, MatIconModule, MatMenuModule, MatSidenavModule,
-  MatToolbarModule, MatSnackBarModule } from '@angular/material';
+  MatToolbarModule, MatSnackBarModule, MatTableModule} from '@angular/material';
 import { Animations } from '@angular/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -81,6 +81,7 @@ import { HowToComponent } from './how-to/how-to.component';
     MatSidenavModule,
     MatToolbarModule,
     MatSnackBarModule,
+    MatTableModule,
     ImageUploadModule.forRoot(),
   ],
   schemas: [ NO_ERRORS_SCHEMA ],

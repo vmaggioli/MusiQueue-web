@@ -32,7 +32,6 @@ export class JoinHubComponent {
   }
 
   searchLocation() {
-    console.log("button click is working");
     this.locHubs = [];
     navigator.geolocation.getCurrentPosition(pos => {
       this.location = pos.coords;
@@ -51,7 +50,6 @@ export class JoinHubComponent {
   }
 
   recentHubs() {
-    console.log("made it");
     this.recentHubsOfUser = [];
     this.usersService.getRecentHubs().subscribe(hubs => {
       hubs.forEach(hub => {
@@ -76,6 +74,7 @@ export class JoinHubComponent {
     this.displayingLocalHubs = false;
     this.displayingRecentHubs = false;
   }
+
 
   onHubSelected(hub) {
 

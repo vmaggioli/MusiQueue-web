@@ -17,7 +17,7 @@ export class HubService {
             ) { }
 
   createHub(closed: string, creator: string, last_active: string, latitude: string, longitude: string, name: string, pin: string, users: string, wifi: string){
-    var date = Date.now();
+    const date = Date.now();
     var hubRef = firebase.database().ref('Hubs/');
     hubRef.child(name).set({
       closed: closed,
@@ -29,7 +29,10 @@ export class HubService {
       name: name,
       pin: pin,
       users: this.usersService.currentUser.username,
-      wifi: wifi
+      total_upvotes: 0,
+      total_downvotes: 0,
+      medal_count: 0,
+      medal_score: 0,
     });
   }
 
@@ -39,10 +42,6 @@ export class HubService {
 
   getHubByName(name): FirebaseObjectObservable<Hub> {
     return this.db.object("Hubs/" + name);
-  }
-
-  getHubUsersOnce(name) {
-    return firebase.database().ref("Hubs/" + name + "/users").once('value');
   }
 
   getCreator(hub) {
@@ -87,6 +86,10 @@ export class HubService {
     });
   }
 
+  getHubUsersOnce(name) {
+    return firebase.database().ref("Hubs/" + name + "/users").once('value');
+  }
+
   getHubUsers(hubUID: string) {
     return this.db.list("Hubs/" + hubUID + "/users");
   }
@@ -103,6 +106,26 @@ export class HubService {
 
   getHubsByUser(user) {
     return firebase.database().ref("Users/" + user + "/hub_list").once('value');
+  }
+
+  getPic(hubId) {
+    let ref = firebase.storage().ref().child('images/hubs/' + hubId);
+    if (ref != null)
+      return ref.getDownloadURL();
+    return null;
+  }
+
+  updatePic(hub, pic) {
+    var storageRef = firebase.storage().ref();
+    var imagesRef = storageRef.child('images/hubs/' + hub);
+    imagesRef.putString(pic, 'base64');
+  }
+
+  updateProfile(hub, location) {
+    firebase.database().ref("/Hubs/" + hub).update({
+      name: hub,
+      location: location
+    });
   }
 
 }

@@ -17,6 +17,9 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { HowToComponent } from './how-to/how-to.component';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 import { ProfileFormComponent } from './profile-form/profile-form.component';
+import { HubProfileComponent } from './hub-profile/hub-profile.component';
+import { HubProfileFormComponent } from './hub-profile-form/hub-profile-form.component';
+
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent }
@@ -33,6 +36,8 @@ const appRoutes: Routes = [
   { path: 'how-to', component: HowToComponent, canActivate: [LoginGuard]},
   { path: 'leaderboards', component: LeaderboardsComponent, canActivate: [LoginGuard]},
   { path: 'profile-form/:name', component: ProfileFormComponent, canActivate: [LoginGuard]},
+  { path: 'hub-profile/:name', component: HubProfileComponent, canActivate: [LoginGuard]},
+  { path: 'hub-profile-form/:name', component: HubProfileFormComponent, canActivate: [LoginGuard]},
 
 ]
 @NgModule({

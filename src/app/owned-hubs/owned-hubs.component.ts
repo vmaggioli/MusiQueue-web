@@ -42,16 +42,17 @@ export class OwnedHubsComponent implements OnInit {
   }
 
   goToHub(hub) {
-    this.hubService.getCreator(hub).then(creator => {
-      if (this.usersService.currentUser.uid == creator.val()) {
-        this.hubService.getHubByNameOnce(hub).then(h => {
-          this.hubService.currentHub = h.val();
-          this.router.navigate(['hub-main', {name: hub}]);
-        });
-      }
-      else
-        this.router.navigate(['hub-login', hub]);
-    });
+    this.router.navigate(['hub-profile', hub]);
+    // this.hubService.getCreator(hub).then(creator => {
+    //   if (this.usersService.currentUser.uid == creator.val()) {
+    //     this.hubService.getHubByNameOnce(hub).then(h => {
+    //       this.hubService.currentHub = h.val();
+    //       this.router.navigate(['hub-main', {name: hub}]);
+    //     });
+    //   }
+    //   else
+    //     this.router.navigate(['hub-login', hub]);
+    // });
   }
 }
 

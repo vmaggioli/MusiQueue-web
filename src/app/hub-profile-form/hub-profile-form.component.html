@@ -1,0 +1,29 @@
+<mat-drawer-container class="drawer-container">
+  <div class="margin">
+    <mat-card class="mat-card-hub-profile-form" [ngStyle]="{'padding':'0px 0px 20px 0px'}">
+      <mat-card-header>
+        <h2 class="center-text">Hub Profile Editor</h2>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="in-line-block">
+          <img [src]="url" height="100">
+          <input type='file' id="selectedFile" (change)="onSelectFile($event)" />
+        </div>
+        <br/>
+        <div class="name-block in-line-block">
+          <p>Hub Name:</p>
+          <input type="text" class="name-input text-input" placeholder="MusiQueue" [(ngModel)]="hubName" #hname/>
+        </div>
+        <br/>
+        <div class="location-block in-line-block">
+          <p>Location:</p>
+          <input type="text" class="location-input text-input" placeholder="Fort Wayne, Indiana" [(ngModel)]="location" #loc/>
+        </div>
+        <br/>
+        <div class="button-container">
+          <button mat-raised-button class="submit-button" type="submit" (click)="onSubmit()">Submit</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</mat-drawer-container>

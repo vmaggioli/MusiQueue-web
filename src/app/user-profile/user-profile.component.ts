@@ -18,7 +18,7 @@ export class UserProfileComponent implements OnInit {
   public isOwnerProfile: boolean = false;
   public topSongs: TopSong[];
   public curUser: User;
-  public friends: User[]
+  public friends: any;
   public tabIdx: number = 0;
 
   constructor(
@@ -48,10 +48,12 @@ export class UserProfileComponent implements OnInit {
       });
 
       this.usersService.getUserById(uid).subscribe(u => {
+        console.log(u);
         this.curUser = u;
         // TODO: IMPLEMENT MEDALS AND REMOVE HARD-CODED VALUES
         this.curUser.medal_count = 0;
         this.curUser.medal_score = 0;
+        this.handleFriends();
       });
 
       this.topSongsService.getTopSongs(uid).then(snap => {
@@ -84,15 +86,11 @@ export class UserProfileComponent implements OnInit {
         });
 
         this.topSongs = [];
-        console.log(", len: " + songs.length);
         for (let i = 0; i < 3; i++) {
-          console.log(songs[i]);
           if (songs[i] != undefined)
             this.topSongs.push(songs[i]);
         }
       });
-
-      this.handleFriends();
       this.tabIdx = 0;
     });
   }
@@ -106,11 +104,21 @@ export class UserProfileComponent implements OnInit {
   }
 
   handleFriends() {
-    this.friends = []
+    this.friends = [];
     this.usersService.getFriends(this.curUser.uid).then(snap => {
       snap.forEach(s => {
         this.usersService.getUserByIdOnce(s.key).then(user => {
-          this.friends.push(user.val());
+          var userUrl: string;
+          var friend: any;
+          this.usersService.getPic(user.val().uid).then(pic => {
+            friend = {user: user.val(), pic: pic};
+            this.friends.push(friend);
+          }, notFound => {
+            this.usersService.getPic("__stock__").then(p => {
+              friend = {user: user.val(), pic: p};
+              this.friends.push(friend);
+            });
+          });
         });
       });
     });

@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit {
         this.usersService.getUserById(user.uid).subscribe(u => {
           if (u) {
             this.usersService.currentUser = new User(u.username, u.uid, u.active, u.kicked, u.email, u.last_active, u.location, u.hub_list);
-            console.log("uid: " + this.usersService.currentUser.uid + ", location: " + this.usersService.currentUser.location);
           }
         });
         //this.user = user
@@ -68,6 +67,7 @@ export class HomeComponent implements OnInit {
         Date.now(), this.usersService.currentUser.location, []);
     else
       this.usersService.currentUser.username = this.usname;
+    this.usersService.initScores(this.usersService.currentUser.uid);
     this.router.navigate(['create-join']);
   }
 

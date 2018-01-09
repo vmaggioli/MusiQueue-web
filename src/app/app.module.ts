@@ -41,6 +41,8 @@ import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 import { ProfileFormComponent } from './profile-form/profile-form.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { HowToComponent } from './how-to/how-to.component';
+import { HubProfileComponent } from './hub-profile/hub-profile.component';
+import { HubProfileFormComponent } from './hub-profile-form/hub-profile-form.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { HowToComponent } from './how-to/how-to.component';
     ProfileFormComponent,
     NotificationsComponent,
     HowToComponent,
+    HubProfileComponent,
+    HubProfileFormComponent,
   ],
   imports: [
     BrowserModule,

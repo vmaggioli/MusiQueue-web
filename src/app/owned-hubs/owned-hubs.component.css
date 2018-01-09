@@ -24,6 +24,10 @@ mat-card-header {
   padding: 20px;
 }
 
+th, td {
+  text-align: center;
+}
+
 tr:hover {
   cursor: pointer;
 }

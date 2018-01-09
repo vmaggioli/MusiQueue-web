@@ -109,15 +109,13 @@ export class UsersService {
   }
 
   updatePic(user: string, pic: string) {
-    console.log("saving image");
     var storageRef = firebase.storage().ref();
-    var imagesRef = storageRef.child('images/' + user);
+    var imagesRef = storageRef.child('images/users/' + user);
     imagesRef.putString(pic, 'base64');
   }
 
   getPic(user: string): FirebaseObservable {
-    var ref = firebase.storage().ref().child('images/' + user);
-    console.log(ref);
+    var ref = firebase.storage().ref('images/users/').child(user);
     if (ref != null)
       return ref.getDownloadURL();
     return null;
@@ -146,4 +144,15 @@ export class UsersService {
   getFriends(user) {
     return firebase.database().ref("Friends/" + user).once('value');
   }
+
+  initScores(user) {
+    firebase.database().ref("Users/" + user).once('value', u => {
+      firebase.database().ref("Users/" + user).update({
+        upvotes: u.val().upvotes == undefined ? 0 : u.val().upvotes,
+        downvotes: u.val().downvotes == undefined ? 0 : u.val().downvotes,
+        medal_count: u.val().medal_count == undefined ? 0 : u.val().medal_count
+      });
+    });
+  }
+
 }

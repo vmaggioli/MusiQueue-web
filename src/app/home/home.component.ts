@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
 import { UsersService } from '../shared/users.service';
+import { RankingService } from '../shared/ranking.service';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { User } from '../objects/user';
@@ -9,7 +10,8 @@ import { User } from '../objects/user';
 @Component({
   selector: 'lsl-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  providers: [RankingService],
 })
 export class HomeComponent implements OnInit {
   topics: FirebaseListObservable<any[]>;
@@ -20,7 +22,9 @@ export class HomeComponent implements OnInit {
   constructor(private auth: AuthService,
               private router: Router,
               public db: AngularFireDatabase,
-              public usersService: UsersService) { }
+              public usersService: UsersService,
+              public rankingService: RankingService,
+            ) { }
 
   ngOnInit() {
     // need to force initial user data for compilation
@@ -67,7 +71,7 @@ export class HomeComponent implements OnInit {
         Date.now(), this.usersService.currentUser.location, []);
     else
       this.usersService.currentUser.username = this.usname;
-    this.usersService.initScores(this.usersService.currentUser.uid);
+    this.rankingService.initUserScores(this.usersService.currentUser.uid);
     this.router.navigate(['create-join']);
   }
 

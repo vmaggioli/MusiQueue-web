@@ -19,7 +19,7 @@ export class HubService {
   createHub(closed: string, creator: string, last_active: string, latitude: string, longitude: string, name: string, pin: string, users: string, wifi: string){
     const date = Date.now();
     var hubRef = firebase.database().ref('Hubs/');
-    hubRef.child(name).set({
+    hubRef.child(name).update({
       closed: closed,
       creator: this.usersService.currentUser.uid,
       creator_name: this.usersService.currentUser.username,
@@ -29,10 +29,15 @@ export class HubService {
       name: name,
       pin: pin,
       users: this.usersService.currentUser.username,
-      total_upvotes: 0,
-      total_downvotes: 0,
-      medal_count: 0,
-      medal_score: 0,
+    });
+    this.listenForNameChange(name, this.usersService.currentUser);
+  }
+
+  listenForNameChange(hub, user) {
+    firebase.database().ref("Users/" + user.uid + "/username").on('value', snap => {
+      firebase.database().ref("Hubs/" + hub).update({
+        creator_name: user.username
+      });
     });
   }
 

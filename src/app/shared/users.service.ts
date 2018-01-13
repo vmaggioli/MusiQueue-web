@@ -144,15 +144,4 @@ export class UsersService {
   getFriends(user) {
     return firebase.database().ref("Friends/" + user).once('value');
   }
-
-  initScores(user) {
-    firebase.database().ref("Users/" + user).once('value', u => {
-      firebase.database().ref("Users/" + user).update({
-        upvotes: u.val().upvotes == undefined ? 0 : u.val().upvotes,
-        downvotes: u.val().downvotes == undefined ? 0 : u.val().downvotes,
-        medal_count: u.val().medal_count == undefined ? 0 : u.val().medal_count
-      });
-    });
-  }
-
 }

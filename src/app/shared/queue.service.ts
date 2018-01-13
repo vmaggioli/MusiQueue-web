@@ -30,7 +30,6 @@ export class QueueService {
       video_id: videoId,
       down_votes: 0,
       hub_id: hubId,
-      playing: false,
       song_name: title,
       time_added: date,
       up_votes: 0,
@@ -84,7 +83,7 @@ export class QueueService {
     ref.once("value", songID => {
 
       if (songID.val() == null || songID.val().songVote == "null") {
-        firebase.database().ref("Users/" + song.user_id + "/upvotes").transaction(function(upvotes) {
+        firebase.database().ref("Rankings/Users/" + song.user_id + "/upvotes").transaction(function(upvotes) {
           if (upvotes ==  null || upvotes == 0)
             return 1;
           return upvotes + 1;
@@ -97,12 +96,12 @@ export class QueueService {
         });
 
       } else if (songID.val().songVote == "downvote") {
-        firebase.database().ref("Users/" + song.user_id + "/upvotes").transaction(function(upvotes) {
+        firebase.database().ref("Rankings/Users/" + song.user_id + "/upvotes").transaction(function(upvotes) {
           if (upvotes ==  null || upvotes == 0)
             return 1;
           return upvotes + 1;
         });
-        firebase.database().ref("Users/" + song.user_id + "/downvotes").transaction(function(downvotes) {
+        firebase.database().ref("Rankings/Users/" + song.user_id + "/downvotes").transaction(function(downvotes) {
           if (downvotes ==  null || downvotes == 0)
             return 0;
           return downvotes - 1;
@@ -115,7 +114,7 @@ export class QueueService {
         });
 
       } else if (songID.val().songVote == "upvote") {
-        firebase.database().ref("Users/" + song.user_id + "/upvotes").transaction(function(upvotes) {
+        firebase.database().ref("Rankings/Users/" + song.user_id + "/upvotes").transaction(function(upvotes) {
           if (upvotes ==  null || upvotes == 0)
             return 0;
           return upvotes - 1;
@@ -131,11 +130,11 @@ export class QueueService {
   }
 
   downvote(song) {
-    var ref = firebase.database().ref("Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
+    var ref = firebase.database().ref("Rankings/Users/" + this.usersService.currentUser.uid + "/songs/" + song.hub_id + song.video_id);
     ref.once("value", songID => {
 
       if (songID.val() == null || songID.val().songVote == "null") {
-        firebase.database().ref("Users/" + song.user_id + "/downvotes").transaction(function(downvotes) {
+        firebase.database().ref("Rankings/Users/" + song.user_id + "/downvotes").transaction(function(downvotes) {
           if (downvotes ==  null || downvotes == 0)
             return 1;
           return downvotes + 1;
@@ -148,12 +147,12 @@ export class QueueService {
         });
 
       } else if (songID.val().songVote == "upvote") {
-        firebase.database().ref("Users/" + song.user_id + "/upvotes").transaction(function(upvotes) {
+        firebase.database().ref("Rankings/Users/" + song.user_id + "/upvotes").transaction(function(upvotes) {
           if (upvotes ==  null || upvotes == 0)
             return 0;
           return upvotes - 1;
         });
-        firebase.database().ref("Users/" + song.user_id + "/downvotes").transaction(function(downvotes) {
+        firebase.database().ref("Rankings/Users/" + song.user_id + "/downvotes").transaction(function(downvotes) {
           if (downvotes ==  null || downvotes == 0)
             return 1;
           return downvotes + 1;
@@ -166,7 +165,7 @@ export class QueueService {
         });
 
       } else if (songID.val().songVote == "downvote") {
-        firebase.database().ref("Users/" + song.user_id + "/downvotes").transaction(function(downvotes) {
+        firebase.database().ref("Rankings/Users/" + song.user_id + "/downvotes").transaction(function(downvotes) {
           if (downvotes ==  null || downvotes == 0)
             return 0;
           return downvotes - 1;

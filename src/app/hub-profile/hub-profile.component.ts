@@ -1,19 +1,16 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UsersService } from '../shared/users.service';
 import { HubService } from '../shared/hub.service';
+import { RankingService } from '../shared/ranking.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../objects/user';
 
 @Component({
   selector: 'lsl-hub-profile',
   templateUrl: './hub-profile.component.html',
-  styleUrls: ['./hub-profile.component.css']
+  styleUrls: ['./hub-profile.component.css'],
+  providers: [RankingService],
 })
-
-// interface HubUserItem {
-//   user: User;
-//   pic: string;
-// }
 
 export class HubProfileComponent implements OnInit {
   url: string;
@@ -26,6 +23,7 @@ export class HubProfileComponent implements OnInit {
   constructor(
     public usersService: UsersService,
     public hubService: HubService,
+    public rankingService: RankingService,
     public route: ActivatedRoute,
     public router: Router,
   ) { }
@@ -36,9 +34,15 @@ export class HubProfileComponent implements OnInit {
 
       this.hubService.getHubByNameOnce(this.hubId).then(hub => {
         this.curHub = hub.val();
-        // TODO: IMPLEMENT MEDALS AND REMOVE HARD-CODED VALUES
-        this.curHub.medal_count = 0;
-        this.curHub.medal_score = 0;
+        this.curHub.total_upvotes = 0;
+        this.curHub.total_downvotes = 0;
+        this.curHub.score = 0;
+
+        this.rankingService.getHubScores(this.hubId).then(scores => {
+          // TODO: IMPLEMENT MEDALS AND REMOVE HARD-CODED VALUES
+          this.curHub.medal_count = scores.val().medal_count;
+          this.curHub.medal_score = scores.val().medal_score;
+        });
 
         if (this.usersService.currentUser.uid == this.curHub.creator)
           this.isCreator = true;
@@ -81,20 +85,30 @@ export class HubProfileComponent implements OnInit {
     this.members = [];
     this.hubService.getHubUsersOnce(this.hubId).then(snap => {
       snap.forEach(s => {
+        let member = {upvotes: 0, downvotes: 0, medal_count: 0, medal_score: 0, user: 0, pic: 0};
         this.usersService.getUserByIdOnce(s.key).then(user => {
-          this.curHub.total_upvotes += user.val().upvotes == null ? 0 : user.val().upvotes;
-          this.curHub.total_downvotes += user.val().downvotes == null ? 0: user.val().upvotes;
-          this.curHub.score += this.curHub.total_upvotes - this.curHub.total_downvotes;
-          // TODO: IMPLEMENT MEDALS INTO SCORE VALUES
+          this.rankingService.getUserScores(user.val().uid).then(scores => {
+
+            member.upvotes = scores.val().upvotes;
+            member.downvotes = scores.val().downvotes;
+            member.medal_count = scores.val().medal_count;
+            member.medal_score = scores.val().medal_score;
+
+            this.curHub.total_upvotes += scores.val().upvotes;
+            this.curHub.total_downvotes += scores.val().downvotes;
+            this.curHub.score += this.curHub.total_upvotes - this.curHub.total_downvotes;
+            // TODO: IMPLEMENT MEDALS INTO SCORE VALUES
+          });
 
           var userUrl: string;
-          var member: any;
           this.usersService.getPic(user.val().uid).then(pic => {
-            member = {user: user.val(), pic: pic};
+            member.user = user.val();
+            member.pic = pic;
             this.members.push(member);
           }, notFound => {
             this.usersService.getPic("__stock__").then(p => {
-              member = {user: user.val(), pic: p};
+              member.user = user.val();
+              member.pic = pic;
               this.members.push(member);
             });
           });
@@ -110,7 +124,7 @@ export class HubProfileComponent implements OnInit {
   }
 
   onMemberSelected(member) {
-    this.router.navigate(['user-profile', member.uid]);
+    this.router.navigate(['user-profile', member.user.uid]);
   }
 
 

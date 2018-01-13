@@ -46,7 +46,7 @@
               <ol>
                 <li class="list-group-item users-list selectable" *ngFor="let friend of friends; let i = index" (click)="onFriendSelected(friend)">
                   <p class="number">{{ i + 1 }}<p>
-                  <img class="user-pic" [src]="friend?.pic">
+                  <img class="list-user-pic" [src]="friend?.pic">
                   <p class="name-text">{{ friend?.user.username }}</p>
                   <div class="score-container">
                     <p class="score-text">Score</p>

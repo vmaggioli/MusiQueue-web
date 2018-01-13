@@ -31,26 +31,15 @@
         <div class="tab-container">
           <mat-tab-group [(selectedIndex)]="tabIdx" (selectedTabChange)="onSelected($event)">
 
-            <!-- <mat-tab label="Favorites">
-              <ol>
-                <li class="list-group-item numbered" *ngFor="let song of topSongs">
-                  <div class="top-song-list-item">
-                    <img src={{song.thumbnail}} class="prof-img-thumbnail" width="100" height="80"/>
-                    <p class="song-title-text">{{ song.title }}</p>
-                  </div>
-                </li>
-              </ol>
-            </mat-tab> -->
-
             <mat-tab label="Members">
               <ol>
                 <li class=" users-list list-group-item selectable" *ngFor="let member of members; let i = index" (click)="onMemberSelected(member)">
                   <p class="number">{{ i + 1 }}<p>
-                  <img class="user-pic" [src]="member?.pic">
+                  <img class="list-user-pic" [src]="member?.pic">
                   <p class="name-text">{{ member?.user.username }}</p>
                   <div class="score-container">
                     <p class="score-text">Score</p>
-                    <p class="score-value">{{ member?.user.upvotes - member?.user.downvotes + member?.user.medal_count }}</p>
+                    <p class="score-value">{{ member?.upvotes - member?.downvotes + member?.medal_score }}</p>
                   </div>
                 </li>
               </ol>

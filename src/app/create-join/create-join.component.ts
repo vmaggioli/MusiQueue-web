@@ -27,52 +27,11 @@ export class CreateJoinComponent {
 
   gotoJoinHub(name:string) {
     this.name = name;
-    if(0==name.length)
-    {
-      confirm("Please enter a proper value");
+    if (this.checkInput(name) == -1)
       return;
-    }
-    if(name.indexOf(' ') != -1) {
-      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
-      return;
-    }
-    if(name.indexOf('[') != -1) {
-      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
-      return;
-    }
-    if(name.indexOf(']') != -1) {
-      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
-      return;
-    }
-    if(name.indexOf('.') != -1) {
-      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
-      return;
-    }
-    if(name.indexOf('$') != -1) {
-      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
-      return;
-    }
-    if(name.indexOf('/') != -1) {
-      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
-      return;
-    }
-    if(name.indexOf('|') != -1) {
-      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
-      return;
-    }
-    if(name.indexOf('\t') != -1) {
-      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
-      return;
-    }
-    if(name.indexOf('?') != -1) {
-      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
-      return;
-    }
-    if(name.indexOf('.') != -1) {
-      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
-      return;
-    }
+
     if (this.name.length) {
+      this.usersService.currentUser.username = this.name;
       this.usersService.updateUsername(this.usersService.currentUser.uid, this.name);
     }
     else {
@@ -83,15 +42,64 @@ export class CreateJoinComponent {
 
   gotoCreateHub(name:string) {
     this.name = name;
-    if(name.indexOf(' ') != -1) {
+    if (this.checkInput(name) == -1)
       return;
-    }
+
     if (this.name) {
+    this.usersService.currentUser.username = this.name;
       this.usersService.updateUsername(this.usersService.currentUser.uid, this.name);
     }
     else {
       this.usersService.updateUsername(this.usersService.currentUser.uid,this.usersService.currentUser.email);
     }
     this.router.navigate(['create-hub']);
+  }
+
+  checkInput(name) {
+    if(0==name.length)
+    {
+      confirm("Please enter a proper value");
+      return -1;
+    }
+    if(name.indexOf(' ') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return -1;
+    }
+    if(name.indexOf('[') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return -1;
+    }
+    if(name.indexOf(']') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return -1;
+    }
+    if(name.indexOf('.') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return -1;
+    }
+    if(name.indexOf('$') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return -1;
+    }
+    if(name.indexOf('/') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return -1;
+    }
+    if(name.indexOf('|') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return -1;
+    }
+    if(name.indexOf('\t') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return -1;
+    }
+    if(name.indexOf('?') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return -1;
+    }
+    if(name.indexOf('.') != -1) {
+      confirm("Nickname cannot use certain special characters ( . , ? | / [ ] )");
+      return -1;
+    }
   }
 }

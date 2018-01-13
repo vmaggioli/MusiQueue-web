@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UsersService } from '../shared/users.service';
+import { RankingService } from '../shared/ranking.service';
 import { TopSongsService } from '../shared/top-songs.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TopSong } from '../objects/topSong';
@@ -9,7 +10,7 @@ import { User } from '../objects/user';
   selector: 'lsl-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
-  providers: [TopSongsService],
+  providers: [TopSongsService, RankingService],
   encapsulation: ViewEncapsulation.None
 })
 export class UserProfileComponent implements OnInit {
@@ -26,6 +27,7 @@ export class UserProfileComponent implements OnInit {
     public route: ActivatedRoute,
     public router: Router,
     public topSongsService: TopSongsService,
+    public rankingService: RankingService,
   ) {
 
    }
@@ -48,12 +50,16 @@ export class UserProfileComponent implements OnInit {
       });
 
       this.usersService.getUserById(uid).subscribe(u => {
-        console.log(u);
         this.curUser = u;
-        // TODO: IMPLEMENT MEDALS AND REMOVE HARD-CODED VALUES
-        this.curUser.medal_count = 0;
-        this.curUser.medal_score = 0;
         this.handleFriends();
+      });
+
+      this.rankingService.getUserScores(uid).then(scores => {
+        this.curUser.upvotes = scores.val().upvotes;
+        this.curUser.downvotes = scores.val().downvotes;
+        // TODO: IMPLEMENT MEDALS AND REMOVE HARD-CODED VALUES
+        this.curUser.medal_count = scores.val().medal_count;
+        this.curUser.medal_score = scores.val().medal_score;
       });
 
       this.topSongsService.getTopSongs(uid).then(snap => {
@@ -131,6 +137,6 @@ export class UserProfileComponent implements OnInit {
   }
 
   onFriendSelected(friend) {
-    this.router.navigate(['user-profile', friend.uid]);
+    this.router.navigate(['user-profile', friend.user.uid]);
   }
 }

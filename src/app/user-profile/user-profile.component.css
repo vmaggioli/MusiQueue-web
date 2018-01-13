@@ -178,7 +178,7 @@ li > p , li > img , li > .score-container {
   flex: 1;
 }
 
-.user-pic {
+.list-user-pic {
   height: 60px;
   width: 60px;
   margin: auto 10px;

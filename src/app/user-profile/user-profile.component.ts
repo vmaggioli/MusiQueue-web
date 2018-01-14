@@ -60,6 +60,8 @@ export class UserProfileComponent implements OnInit {
         // TODO: IMPLEMENT MEDALS AND REMOVE HARD-CODED VALUES
         this.curUser.medal_count = scores.val().medal_count;
         this.curUser.medal_score = scores.val().medal_score;
+
+        this.getUserRank();
       });
 
       this.topSongsService.getTopSongs(uid).then(snap => {
@@ -98,6 +100,37 @@ export class UserProfileComponent implements OnInit {
         }
       });
       this.tabIdx = 0;
+    });
+  }
+
+  getUserRank() {
+    this.rankingService.getUserRanksOnce().then(ranks => {
+      var ranksArray = [];
+      let i = 0;
+
+      ranks.forEach(rankItem => {
+        ranksArray.push(rankItem.val());
+        ranksArray[i].user = rankItem.key;
+        i++;
+      });
+
+      ranksArray.sort((a, b) => {
+        let aRank = a.upvotes - a.downvotes + a.medal_score;
+        let bRank = b.upvotes - b.downvotes + b.medal_score;
+        if (aRank < bRank) return 1;
+        else if (aRank > bRank) return -1;
+        else return 0;
+      });
+
+      i = 0;
+      while (i < ranksArray.length) {
+        if (ranksArray[i].user == this.usersService.currentUser.uid)
+        {
+          this.curUser.rank = i + 1;
+          break;
+        }
+        i++;
+      };
     });
   }
 

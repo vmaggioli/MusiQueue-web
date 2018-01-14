@@ -9,6 +9,7 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 export class RankingService {
 
   constructor(
+    public db: AngularFireDatabase,
     usersService: UsersService,
     hubService: HubService,
   ) { }
@@ -42,5 +43,27 @@ export class RankingService {
 
   getHubScores(hub) {
     return firebase.database().ref("Rankings/Hubs/" + hub).once('value');
+  }
+
+  getUserRanksOnce() {
+    return firebase.database().ref("Rankings/Users/").once('value');
+  }
+
+  getUserRanks() {
+    return this.db.list("Rankings/Users/");
+  }
+
+  getHubRanksOnce() {
+    return firebase.database().ref("Rankings/Hubs/").once('value');
+  }
+
+  getHubRanks() {
+    return this.db.list("Rankings/Hubs/");
+  }
+
+  setHubScore(hub, score) {
+    firebase.database().ref("Rankings/Hubs/" + hub).update({
+      score: score
+    });
   }
 }

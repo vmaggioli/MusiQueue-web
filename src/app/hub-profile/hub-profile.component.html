@@ -15,7 +15,7 @@
             <p class="stat">Downvotes: {{ this.curHub?.total_downvotes }}</p>
             <p class="stat">Medals: {{ this.curHub?.medal_count }}</p>
             <p class="stat">Score: {{ this.curHub?.total_upvotes - this.curHub?.total_downvotes + this.curHub?.medal_score }}</p>
-            <p class="stat">Rank: Coming Soon!</p>
+            <p class="stat">Rank: {{ this.curHub?.rank }}</p>
           </div>
         </div>
         <div *ngIf="isCreator != null && isCreator" class="edit-button" (click)="editProfile()">

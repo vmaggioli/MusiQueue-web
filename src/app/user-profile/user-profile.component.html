@@ -15,7 +15,7 @@
             <p class="stat">Downvotes: {{ this.curUser?.downvotes }}</p>
             <p class="stat">Medals: {{ this.curUser?.medal_count }}</p>
             <p class="stat">Score: {{ this.curUser?.upvotes - this.curUser?.downvotes + this.curUser?.medal_score }}</p>
-            <p class="stat">Rank: Coming Soon!</p>
+            <p class="stat">Rank: {{ this.curUser?.rank }}</p>
           </div>
         </div>
         <div *ngIf="isOwnerProfile" class="edit-button" (click)="editProfile()">

@@ -62,6 +62,35 @@ export class HubProfileComponent implements OnInit {
     });
   }
 
+  getHubRank() {
+    this.rankingService.getHubRanksOnce().then(ranks => {
+      let ranksArray = [];
+      let i = 0;
+
+      ranks.forEach(rankItem => {
+        ranksArray.push(rankItem.val());
+        ranksArray[i].hub = rankItem.key;
+        i++;
+      });
+
+      ranksArray.sort((a, b) => {
+        if (a.score < b.score) return 1;
+        else if (a.score > b.score) return -1;
+        else return 0;
+      });
+
+      i = 0;
+      while (i < ranksArray.length) {
+        if (ranksArray[i].hub == this.hubId) {
+          this.curHub.rank = i + 1;
+          break;
+        }
+        i++;
+      }
+    });
+
+  }
+
   editProfile() {
     this.router.navigate(['hub-profile-form', this.hubId]);
   }
@@ -100,6 +129,8 @@ export class HubProfileComponent implements OnInit {
             // TODO: IMPLEMENT MEDALS INTO SCORE VALUES
           });
 
+          this.rankingService.setHubScore(this.hubId, this.curHub.score);
+
           var userUrl: string;
           this.usersService.getPic(user.val().uid).then(pic => {
             member.user = user.val();
@@ -108,12 +139,13 @@ export class HubProfileComponent implements OnInit {
           }, notFound => {
             this.usersService.getPic("__stock__").then(p => {
               member.user = user.val();
-              member.pic = pic;
+              member.pic = p;
               this.members.push(member);
             });
           });
         });
       });
+      this.getHubRank();
     });
   }
 

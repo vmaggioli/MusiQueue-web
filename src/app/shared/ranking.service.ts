@@ -16,6 +16,8 @@ export class RankingService {
 
 
   initUserScores(user) {
+    if (user == "")
+    return;
     firebase.database().ref("Rankings/Users/" + user).once('value', u => {
       firebase.database().ref("Rankings/Users/" + user).update({
         upvotes: (u.val() == null || u.val().upvotes == undefined) ? 0 : u.val().upvotes,
@@ -29,8 +31,6 @@ export class RankingService {
   initHubScores(hub) {
     firebase.database().ref("Rankings/Hubs/" + hub).once('value', h => {
       firebase.database().ref("Rankings/Hubs/" + hub).update({
-        //upvotes: (h.val() == null || h.val().upvotes == undefined) ? 0 : h.val().upvotes,
-        //downvotes: (h.val() == null || h.val().downvotes == undefined) ? 0 : h.val().downvotes,
         medal_count: (h.val() == null || h.val().medal_count == undefined) ? 0 : h.val().medal_count,
         medal_score: (h.val() == null ||  h.val().medal_score == undefined) ? 0 : h.val().medal_score
       });

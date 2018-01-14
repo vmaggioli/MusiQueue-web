@@ -44,6 +44,9 @@ import { HowToComponent } from './how-to/how-to.component';
 import { HubProfileComponent } from './hub-profile/hub-profile.component';
 import { HubProfileFormComponent } from './hub-profile-form/hub-profile-form.component';
 
+
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,6 +89,7 @@ import { HubProfileFormComponent } from './hub-profile-form/hub-profile-form.com
     MatToolbarModule,
     MatSnackBarModule,
     MatTableModule,
+    NgxPaginationModule,
     ImageUploadModule.forRoot(),
   ],
   schemas: [ NO_ERRORS_SCHEMA ],

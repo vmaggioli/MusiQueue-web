@@ -33,8 +33,6 @@ export class HubProfileFormComponent implements OnInit {
       });
 
       this.hubService.getHubByNameOnce(hubId).then(hub => {
-        console.log(hub.val());
-        console.log(hub.val().location);
         this.location = hub.val().location;
         this.hubName = hub.val().name;
       });

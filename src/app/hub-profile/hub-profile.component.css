@@ -99,6 +99,10 @@
   margin: auto;
 }
 
+.mat-tab-labels {
+  justify-content: center;
+}
+
 .tab-container {
   width: 100%;
 }

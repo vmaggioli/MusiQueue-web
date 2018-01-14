@@ -115,9 +115,10 @@ export class UsersService {
   }
 
   getPic(user: string): FirebaseObservable {
-    var ref = firebase.storage().ref('images/users/').child(user);
-    if (ref != null)
+    var ref = firebase.storage().ref('images/users/' + user);
+    if (ref != null) {
       return ref.getDownloadURL();
+    }
     return null;
   }
 

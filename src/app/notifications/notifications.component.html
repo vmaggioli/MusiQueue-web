@@ -4,30 +4,49 @@
     <mat-card-header>
       <h2 class="center-text">Notifications</h2>
     </mat-card-header>
-    <mat-card-content>
-      <p>Friends</p>
-      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let notif of friendNotifs; let i = index">
-          <img class="user-photo" [src]="pics[i]">
-          <p class="friend-notif-text">{{ notif.username }} would like to be your friend!</p>
-          <div class="buttons">
-            <button mat-raised-button class="resp-button close-button" (click)="onDecline(notif)"><mat-icon>close</mat-icon></button>
-            <button mat-raised-button class="resp-button check-button"
-              aria-label="You are now friends with notif.username"
-              (click)="onAccept(notif)"><mat-icon>check</mat-icon></button>
-          </div>
-        </li>
-      </ul>
-      <p>Medals</p>
-      <ul class="list-group">
-        <li class="list-group-item">
-        </li>
-      </ul>
-      <p>Kicked</p>
-      <ul class="list-group">
-        <li class="list-group-item">
-        </li>
-      </ul>
+    <mat-card-content class="notif-card-content">
+
+      <div class="notif-container friend-notif-container">
+        <p>Friend Requests ({{ friendNotifs.length }})</p>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let notif of friendNotifs; let i = index">
+            <img class="user-photo" [src]="pics[i]">
+            <p class="friend-notif-text">{{ notif.username }} would like to be your friend!</p>
+            <div class="buttons">
+              <button mat-raised-button class="resp-button close-button" (click)="onDecline(notif)"><mat-icon>close</mat-icon></button>
+              <button mat-raised-button class="resp-button check-button"
+                aria-label="You are now friends with notif.username"
+                (click)="onAccept(notif)"
+                >
+                <mat-icon>check</mat-icon>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="notif-container medal-notif-container">
+        <p>Achievements ({{ medalNotifs.length }})</p>
+        <ul class="list-group">
+          <li class="list-group-item medal-notif-item" *ngFor="let notif of medalNotifs; let i = index" (click)="viewMedal(notif.medal.id)">
+            <img class="medal-photo" [src]="notif.pic"/>
+            <p class="medal-name">{{ notif.medal.name }}</p>
+            <p class="medal-score">{{ notif.medal.score }}</p>
+            <button mat-raised-button class="dismiss-medal-button" (click)="dismissMedal(notif.medal.id)">Dismiss</button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="notif-container kick-notif-container">
+        <p>Kick Notices ({{ kickedNotifs.length }})</p>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let notif of kickedNotifs; let i = index">
+            <p class="kicked-text">You have been removed from {{ notif }}</p>
+            <button mat-raised-button class="dismiss-kicked-button" (click)="dismissKicked(notif)">Dismiss</button>
+          </li>
+        </ul>
+      </div>
+
     </mat-card-content>
   </mat-card>
 </div>

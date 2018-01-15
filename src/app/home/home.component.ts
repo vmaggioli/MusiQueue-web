@@ -7,6 +7,8 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import * as firebase from 'firebase/app';
 import { User } from '../objects/user';
 
+import { Medal } from '../enums/medal';
+
 @Component({
   selector: 'lsl-home',
   templateUrl: './home.component.html',

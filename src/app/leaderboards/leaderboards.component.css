@@ -32,8 +32,8 @@ th, td {
 }
 
 td > p {
-  line-height: 30px;
-  margin-bottom: 0;
+  line-height: 30px!important;
+  margin: 0!important;
 }
 
 .my-pagination /deep/ .ngx-pagination{
@@ -96,4 +96,8 @@ span {
 
 tr:hover {
   cursor: pointer;
+}
+
+.ng-star-inserted {
+  border-radius: 5px!important;
 }

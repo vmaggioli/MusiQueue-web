@@ -9,6 +9,10 @@ mat-card-header {
    margin-bottom: 20px;
 }
 
+.notif-card-content {
+  padding-left: 20px;
+}
+
 .mat-raised-button {
   background-color: #303f9e;
   color: white;
@@ -76,4 +80,12 @@ mat-icon {
 
 .check-button {
   background-color: green;
+}
+
+.notif-container {
+  margin-bottom: 40px;
+}
+
+.medal-notif-item:hover {
+  cursor: pointer;
 }

@@ -69,7 +69,13 @@ export class JoinHubComponent {
         confirm("Please enter a value");
         return;
       }
-    this.hubsFromSearch = this.hubService.getHubsBySearch(hubName);
+    this.hubService.getAllHubs().then(hubs => {
+      this.hubsFromSearch = [];
+      hubs.forEach(hub => {
+        if (hub.val().name.toLowerCase().search(hubName.toLowerCase()) != -1)
+          this.hubsFromSearch.push(hub.val());
+      });
+    });
     this.displayingSearchHubs = true;
     this.displayingLocalHubs = false;
     this.displayingRecentHubs = false;

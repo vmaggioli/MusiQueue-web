@@ -41,6 +41,10 @@ export class HubService {
     });
   }
 
+  getAllHubs() {
+    return firebase.database().ref("Hubs/").once('value');
+  }
+
   getHubByNameOnce(name) {
     return firebase.database().ref("Hubs/" + name).once('value');
   }

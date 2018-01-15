@@ -34,7 +34,6 @@ export class UsersService {
 
   getUserName(id) {
     return firebase.database().ref("Users/" + id + "/username").once('value').then(snap => {
-      console.log(snap.val());
       return snap.val();
     });
   }

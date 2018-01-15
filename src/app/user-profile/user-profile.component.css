@@ -186,7 +186,7 @@ li > p , li > img , li > .score-container {
   flex: 3;
 }
 
-.name-text {
+.user-name-text {
   font-size: 14px;
   font-weight: bold;
   flex: 10;

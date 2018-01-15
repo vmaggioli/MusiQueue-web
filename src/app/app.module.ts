@@ -45,7 +45,8 @@ import { HubProfileComponent } from './hub-profile/hub-profile.component';
 import { HubProfileFormComponent } from './hub-profile-form/hub-profile-form.component';
 
 
-import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import {NgxPaginationModule} from 'ngx-pagination';
+import { MedalsComponent } from './medals/medals.component'; // <-- import the module
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
     HowToComponent,
     HubProfileComponent,
     HubProfileFormComponent,
+    MedalsComponent,
   ],
   imports: [
     BrowserModule,

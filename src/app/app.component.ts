@@ -22,7 +22,7 @@ export class AppComponent {
               public hubService: HubService,
               public route: ActivatedRoute,
               public router: Router) {
-                this.route.params.subscribe(params => console.log(""));
+                this.route.params.subscribe(params => {});
               }
 
   ngOnInit() { }
@@ -51,6 +51,10 @@ export class AppComponent {
 
   onNotificationsSelected() {
     this.router.navigate(['notifications', this.usersService.currentUser.uid]);
+  }
+
+  onMedalsSelected() {
+    this.router.navigate(['medals', this.usersService.currentUser.uid]);
   }
 
   onHowToSelected() {

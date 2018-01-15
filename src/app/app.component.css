@@ -82,11 +82,6 @@ mat-icon:hover {
   background-color: Gainsboro;
 }
 
-/*.menu-list-item:hover > p {
-  background-color: #303f9e;
-  color: white;
-}*/
-
 .menu-item-icon {
   float:left;
   color: #303f9e;

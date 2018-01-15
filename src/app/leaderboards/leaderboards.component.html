@@ -17,12 +17,12 @@
             </thead>
             <tbody align="cneter">
               <tr (click)="onUserClick(user.id)"
-              *ngFor="let user of userTableList | paginate: {itemsPerPage: 10, currentPage: p}; let i = index">
+              *ngFor="let user of userTableList | paginate: {itemsPerPage: 10, currentPage: pUser, id: 'userPage'}; let i = index">
                 <td><span class="placed" [ngClass]="{
-                  'first': p == 1 && i == 0,
-                  'second':  p == 1 && i == 1,
-                  'third': p == 1 && i == 2}"
-                  >{{ i + 1 }}</span></td>
+                  'first': pUser == 1 && i == 0,
+                  'second':  pUser == 1 && i == 1,
+                  'third': pUser == 1 && i == 2}"
+                  >{{ (10 * (pUser - 1)) + i + 1 }}</span></td>
                 <td>
                   <div class="name-row inline-center">
                     <img class="user-image" [src]="user.pic"/>
@@ -35,7 +35,15 @@
             </tbody>
           </table>
           <div class="full-width">
-            <pagination-controls class="my-pagination center-text" (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls
+              maxSize="10"
+              class="my-pagination center-text"
+              (pageChange)="pUser = $event"
+              id="userPage"
+              >
+            </pagination-controls>
+            <!-- <pagination-controls class="my-pagination center-text" (pageChange)="pageChanged($event)"></pagination-controls> -->
+
           </div>
         </mat-tab>
 
@@ -48,14 +56,14 @@
               <th>Medals</th>
             </thead>
             <tbody align="cneter">
-              <tr *ngFor="let hub of hubTableList | paginate: {itemsPerPage: 10, currentPage: p}; let i = index"
+              <tr *ngFor="let hub of hubTableList | paginate: {itemsPerPage: 10, currentPage: pHub, id: 'hubPage'}; let i = index"
                 (click)="onHubClick(hub.name)"
               >
                 <td><span class="placed" [ngClass]="{
-                  'first': p == 1 && i == 0,
-                  'second':  p == 1 && i == 1,
-                  'third': p == 1 && i == 2}"
-                  >{{ i + 1 }}</span></td>
+                  'first': pHub == 1 && i == 0,
+                  'second':  pHub == 1 && i == 1,
+                  'third': pHub == 1 && i == 2}"
+                  >{{ (10 * (pHub - 1)) + i + 1 }}</span></td>
                 <td>
                   <div class="name-row inline-center">
                     <img class="user-image" [src]="hub.pic"/>
@@ -68,7 +76,12 @@
             </tbody>
           </table>
           <div class="full-width">
-            <pagination-controls class="my-pagination center-text" (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls
+            class="my-pagination center-text"
+            (pageChange)="pHub = $event"
+            id="hubPage"
+            >
+          </pagination-controls>
           </div>
         </mat-tab>
       </mat-tab-group>

@@ -82,6 +82,5 @@ export class HubLoginComponent {
         this.router.navigate(['user-hub-view', {name: this.name}]);
       }
     }
-    console.log("input: " + input);
   }
 }

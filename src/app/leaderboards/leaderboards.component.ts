@@ -13,7 +13,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class LeaderboardsComponent implements OnInit {
-  p: number = 1;
+  pUser: number = 1;
+  pHub: number = 1;
   tabIdx: number;
   userTableList: any;
   hubTableList: any;
@@ -139,5 +140,8 @@ export class LeaderboardsComponent implements OnInit {
 
   onHubClick(hub) {
     this.router.navigate(['hub-profile', hub]);
+  }
+
+  pageChanged(event) {
   }
 }

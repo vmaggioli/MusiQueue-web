@@ -1,36 +1,61 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../shared/users.service';
 import { NotifService } from '../shared/notif.service';
+import { MedalService } from '../shared/medal.service';
 import { User } from '../objects/user';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'lsl-notifications',
   templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.css']
+  styleUrls: ['./notifications.component.css'],
+  providers: [NotifService, MedalService],
 })
 export class NotificationsComponent implements OnInit {
-  friendNotifs: User[];
+  friendNotifs: User[] = [];
+  medalNotifs: any = [];
+  kickedNotifs: any = [];
   pics: string[];
-
+  url: string;
   constructor(
     public usersService: UsersService,
     public notifService: NotifService,
+    public medalService: MedalService,
     public snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
-    this.notifService.getUserNotifs(this.usersService.currentUser.uid).subscribe(notifs => {
+    this.notifService.getFriendNotifs(this.usersService.currentUser.uid).subscribe(notifs => {
       this.friendNotifs = [];
       this.pics = [];
       notifs.forEach(notif => {
         this.usersService.getUserByIdOnce(notif.$key).then(user => {
           this.friendNotifs.push(user.val());
           this.usersService.getPic(user.val().uid).then(pic => {
-            console.log(pic);
             this.pics.push(pic);
           });
         });
+      });
+    });
+
+    this.notifService.getMedalNotifs(this.usersService.currentUser.uid).subscribe(notifs => {
+      this.medalNotifs = [];
+      notifs.forEach(notif => {
+        this.medalService.getMedal(notif.$key).then(medal => {
+          let medalObj: any = 0;
+          medalObj.medal = medal.val();
+          this.medalService.getMedalPic("default").then(p => {
+            medalObj.pic = p;
+            this.medalNotifs.push(medalObj);
+          });
+        });
+      });
+    });
+
+    this.notifService.getKickedNotifs(this.usersService.currentUser.uid).subscribe(notifs => {
+      this.kickedNotifs = [];
+      notifs.forEach(notif => {
+        kickedNotifs.push(notif.$key);
       });
     });
   }
@@ -38,12 +63,25 @@ export class NotificationsComponent implements OnInit {
   onAccept(friend) {
     this.notifService.acceptFriend(this.usersService.currentUser.uid, friend.uid);
     this.snackBar.open("You are now friends with " + friend.username + "!", "Dismiss", {
-      duration: 2000
+      duration: 3000
     });
   }
 
   onDecline(friend) {
-    this.notifService.declineFriend(this.UsersService.currentUser.uid, friend.uid);
+    this.notifService.declineFriend(this.usersService.currentUser.uid, friend.uid);
   }
 
+  dismissMedal(medalId) {
+    this.notifService.dismissMedal(this.usersService.currentUser.uid, medalId);
+  }
+
+  viewMedal(medalId) {
+    this.snackBar.open("Medal Info Pages Coming Soon!", "Dismiss", {
+      duration: 3000
+    });
+  }
+
+  dismissKicked(hubId) {
+    this.notifService.dismissKicked(this.usersService.currentUser.uid, hubId);
+  }
 }

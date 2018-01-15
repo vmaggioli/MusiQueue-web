@@ -10,7 +10,6 @@ export class LoginGuard implements CanActivate {
 
   canActivate() {
     if (this.authService.getCurrentUser() == null) {
-      console.log(this.authService.getCurrentUser());
       this.router.navigateByUrl('');
       return false;
     }

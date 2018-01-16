@@ -1,0 +1,76 @@
+.mat-card-medals {
+  max-width: 700px;
+  margin: auto;
+}
+
+mat-card-header {
+   background-color: #303f9e;
+   color: white;
+   margin-bottom: 20px;
+}
+
+.mat-raised-button {
+  background-color: #303f9e;
+  color: white;
+}
+
+.center-text {
+  text-align: center;
+  width: 100%;
+}
+
+.margin {
+  padding: 20px;
+}
+
+.mat-tab-labels {
+  justify-content: center;
+}
+
+.medal-tab {
+  padding: 50px;
+}
+
+/deep/ .mat-tab-body-wrapper {
+  max-height: 800px!important;
+}
+
+.medal-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.medal-item {
+  width: 125px;
+  text-align: center;
+  border: solid black 1px;
+  margin-top: 20px;
+}
+
+.medal-item:hover {
+  cursor: pointer;
+  background-color: gainsboro;
+}
+
+.medal-pic {
+  max-width: 110px;
+  max-height: 110px;
+  border-radius: 50%;
+}
+
+.medal-item > p {
+  margin: 0;
+}
+
+.const-height {
+  height: 40px;
+}
+
+.medal-group-title {
+  margin: 30px 0 -5px 0;
+  font-size: 18px;
+  color: #303f9e;
+}

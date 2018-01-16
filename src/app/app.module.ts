@@ -16,6 +16,7 @@ import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from './shared/auth.service';
 import { UsersService } from './shared/users.service';
 import { HubService } from './shared/hub.service';
+import { MedalService } from './shared/medal.service';
 import { environment } from '../environments/environment';
 import { NotifService } from './shared/notif.service';
 import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
@@ -103,6 +104,7 @@ import { MedalsComponent } from './medals/medals.component'; // <-- import the m
     AngularFireAuth,
     AngularFireDatabase,
     NotifService,
+    MedalService,
   ],
   bootstrap: [AppComponent]
 })

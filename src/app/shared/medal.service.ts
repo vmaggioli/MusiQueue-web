@@ -5,6 +5,7 @@ import 'firebase/storage';
 
 @Injectable()
 export class MedalService {
+  public allMedals: any[];
 
   constructor(public db: AngularFireDatabase,) { }
 
@@ -18,4 +19,38 @@ export class MedalService {
     return firebase.storage().ref("images/medals/" + medal).getDownloadURL();
   }
 
+  getUserMedals(user) {
+
+  }
+
+  getFriendMedals() {
+    return this.allMedals.friendMedals;
+  }
+
+  getHubMedals() {
+    return this.allMedals.hubMedals;
+  }
+
+  getVoteMedals() {
+    return this.allMedals.voteMedals;
+  }
+
+  getRankMedals() {
+    return this.allMedals.rankMedals;
+  }
+
+  getCountMedals() {
+    return this.allMedals.countMedals;
+  }
+
+  getMiscMedals() {
+    return this.allMedals.miscMedals;
+  }
+
+  getAllMedals() {
+    let all = [];
+    all = all.concat(this.allMedals.friendMedals);
+    all = all.concat(this.allMedals.hubMedals);
+    return all;
+  }
 }

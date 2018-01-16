@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './shared/auth.service';
 import { UsersService } from "./shared/users.service";
+import { MedalService } from './shared/medal.service';
 import * as firebase from 'firebase/app';
 import { HubService } from './shared/hub.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Medal } from './objects/medal';
 
 
 @Component({
@@ -20,12 +22,15 @@ export class AppComponent {
               private auth: AuthService,
               public usersService: UsersService,
               public hubService: HubService,
+              public medalService: MedalService,
               public route: ActivatedRoute,
               public router: Router) {
                 this.route.params.subscribe(params => {});
               }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.medalService.allMedals = new Medal();
+  }
 
   clearListeners() {
     firebase.database().ref("Hubs/" + this.hubService.currentHub.name).off();

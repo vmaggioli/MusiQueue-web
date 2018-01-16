@@ -1,4 +1,8 @@
 export enum Friend {
+  Min = 0,
+  Max = 12,
+
+
   One = 0,
   Ten = 1,
   TwentyFive = 2,

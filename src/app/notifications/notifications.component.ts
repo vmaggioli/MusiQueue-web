@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material';
   selector: 'lsl-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.css'],
-  providers: [NotifService, MedalService],
+  providers: [NotifService, ],
 })
 export class NotificationsComponent implements OnInit {
   friendNotifs: User[] = [];

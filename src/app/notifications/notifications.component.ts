@@ -24,7 +24,7 @@ export class NotificationsComponent implements OnInit {
     public snackBar: MatSnackBar,
   ) { }
 
-  ngOnInit() {
+    ngOnInit() {
     this.notifService.getFriendNotifs(this.usersService.currentUser.uid).subscribe(notifs => {
       this.friendNotifs = [];
       this.pics = [];
@@ -40,15 +40,15 @@ export class NotificationsComponent implements OnInit {
 
     this.notifService.getMedalNotifs(this.usersService.currentUser.uid).subscribe(notifs => {
       this.medalNotifs = [];
+      console.log(notifs);
       notifs.forEach(notif => {
-        this.medalService.getMedal(notif.$key).then(medal => {
-          let medalObj: any = 0;
-          medalObj.medal = medal.val();
-          this.medalService.getMedalPic("default").then(p => {
-            medalObj.pic = p;
-            this.medalNotifs.push(medalObj);
-          });
+        console.log(notif);
+        let medalObj = this.medalService.getMedal(notif.$key);{
+        this.medalService.getMedalPic("default").then(p => {
+          medalObj.pic = p;
+          this.medalNotifs.push(medalObj);
         });
+        console.log(medalObj);
       });
     });
 

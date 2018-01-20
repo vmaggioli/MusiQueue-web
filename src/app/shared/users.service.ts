@@ -131,6 +131,10 @@ export class UsersService {
   }
 
   addFriend(user, friend) {
+    console.log("user: ") ;
+    console.log(user);
+    console.log("friend");
+    console.log(friend);
     var friendRef = firebase.database().ref("Friends/" + user + "/" + friend).once('value', res => {
       if (res.val() != null)
         confirm("This User is already one of your friends!");

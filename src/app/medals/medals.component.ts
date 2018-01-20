@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { UsersService } from '../shared/users.service';
 import { HubService } from '../shared/hub.service';
 import { RankingService } from '../shared/ranking.service';
 import { MedalService } from '../shared/medal.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'lsl-medals',
   templateUrl: './medals.component.html',
   styleUrls: ['./medals.component.css'],
-  providers: [RankingService],
+  providers: [RankingService, MatDialog,],
 })
 export class MedalsComponent implements OnInit {
   allMedals: any;
@@ -30,6 +31,7 @@ export class MedalsComponent implements OnInit {
     public medalService: MedalService,
     public router: Router,
     public route: ActivatedRoute,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -37,18 +39,50 @@ export class MedalsComponent implements OnInit {
       this.defaultPic = pic;
     });
 
-    this.allMedals = this.medalService.getAllMedals();
-    this.friendMedals = this.medalService.getFriendMedals();
-    this.hubMedals = this.medalService.getHubMedals();
-    this.voteMedals = this.medalService.getVoteMedals();
-    this.rankMedals = this.medalService.getRankMedals();
-    this.countMedals = this.medalService.getCountMedals();
-    this.miscMedals = this.medalService.getMiscMedals();
+    //this.allMedals = this.medalService.getAllMedals();
+    this.friendMedals = this.medalService.getFriendMedalArr();
+    this.hubMedals = this.medalService.getHubMedalArr();
+    this.voteMedals = this.medalService.getVoteMedalArr();
+    this.rankMedals = this.medalService.getRankMedalArr();
+    this.countMedals = this.medalService.getCountMedalArr();
+    this.miscMedals = this.medalService.getMiscMedalArr();
+
+  }
+
+  onMedalClick(medal) {
+    let dialogRef = this.dialog.open(MedalPopup, {
+      width: "300px",
+      data: medal
+    });
   }
 
   onSelected(doesntmatter)
   {
 
+  }
+
+}
+
+
+@Component({
+  selector: 'lsl-medal-popup',
+  templateUrl: 'medal-popup.html',
+  styleUrls: ['medal-popup.css'],
+
+})
+export class MedalPopup implements OnInit {
+  defaultPic: string = "";
+  constructor(
+    public dialogRef: MatDialogRef<MedalPopup>,
+    public medalService: MedalService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.medalService.getMedalPic("default").then(pic => {
+        this.defaultPic = pic;
+      });
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

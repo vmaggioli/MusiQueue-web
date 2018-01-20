@@ -6,8 +6,13 @@
     </mat-card-header>
     <mat-card-content class="notif-card-content">
 
+      <p class="alpha-disclosure">
+        MusiQueue is currently still in its Alpha version. All records of the database, friends,
+        achievements and kick notices will be wiped clean before further versions of MusiQueue are released.
+      </p>
+
       <div class="notif-container friend-notif-container">
-        <p>Friend Requests ({{ friendNotifs.length }})</p>
+        <p class="notif-cat">Friend Requests ({{ friendNotifs.length }})</p>
         <ul class="list-group">
           <li class="list-group-item" *ngFor="let notif of friendNotifs; let i = index">
             <img class="user-photo" [src]="pics[i]">
@@ -26,19 +31,22 @@
       </div>
 
       <div class="notif-container medal-notif-container">
-        <p>Achievements ({{ medalNotifs.length }})</p>
+        <p class="notif-cat">Achievements ({{ medalNotifs.length }})</p>
         <ul class="list-group">
           <li class="list-group-item medal-notif-item" *ngFor="let notif of medalNotifs; let i = index" (click)="viewMedal(notif.medal.id)">
             <img class="medal-photo" [src]="notif.pic"/>
-            <p class="medal-name">{{ notif.medal.name }}</p>
-            <p class="medal-score">{{ notif.medal.score }}</p>
+            <p class="medal-name">{{ notif.name }}</p>
+            <div class="medal-score-container">
+              <p class="score-text">Score</p>
+              <p class="medal-score">{{ notif.score }}</p>
+            </div>
             <button mat-raised-button class="dismiss-medal-button" (click)="dismissMedal(notif.medal.id)">Dismiss</button>
           </li>
         </ul>
       </div>
 
       <div class="notif-container kick-notif-container">
-        <p>Kick Notices ({{ kickedNotifs.length }})</p>
+        <p class="notif-cat">Kick Notices ({{ kickedNotifs.length }})</p>
         <ul class="list-group">
           <li class="list-group-item" *ngFor="let notif of kickedNotifs; let i = index">
             <p class="kicked-text">You have been removed from {{ notif }}</p>

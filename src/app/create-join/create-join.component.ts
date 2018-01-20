@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService } from '../shared/users.service';
 import { NgModel } from '@angular/forms';
+import { MedalService } from '../shared/medal.service';
 
 @Component({
   selector: 'create-join',
@@ -16,13 +17,18 @@ export class CreateJoinComponent {
   public uname: string;
   constructor(
     private router: Router,
-    public usersService: UsersService) {
+    public usersService: UsersService,
+    public medalService: MedalService,
+  ) {
 
   }
 
   ngOnInit() {
     if (this.usersService != undefined && this.usersService.currentUser != undefined)
       this.uname = this.usersService.currentUser.username;
+
+    if (this.medalService.firstInit)
+      this.medalService.initListeners(this.usersService.currentUser.uid);
   }
 
   gotoJoinHub(name:string) {

@@ -10,7 +10,7 @@
         <mat-tab label="Top Users">
           <table class="table table-hover">
             <thead>
-              <th></th>
+              <th class="rank-pos"></th>
               <th>Name</th>
               <th>Score</th>
               <th>Medals</th>
@@ -18,7 +18,7 @@
             <tbody align="cneter">
               <tr (click)="onUserClick(user.id)"
               *ngFor="let user of userTableList | paginate: {itemsPerPage: 10, currentPage: pUser, id: 'userPage'}; let i = index">
-                <td><span class="placed" [ngClass]="{
+                <td class="rank-pos"><span class="placed" [ngClass]="{
                   'first': pUser == 1 && i == 0,
                   'second':  pUser == 1 && i == 1,
                   'third': pUser == 1 && i == 2}"
@@ -48,7 +48,7 @@
         <mat-tab label="Top Hubs">
           <table class="table table-hover">
             <thead>
-              <th></th>
+              <th class="rank-pos"></th>
               <th>Name</th>
               <th>Score</th>
               <th>Medals</th>
@@ -57,7 +57,7 @@
               <tr *ngFor="let hub of hubTableList | paginate: {itemsPerPage: 10, currentPage: pHub, id: 'hubPage'}; let i = index"
                 (click)="onHubClick(hub.name)"
               >
-                <td><span class="placed" [ngClass]="{
+                <td class="rank-pos"><span class="placed" [ngClass]="{
                   'first': pHub == 1 && i == 0,
                   'second':  pHub == 1 && i == 1,
                   'third': pHub == 1 && i == 2}"

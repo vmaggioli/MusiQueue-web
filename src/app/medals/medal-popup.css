@@ -1,0 +1,18 @@
+mat-dialog-container {
+  padding: 0!important;
+  margin: 0!important;
+}
+.medal-popup-container {
+  text-align: center;
+  margin-top: -20px;
+  margin-bottom: -10px;
+}
+
+.medal-title {
+  color: #303f9e;
+}
+
+.medal-popup-pic {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

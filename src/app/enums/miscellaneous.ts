@@ -1,8 +1,11 @@
 export enum Miscellaneous {
-  Min = 500,
-  Max = 502,
+  Min = "p0",
+  Max = "p3",
 
-  AdminIsFriend = 500,
-  AdminIsMember = 501,
-  AdminIsOwner = 502,
+  IMin = 500,
+  IMax = 502,
+
+  AdminIsFriend = "p0",
+  AdminIsMember = "p1",
+  AdminIsOwner = "p2",
 }

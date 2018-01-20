@@ -147,15 +147,29 @@ export class UserProfileComponent implements OnInit {
     this.usersService.getFriends(this.curUser.uid).then(snap => {
       snap.forEach(s => {
         this.usersService.getUserByIdOnce(s.key).then(user => {
-          var userUrl: string;
-          var friend: any;
-          this.usersService.getPic(user.val().uid).then(pic => {
-            friend = {user: user.val(), pic: pic};
-            this.friends.push(friend);
-          }, notFound => {
-            this.usersService.getPic("__stock__").then(p => {
-              friend = {user: user.val(), pic: p};
+          this.rankingService.getUserScores(user.val().uid).then(scores => {
+            var userUrl: string;
+            var friend: any;
+            this.usersService.getPic(user.val().uid).then(pic => {
+              friend = {
+                user: user.val(),
+                pic: pic,
+                upvotes: scores.val().upvotes,
+                downvotes: scores.val().downvotes,
+                medal_score: scores.val().medal_score,
+              };
               this.friends.push(friend);
+            }, notFound => {
+              this.usersService.getPic("__stock__").then(p => {
+                friend = {
+                  user: user.val(),
+                  pic: pic,
+                  upvotes: scores.val().upvotes,
+                  downvotes: scores.val().downvotes,
+                  medal_score: scores.val().medal_score,
+                };
+                this.friends.push(friend);
+              });
             });
           });
         });

@@ -3,7 +3,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { MatCardModule, MatButtonModule, MatTabsModule, MatInputModule,
   MatFormFieldModule, MatIconModule, MatMenuModule, MatSidenavModule,
-  MatToolbarModule, MatSnackBarModule, MatTableModule} from '@angular/material';
+  MatToolbarModule, MatSnackBarModule, MatTableModule, MatDialogModule,} from '@angular/material';
 import { Animations } from '@angular/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -47,7 +47,8 @@ import { HubProfileFormComponent } from './hub-profile-form/hub-profile-form.com
 
 
 import {NgxPaginationModule} from 'ngx-pagination';
-import { MedalsComponent } from './medals/medals.component'; // <-- import the module
+import { MedalsComponent } from './medals/medals.component';
+import { MedalPopup } from './medals/medals.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,9 @@ import { MedalsComponent } from './medals/medals.component'; // <-- import the m
     HubProfileComponent,
     HubProfileFormComponent,
     MedalsComponent,
+    MedalPopup,
   ],
+  entryComponents: [MedalPopup]
   imports: [
     BrowserModule,
     HttpModule,
@@ -92,6 +95,7 @@ import { MedalsComponent } from './medals/medals.component'; // <-- import the m
     MatToolbarModule,
     MatSnackBarModule,
     MatTableModule,
+    MatDialogModule,
     NgxPaginationModule,
     ImageUploadModule.forRoot(),
   ],

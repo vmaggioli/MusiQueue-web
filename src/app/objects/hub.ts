@@ -21,6 +21,5 @@ export class Hub {
     this.last_active = last_active;
     this.users = users;
     this.songs = songs;
-    console.log("created hub object");
   }
 }

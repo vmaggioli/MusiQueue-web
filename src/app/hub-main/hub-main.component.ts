@@ -132,7 +132,6 @@ export class HubMainComponent  {
     this.player = player;
     this.player.a.height = 200;
     this.player.a.width = 300;
-    console.log(this.player);
     if (this.state != -1)
       this.player.loadVideoById(this.currentSong.video_id);
 	}
@@ -146,10 +145,8 @@ export class HubMainComponent  {
    * 5: Video Cued
    */
   onStateChange(event) {
-    console.log('player state', event.data);
     switch (event.data) {
       case 0:
-        console.log("finished");
         this.state = 0;
         this.currentSong = undefined;
         if (this.songs.length > 0) {
@@ -164,19 +161,15 @@ export class HubMainComponent  {
         break;
       case 1:
       this.state = 1;
-        console.log("video is playing");
         break;
       case 2:
       this.state = 2;
-        console.log("video is paused");
         break;
       case 3:
       this.state = 3;
-        console.log("video is buffering");
         break;
       case 5:
       this.state = 5;
-        console.log("video is cued");
         break;
       default:
         break;

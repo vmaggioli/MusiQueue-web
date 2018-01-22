@@ -32,6 +32,12 @@ export class UsersService {
     return firebase.database().ref("Users/" + id).once('value');
   }
 
+  getUserName(id) {
+    return firebase.database().ref("Users/" + id + "/username").once('value').then(snap => {
+      return snap.val();
+    });
+  }
+
   listenForBoot() {
     firebase.database().ref("Users/" + this.currentUser.uid + "/hub_list").on("child_removed", hub => {
       let i : number = this.router.url.indexOf('=');
@@ -102,17 +108,16 @@ export class UsersService {
   }
 
   updatePic(user: string, pic: string) {
-    console.log("saving image");
     var storageRef = firebase.storage().ref();
-    var imagesRef = storageRef.child('images/' + user);
+    var imagesRef = storageRef.child('images/users/' + user);
     imagesRef.putString(pic, 'base64');
   }
 
   getPic(user: string): FirebaseObservable {
-    var ref = firebase.storage().ref().child('images/' + user);
-    console.log(ref);
-    if (ref != null)
+    var ref = firebase.storage().ref('images/users/' + user);
+    if (ref != null) {
       return ref.getDownloadURL();
+    }
     return null;
   }
 
@@ -126,6 +131,10 @@ export class UsersService {
   }
 
   addFriend(user, friend) {
+    console.log("user: ") ;
+    console.log(user);
+    console.log("friend");
+    console.log(friend);
     var friendRef = firebase.database().ref("Friends/" + user + "/" + friend).once('value', res => {
       if (res.val() != null)
         confirm("This User is already one of your friends!");

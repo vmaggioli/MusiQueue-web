@@ -1,3 +1,12 @@
+.alpha-disclosure {
+  color: red;
+  width: 100%;
+  padding-left: 25px;
+  padding-right: 25px;
+  text-align: center;
+}
+
+
 .mat-card-notifs {
   max-width: 700px;
   margin: auto;
@@ -7,6 +16,10 @@ mat-card-header {
    background-color: #303f9e;
    color: white;
    margin-bottom: 20px;
+}
+
+.notif-cat  {
+  margin-left: 40px;
 }
 
 .mat-raised-button {
@@ -76,4 +89,55 @@ mat-icon {
 
 .check-button {
   background-color: green;
+}
+
+.notif-container {
+  margin-bottom: 40px;
+}
+
+.medal-notif-item:hover {
+  cursor: pointer;
+}
+
+.medal-notif-item {
+  display: flex;
+  flex-direction: row;
+}
+
+.medal-photo {
+  max-width: 75px;
+  max-height: 75px;
+}
+
+.medal-name {
+  font-size: 20px;
+  font-weight: bold;
+  flex: 10;
+  margin-top: 18px!important;
+  width: 100%;
+  text-align: center;
+}
+
+.medal-score-container {
+  text-align: center;
+  margin: 0;
+  flex: 2;
+  margin-top: 4px!important;
+  margin-right: 30px!important;
+}
+
+.medal-score-text {
+  font-size: 10px;
+  padding: 0;
+  margin: 0;
+  color: gray;
+}
+
+.medal-score {
+  margin: 0;
+  padding: 5px;
+  color: white;
+  background-color: #303f9e;
+  border-radius: 5px;
+  line-height: 20px;
 }

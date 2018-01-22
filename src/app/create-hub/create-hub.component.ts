@@ -3,6 +3,7 @@ import { Router, ParamMap} from '@angular/router';
 import { HubService } from '../shared/hub.service';
 import { Hub } from '../objects/hub';
 import { UsersService } from '../shared/users.service';
+import { RankingService } from '../shared/ranking.service';
 import * as firebase from 'firebase/app';
 
 @Component({
@@ -10,7 +11,7 @@ import * as firebase from 'firebase/app';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './create-hub.component.html',
   styleUrls: ['./create-hub.component.css'],
-  providers: [],
+  providers: [RankingService],
 })
 
 export class CreateHubComponent {
@@ -21,7 +22,9 @@ export class CreateHubComponent {
   constructor(
     private router: Router,
     public hubService: HubService,
-    public usersService: UsersService) {
+    public usersService: UsersService,
+    public rankingService: RankingService,
+  ) {
 
   }
 
@@ -79,11 +82,14 @@ export class CreateHubComponent {
       hubRef.once("value", hubName => {
         if (hubName.val() == null) {
           this.hubService.currentHub = new Hub(this.name, "user", "user", this.passwd, Date.now(), [], []);
+
           if (this.location != undefined && this.location.longitude != undefined) {
             this.hubService.createHub("false", "user", "date", this.location.latitude, this.location.longitude, this.name, this.passwd, "users", "wifi");
           } else {
             this.hubService.createHub("false", "user", "date", "0", "0", this.name, this.passwd, "users", "wifi");
           }
+          this.rankingService.initHubScores(this.name);
+
           this.usersService.addHubUnderUser(this.usersService.currentUser.uid, this.name);
           this.usersService.addUserToHub(this.usersService.currentUser.uid, this.name);
           this.router.navigate(['hub-main',{name: this.name}]);

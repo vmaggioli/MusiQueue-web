@@ -43,7 +43,7 @@
                   <p id="rank"><span *ngIf="song.rank > -1">+</span>{{ song.rank }}</p>
                   <div (click)="removeSong(song)" id=removeSong>&#10006;</div>
                 </span>
-                <span>
+                <span class="song-text">
                   <span class="song-name">{{ song.song_name }}</span><br>
                   <span class="song-user-name">{{ song.username }}</span>
                 </span>

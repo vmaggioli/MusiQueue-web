@@ -20,16 +20,18 @@ export class ProfileFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.usersService.getPic(uid).then(found => {
-      this.url = found;
-    }, notFound => {
-      this.usersService.getPic("__stock__").then(p => {
-        this.url= p;
+    this.route.params.subscribe(params => {
+      var uid = params['name'];
+      this.usersService.getPic(uid).then(found => {
+        this.url = found;
+      }, notFound => {
+        this.usersService.getPic("__stock__").then(p => {
+          this.url= p;
+        });
       });
+      this.location = this.usersService.currentUser.location;
+      this.username = this.usersService.currentUser.username;
     });
-    this.location = this.usersService.currentUser.location;
-    this.username = this.usersService.currentUser.username;
-    console.log("location: " + this.location + ", username: " + this.username);
   }
 
   onSelectFile(event) {

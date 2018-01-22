@@ -97,8 +97,8 @@ li {
 }
 
 .unpressed {
-  background-color: white;
-  color: #303f9e;
+  background-color: white!important;
+  color: #303f9e!important;
 }
 
 .pressed {

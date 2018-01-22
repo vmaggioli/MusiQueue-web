@@ -1,3 +1,90 @@
-<p>
-  leaderboards works!
-</p>
+<mat-drawer-container class="drawer-container">
+<div class="margin">
+  <mat-card class="mat-card-leaderboards" [ngStyle]="{'padding':'0px 0px 20px 0px'}">
+    <mat-card-header>
+      <h2 class="center-text">Leaderboards</h2>
+    </mat-card-header>
+    <mat-card-content>
+
+      <mat-tab-group  [(slectedIndex)]="tabIdx" (selectedTabChange)="onSelected($event)">
+        <mat-tab label="Top Users">
+          <table class="table table-hover">
+            <thead>
+              <th class="rank-pos"></th>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Medals</th>
+            </thead>
+            <tbody align="cneter">
+              <tr (click)="onUserClick(user.id)"
+              *ngFor="let user of userTableList | paginate: {itemsPerPage: 10, currentPage: pUser, id: 'userPage'}; let i = index">
+                <td class="rank-pos"><span class="placed" [ngClass]="{
+                  'first': pUser == 1 && i == 0,
+                  'second':  pUser == 1 && i == 1,
+                  'third': pUser == 1 && i == 2}"
+                  >{{ (10 * (pUser - 1)) + i + 1 }}</span></td>
+                <td>
+                  <div class="name-row inline-center">
+                    <img class="user-image" [src]="user.pic"/>
+                    <p class="name-text">{{ user.name }}</p>
+                  </div>
+                </td>
+                <td><p>{{ user.score }}</p></td>
+                <td><p>{{ user.medal_count }}</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="full-width">
+            <pagination-controls
+              maxSize="10"
+              class="my-pagination center-text"
+              (pageChange)="pUser = $event"
+              id="userPage"
+              >
+            </pagination-controls>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Top Hubs">
+          <table class="table table-hover">
+            <thead>
+              <th class="rank-pos"></th>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Medals</th>
+            </thead>
+            <tbody align="cneter">
+              <tr *ngFor="let hub of hubTableList | paginate: {itemsPerPage: 10, currentPage: pHub, id: 'hubPage'}; let i = index"
+                (click)="onHubClick(hub.name)"
+              >
+                <td class="rank-pos"><span class="placed" [ngClass]="{
+                  'first': pHub == 1 && i == 0,
+                  'second':  pHub == 1 && i == 1,
+                  'third': pHub == 1 && i == 2}"
+                  >{{ (10 * (pHub - 1)) + i + 1 }}</span></td>
+                <td>
+                  <div class="name-row inline-center">
+                    <img class="user-image" [src]="hub.pic"/>
+                    <p class="name-text">{{ hub.name }}</p>
+                  </div>
+                </td>
+                <td><p>{{ hub.score }}</p></td>
+                <td><p>{{ hub.medal_count }}</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="full-width">
+            <pagination-controls
+            class="my-pagination center-text"
+            (pageChange)="pHub = $event"
+            id="hubPage"
+            >
+          </pagination-controls>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+</mat-drawer-container>

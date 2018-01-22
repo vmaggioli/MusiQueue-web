@@ -1,0 +1,112 @@
+.mat-card-leaderboards {
+  max-width: 700px;
+  margin: auto;
+}
+
+mat-card-header {
+   background-color: #303f9e;
+   color: white;
+   margin-bottom: 20px;
+}
+
+.mat-raised-button {
+  background-color: #303f9e;
+  color: white;
+}
+
+.center-text {
+  text-align: center;
+  width: 100%;
+}
+
+.margin {
+  padding: 20px;
+}
+
+.mat-tab-labels {
+  justify-content: center;
+}
+
+th, td {
+  text-align: center;
+}
+
+td > p {
+  line-height: 30px!important;
+  margin: 0!important;
+}
+
+.my-pagination /deep/ .ngx-pagination{
+  max-width: 100%;
+  min-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.my-pagination /deep/ .ngx-pagination .current{
+  background-color: #303f9e;
+}
+
+span {
+  display: inline-block;
+}
+
+.rank-pos {
+  min-width: 0px!important;
+  max-width: 40px!important;
+  padding-left: 5px!important;
+  padding-right: 5px!important;
+  margin-left: 5px!important;
+  margin-right: 5px!important;
+}
+
+.placed {
+  width: 30px;
+  height: 30px;
+  max-width: 30px;
+  max-height: 30px;
+  border-radius: 5px;
+  line-height: 30px;
+  justify-content: center;
+}
+
+.first {
+  background-color: gold;
+}
+
+.second {
+  background-color: silver;
+}
+
+.third {
+  background-color: #cd7f32;
+}
+
+.name-row {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.user-image {
+  float: left;
+  width: 30px;
+  height: 30px;
+  max-width: 30px;
+  max-height: 30px;
+  border-radius: 5px;
+  margin-bottom: 0;
+}
+
+.name-text {
+  float: left;
+  margin-left: 25px;
+}
+
+tr:hover {
+  cursor: pointer;
+}
+
+.ng-star-inserted {
+  border-radius: 5px!important;
+}

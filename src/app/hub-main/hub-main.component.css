@@ -126,7 +126,7 @@ li {
 .vote-button {
   min-width: 20px;
   padding: 0px 6px 0px 6px;
-  color: #303f9e;
+  /*color: #303f9e;*/
   margin: 2px;
 }
 
@@ -141,8 +141,8 @@ li {
 }
 
 .unpressed {
-  background-color: white;
-  color: #303f9e;
+  background-color: white!important;
+  color: #303f9e!important;
 }
 
 .pressed {
@@ -157,7 +157,11 @@ li {
 }
 
 ol ul {
-  margin-top: 5px;
+  margin-top: 5px!important;
+}
+
+.song-text {
+  max-width: 240px!important;
 }
 
 .song-name {

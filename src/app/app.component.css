@@ -24,6 +24,23 @@
   visibility: hidden;
 }
 
+.notif-count {
+  height: 18px;
+  width: 18px;
+  margin: 0;
+  text-align: center;
+  line-height: 18px;
+  float: left;
+  color: white;
+  background-color: red;
+  opacity: 0.9;
+  font-size: 10px;
+  padding: 0 3px;
+  margin-left: -10px;
+  margin-top: -5px;
+  border-radius: 50%;
+}
+
 .menu-icon {
   float: left;
 }
@@ -81,11 +98,6 @@ mat-icon:hover {
 .menu-list-item:hover {
   background-color: Gainsboro;
 }
-
-/*.menu-list-item:hover > p {
-  background-color: #303f9e;
-  color: white;
-}*/
 
 .menu-item-icon {
   float:left;

@@ -1,0 +1,57 @@
+<mat-drawer-container class="drawer-container">
+  <div class="margin">
+    <mat-card class="mat-card-hub-profile">
+      <div class="top">
+        <div class="image-container">
+          <img class="hub-pic" [src]="url" height:100px>
+        </div>
+        <div class="profile-heading">
+          <div class="profile-head-text">
+            <p class="hub-name">{{ this.hubId }}</p>
+            <p class="hub-location">{{ this.curHub?.location }}</p>
+          </div>
+          <div class="stats">
+            <p class="stat">Upvotes: {{ this.curHub?.total_upvotes }}</p>
+            <p class="stat">Downvotes: {{ this.curHub?.total_downvotes }}</p>
+            <p class="stat">Medals: {{ this.curHub?.medal_count }}</p>
+            <p class="stat">Score: {{ this.curHub?.total_upvotes - this.curHub?.total_downvotes + this.curHub?.medal_score }}</p>
+            <p class="stat">Rank: {{ this.curHub?.rank }}</p>
+          </div>
+        </div>
+        <div *ngIf="isCreator != null && isCreator" class="edit-button" (click)="editProfile()">
+          <mat-icon class="mode-edit-icon">edit</mat-icon>
+          <p class="edit-text">Edit</p>
+        </div>
+        <div *ngIf="isCreator != null && !isCreator" class="edit-button" (click)="joinHub()">
+          <mat-icon class="mode-edit-icon">group_add</mat-icon>
+          <p class="edit-text">Join</p>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="tab-container">
+          <mat-tab-group [(selectedIndex)]="tabIdx" (selectedTabChange)="onSelected($event)">
+
+            <mat-tab label="Members">
+              <ol>
+                <li class=" users-list list-group-item selectable" *ngFor="let member of members; let i = index" (click)="onMemberSelected(member)">
+                  <p class="number">{{ i + 1 }}<p>
+                  <img class="list-user-pic" [src]="member?.pic">
+                  <p class="name-text">{{ member?.user.username }}</p>
+                  <div class="score-container">
+                    <p class="score-text">Score</p>
+                    <p class="score-value">{{ member?.upvotes - member?.downvotes + member?.medal_score }}</p>
+                  </div>
+                </li>
+              </ol>
+            </mat-tab>
+
+            <mat-tab label="Medals">
+              Coming Soon!
+            </mat-tab>
+
+          </mat-tab-group>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</mat-drawer-container>

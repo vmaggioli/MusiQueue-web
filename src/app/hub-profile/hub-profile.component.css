@@ -1,0 +1,190 @@
+.mat-card-hub-profile {
+  max-width: 700px;
+  margin: auto;
+}
+
+.margin {
+  padding: 20px;
+}
+
+.hub-pic {
+  border-radius: 50%;
+  margin: 0px 50px 20px 0;
+}
+
+@media(min-width: 600px) {
+  .hub-pic {
+    height: 150px;
+    width: 150px;
+  }
+}
+@media(min-width: 500px) and (max-width: 600px) {
+  .hub-pic {
+    height: 100px;
+    width: 100px;
+  }
+}
+@media(min-width: 100px) and (max-width: 500px) {
+  .hub-pic {
+    height: 75px;
+    width: 75px;
+  }
+}
+
+.image-container  {
+  flex: 1;
+}
+
+.hub-pic {
+  margin-right: 10px;
+}
+
+.profile-heading {
+  flex: 10;
+}
+
+.profile-head-text {
+  border-bottom: 2px solid lightgray;
+}
+
+.hub-name {
+  font-size: 24px;
+  margin-bottom: 0;
+}
+
+.hub-location {
+  font-style: italic;
+  margin-bottom: 0;
+}
+
+.mode-edit-icon {
+  flex: 1;
+  float: left;
+  line-height: 30px;
+  margin: 2px 0px 5px 0px;
+  font-size: 20px;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+.edit-button {
+  background-color: #303f9e;
+  color: white;
+  width: 60px;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.edit-button:hover {
+  cursor: pointer;
+}
+
+.edit-text {
+  display: right;
+  font-size: 14px;
+  margin: 0 0 0 0;
+  line-height: 30px;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: row;
+  max-width: 600px;
+  margin: auto;
+}
+
+.mat-tab-labels {
+  justify-content: center;
+}
+
+.tab-container {
+  width: 100%;
+}
+
+.stats {
+  margin: 5px 0 20px 10px;
+}
+
+.stat {
+  margin-bottom: 0;
+}
+
+ol {
+  padding: 0;
+  margin-top: 20px;
+}
+
+.selectable {
+  cursor: pointer;
+}
+
+.selectable:hover {
+  background: #ddd;
+  cursor: pointer;
+}
+
+mat-tab-group {
+  left: 0;
+  margin: auto;
+  min-width: 70%;
+}
+
+.mat-tab-labels {
+  justify-content: center;
+}
+
+.users-list {
+  display: flex!important;
+  padding: 5px;
+}
+
+li > p , li > img , li > .score-container {
+  text-align: center;
+  margin: 0;
+}
+
+.number {
+  flex: 1;
+}
+
+.list-user-pic {
+  height: 60px;
+  width: 60px;
+  margin: auto 10px;
+  border-radius: 5px;
+  flex: 3;
+}
+
+.name-text {
+  font-size: 14px;
+  font-weight: bold;
+  flex: 10;
+  margin-top: 18px!important;
+}
+
+.score-container {
+  flex: 2;
+  margin-top: 4px!important;
+  margin-right: 5px!important;
+}
+
+.score-text {
+  font-size: 10px;
+  padding: 0;
+  margin: 0;
+  color: gray;
+}
+
+.score-value {
+  margin: 0;
+  padding: 5px;
+  color: white;
+  background-color: #303f9e;
+  border-radius: 5px;
+}

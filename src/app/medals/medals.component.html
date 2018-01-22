@@ -1,0 +1,145 @@
+<mat-drawer-container class="drawer-container">
+<div class="margin">
+  <mat-card class="mat-card-medals" [ngStyle]="{'padding':'0px 0px 20px 0px'}">
+    <mat-card-header>
+      <h2 class="center-text">Medals</h2>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="alpha-disclosure">
+        MusiQueue is currently still in its Alpha version. All records of the database, including
+        medals and scores, will be wiped clean before futher versions of MusiQueue are released.
+      </p>
+      <mat-tab-group  [(slectedIndex)]="tabIdx" (selectedTabChange)="onSelected($event)">
+        <mat-tab class="medal-tab" label="All">
+
+          <p class="center-text medal-group-title">Friend Medals</p>
+          <div class="medal-container">
+            <div class="medal-item" *ngFor="let medal of friendMedals" (click)="onMedalClick(medal)">
+              <div class="const-height"><p class="medal-title">{{ medal.name }}</p></div>
+              <img class="medal-pic" [src]="defaultPic"/>
+              <p class="medal-score">{{ medal.score }}</p>
+            </div>
+          </div>
+
+          <p class="center-text medal-group-title">Hub Medals</p>
+          <div class="medal-container">
+            <div class="medal-item" *ngFor="let medal of hubMedals" (click)="onMedalClick(medal)">
+              <div class="const-height"><p class="medal-title">{{ medal.name }}</p></div>
+              <img class="medal-pic" [src]="defaultPic"/>
+              <p class="medal-score">{{ medal.score }}</p>
+            </div>
+          </div>
+
+          <p class="center-text medal-group-title">Voting Medals</p>
+          <div class="medal-container">
+            <div class="medal-item" *ngFor="let medal of voteMedals" (click)="onMedalClick(medal)">
+              <div class="const-height"><p class="medal-title">{{ medal.name }}</p></div>
+              <img class="medal-pic" [src]="defaultPic"/>
+              <p class="medal-score">{{ medal.score }}</p>
+            </div>
+          </div>
+
+          <p class="center-text medal-group-title">Rank Medals</p>
+          <div class="medal-container">
+            <div class="medal-item" *ngFor="let medal of rankMedals" (click)="onMedalClick(medal)">
+              <div class="const-height"><p class="medal-title">{{ medal.name }}</p></div>
+              <img class="medal-pic" [src]="defaultPic"/>
+              <p class="medal-score">{{ medal.score }}</p>
+            </div>
+          </div>
+
+          <p class="center-text medal-group-title">Quantity Medals</p>
+          <div class="medal-container">
+            <div class="medal-item" *ngFor="let medal of countMedals" (click)="onMedalClick(medal)">
+              <div class="const-height"><p class="medal-title">{{ medal.name }}</p></div>
+              <img class="medal-pic" [src]="defaultPic"/>
+              <p class="medal-score">{{ medal.score }}</p>
+            </div>
+          </div>
+
+          <p class="center-text medal-group-title">Miscellaneous Medals</p>
+          <div class="medal-container">
+            <div class="medal-item" *ngFor="let medal of miscMedals" (click)="onMedalClick(medal)">
+              <div class="const-height"><p class="medal-title">{{ medal.name }}</p></div>
+              <img class="medal-pic" [src]="defaultPic"/>
+              <p class="medal-score">{{ medal.score }}</p>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Owned">
+          <div class="medal-container">
+            <div class="medal-item" *ngFor="let medal of ownedMedals" (click)="onMedalClick(medal)">
+              <div class="const-height"><p class="medal-title">{{ medal.name }}</p></div>
+              <img class="medal-pic" [src]="defaultPic"/>
+              <p class="medal-score">{{ medal.score }}</p>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Friend">
+          <div class="medal-container">
+            <div class="medal-item" *ngFor="let medal of friendMedals" (click)="onMedalClick(medal)">
+              <div class="const-height"><p class="medal-title">{{ medal.name }}</p></div>
+              <img class="medal-pic" [src]="defaultPic"/>
+              <p class="medal-score">{{ medal.score }}</p>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Hub">
+          <div class="medal-container">
+            <div class="medal-item" *ngFor="let medal of hubMedals" (click)="onMedalClick(medal)">
+              <div class="const-height"><p class="medal-title">{{ medal.name }}</p></div>
+              <img class="medal-pic" [src]="defaultPic"/>
+              <p class="medal-score">{{ medal.score }}</p>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Vote">
+          <div class="medal-container">
+            <div class="medal-item" *ngFor="let medal of voteMedals" (click)="onMedalClick(medal)">
+              <div class="const-height"><p class="medal-title">{{ medal.name }}</p></div>
+              <img class="medal-pic" [src]="defaultPic"/>
+              <p class="medal-score">{{ medal.score }}</p>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Rank">
+          <div class="medal-container">
+            <div class="medal-item" *ngFor="let medal of rankMedals" (click)="onMedalClick(medal)">
+              <div class="const-height"><p class="medal-title">{{ medal.name }}</p></div>
+              <img class="medal-pic" [src]="defaultPic"/>
+              <p class="medal-score">{{ medal.score }}</p>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Quantity">
+          <div class="medal-container">
+            <div class="medal-item" *ngFor="let medal of countMedals" (click)="onMedalClick(medal)">
+              <div class="const-height"><p class="medal-title">{{ medal.name }}</p></div>
+              <img class="medal-pic" [src]="defaultPic"/>
+              <p class="medal-score">{{ medal.score }}</p>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Misc">
+          <div class="medal-container">
+            <div class="medal-item" *ngFor="let medal of miscMedals" (click)="onMedalClick(medal)">
+              <div class="const-height"><p class="medal-title">{{ medal.name }}</p></div>
+              <img class="medal-pic" [src]="defaultPic"/>
+              <p class="medal-score">{{ medal.score }}</p>
+            </div>
+          </div>
+        </mat-tab>
+
+      </mat-tab-group>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+</mat-drawer-container>

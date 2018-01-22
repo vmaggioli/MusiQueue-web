@@ -12,7 +12,6 @@ export class YoutubeService {
   constructor(private http: Http) {}
 
   search(query: string): YTSong[] {
-    console.log("inSearch");
     this.songs = [];
     this.http
       .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}`+

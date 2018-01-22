@@ -7,15 +7,15 @@
         </div>
         <div class="profile-heading">
           <div class="profile-head-text">
-            <p class="user-name">{{ this.curUser.username }}</p>
-            <p class="user-location">{{ this.curUser.location }}</p>
+            <p class="user-name">{{ this.curUser?.username }}</p>
+            <p class="user-location">{{ this.curUser?.location }}</p>
           </div>
           <div class="stats">
-            <p class="stat">Upvotes: {{ this.curUser.upvotes }}</p>
-            <p class="stat">Downvotes: {{ this.curUser.downvotes }}</p>
-            <p class="stat">Medals: {{ this.curUser.medal_count }}</p>
-            <p class="stat">Score: {{ this.curUser.upvotes - this.curUser.downvotes + this.curUser.medal_score }}</p>
-            <p class="stat">Rank: Not Yet Implemented</p>
+            <p class="stat">Upvotes: {{ this.curUser?.upvotes }}</p>
+            <p class="stat">Downvotes: {{ this.curUser?.downvotes }}</p>
+            <p class="stat">Medals: {{ this.curUser?.medal_count }}</p>
+            <p class="stat">Score: {{ this.curUser?.upvotes - this.curUser?.downvotes + this.curUser?.medal_score }}</p>
+            <p class="stat">Rank: {{ this.curUser?.rank }}</p>
           </div>
         </div>
         <div *ngIf="isOwnerProfile" class="edit-button" (click)="editProfile()">
@@ -36,7 +36,7 @@
                 <li class="list-group-item numbered" *ngFor="let song of topSongs">
                   <div class="top-song-list-item">
                     <img src={{song.thumbnail}} class="prof-img-thumbnail" width="100" height="80"/>
-                    <p class="song-title-text">{{ song.title }}</p>
+                    <p class="song-title-text">{{ song?.title }}</p>
                   </div>
                 </li>
               </ol>
@@ -44,17 +44,20 @@
 
             <mat-tab label="Friends">
               <ol>
-                <li class="list-group-item numbered selectable" *ngFor="let friend of friends" (click)="onFriendSelected(friend)">
-                  <p class="list-text">{{ friend.username }}</p>
+                <li class="list-group-item users-list selectable" *ngFor="let friend of friends; let i = index" (click)="onFriendSelected(friend)">
+                  <p class="number">{{ i + 1 }}<p>
+                  <img class="list-user-pic" [src]="friend?.pic">
+                  <p class="user-name-text">{{ friend?.user.username }}</p>
+                  <div class="score-container">
+                    <p class="score-text">Score</p>
+                    <p class="score-value">{{ friend?.upvotes - friend?.downvotes + friend?.medal_score }}</p>
+                  </div>
                 </li>
               </ol>
             </mat-tab>
 
             <mat-tab label="Medals">
-              <ol>
-                <li>
-                </li>
-              </ol>
+              Coming Soon!
             </mat-tab>
 
           </mat-tab-group>

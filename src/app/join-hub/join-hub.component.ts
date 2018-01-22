@@ -32,7 +32,6 @@ export class JoinHubComponent {
   }
 
   searchLocation() {
-    console.log("button click is working");
     this.locHubs = [];
     navigator.geolocation.getCurrentPosition(pos => {
       this.location = pos.coords;
@@ -51,7 +50,6 @@ export class JoinHubComponent {
   }
 
   recentHubs() {
-    console.log("made it");
     this.recentHubsOfUser = [];
     this.usersService.getRecentHubs().subscribe(hubs => {
       hubs.forEach(hub => {
@@ -71,11 +69,18 @@ export class JoinHubComponent {
         confirm("Please enter a value");
         return;
       }
-    this.hubsFromSearch = this.hubService.getHubsBySearch(hubName);
+    this.hubService.getAllHubs().then(hubs => {
+      this.hubsFromSearch = [];
+      hubs.forEach(hub => {
+        if (hub.val().name.toLowerCase().search(hubName.toLowerCase()) != -1)
+          this.hubsFromSearch.push(hub.val());
+      });
+    });
     this.displayingSearchHubs = true;
     this.displayingLocalHubs = false;
     this.displayingRecentHubs = false;
   }
+
 
   onHubSelected(hub) {
 

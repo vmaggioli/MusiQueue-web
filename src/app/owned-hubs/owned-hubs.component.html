@@ -1,3 +1,29 @@
-<p>
-  owned-hubs works!
-</p>
+<mat-drawer-container class="drawer-container">
+<div class="margin">
+  <mat-card class="mat-card-owned-hubs" [ngStyle]="{'padding':'0px 0px 20px 0px'}">
+    <mat-card-header>
+      <h2 class="center-text">Your Hubs</h2>
+    </mat-card-header>
+    <mat-card-content>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Creator</th>
+            <th>Members</th>
+            <th>Rank</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of dataArray" (click)="goToHub(data.Name)">
+            <td>{{ data.Name }}</td>
+            <td>{{ data.Creator}}</td>
+            <td>{{ data.Members }}</td>
+            <td>{{ data.Rank }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>
+</mat-drawer-container>

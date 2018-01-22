@@ -68,6 +68,13 @@
         </mat-tab>
 
         <mat-tab label="Owned">
+          <div class="medal-container">
+            <div class="medal-item" *ngFor="let medal of ownedMedals" (click)="onMedalClick(medal)">
+              <div class="const-height"><p class="medal-title">{{ medal.name }}</p></div>
+              <img class="medal-pic" [src]="defaultPic"/>
+              <p class="medal-score">{{ medal.score }}</p>
+            </div>
+          </div>
         </mat-tab>
 
         <mat-tab label="Friend">

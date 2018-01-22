@@ -18,7 +18,9 @@
             <img class="user-photo" [src]="pics[i]">
             <p class="friend-notif-text">{{ notif.username }} would like to be your friend!</p>
             <div class="buttons">
-              <button mat-raised-button class="resp-button close-button" (click)="onDecline(notif)"><mat-icon>close</mat-icon></button>
+              <button mat-raised-button class="resp-button close-button" (click)="onDecline(notif)">
+                <mat-icon>close</mat-icon>
+              </button>
               <button mat-raised-button class="resp-button check-button"
                 aria-label="You are now friends with notif.username"
                 (click)="onAccept(notif)"
@@ -33,14 +35,19 @@
       <div class="notif-container medal-notif-container">
         <p class="notif-cat">Achievements ({{ medalNotifs.length }})</p>
         <ul class="list-group">
-          <li class="list-group-item medal-notif-item" *ngFor="let notif of medalNotifs; let i = index" (click)="viewMedal(notif.medal.id)">
+          <li class="list-group-item medal-notif-item"
+            *ngFor="let notif of medalNotifs; let i = index"
+            (click)="viewMedal(notif)"
+          >
             <img class="medal-photo" [src]="notif.pic"/>
             <p class="medal-name">{{ notif.name }}</p>
             <div class="medal-score-container">
-              <p class="score-text">Score</p>
+              <p class="medal-score-text">Points</p>
               <p class="medal-score">{{ notif.score }}</p>
             </div>
-            <button mat-raised-button class="dismiss-medal-button" (click)="dismissMedal(notif.medal.id)">Dismiss</button>
+            <button mat-raised-button class="resp-button close-button" (click)="dismissMedal(notif)">
+              <mat-icon>close</mat-icon>
+            </button>
           </li>
         </ul>
       </div>

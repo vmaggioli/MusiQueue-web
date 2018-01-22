@@ -1,4 +1,6 @@
 export enum Rank {
+  Name = "Rank",
+
   Min = "f0",
   Max = "fo",
 

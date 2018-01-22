@@ -110,10 +110,12 @@ mat-icon {
 }
 
 .medal-name {
-  font-size: 14px;
+  font-size: 20px;
   font-weight: bold;
   flex: 10;
   margin-top: 18px!important;
+  width: 100%;
+  text-align: center;
 }
 
 .medal-score-container {
@@ -121,10 +123,10 @@ mat-icon {
   margin: 0;
   flex: 2;
   margin-top: 4px!important;
-  margin-right: 5px!important;
+  margin-right: 30px!important;
 }
 
-.score-text {
+.medal-score-text {
   font-size: 10px;
   padding: 0;
   margin: 0;
@@ -137,14 +139,5 @@ mat-icon {
   color: white;
   background-color: #303f9e;
   border-radius: 5px;
-}
-
-.dismiss-medal-button {
-  flex: 1;
-  margin: 0;
-  max-height: 40px;
-  max-width: 60px!important;
-  min-width: 60px!important;
-  padding-left: 2px;
-  padding-right: 2px;
+  line-height: 20px;
 }

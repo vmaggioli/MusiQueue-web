@@ -33,4 +33,6 @@ export enum MedalE {
   IsRank = 3,
   IsCount = 4,
   IsMisc = 5,
+
+  Dismissed = 1,
 }

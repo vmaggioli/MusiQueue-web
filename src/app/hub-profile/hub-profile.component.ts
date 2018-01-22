@@ -62,6 +62,7 @@ export class HubProfileComponent implements OnInit {
     });
   }
 
+  // this is wrong andshould not be used
   getHubRank() {
     this.rankingService.getHubRanksOnce().then(ranks => {
       let ranksArray = [];
@@ -125,7 +126,9 @@ export class HubProfileComponent implements OnInit {
 
             this.curHub.total_upvotes += scores.val().upvotes;
             this.curHub.total_downvotes += scores.val().downvotes;
-            this.curHub.score += this.curHub.total_upvotes - this.curHub.total_downvotes;
+            this.curHub.medal_count += member.medal_count;
+            this.curHub.medal_score += member.medal_score;
+            this.curHub.score += this.curHub.total_upvotes - this.curHub.total_downvotes + this.curHub.medal_score;
             // TODO: IMPLEMENT MEDALS INTO SCORE VALUES
           });
 
@@ -145,7 +148,7 @@ export class HubProfileComponent implements OnInit {
           });
         });
       });
-      this.getHubRank();
+      //this.getHubRank();
     });
   }
 

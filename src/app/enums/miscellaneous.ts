@@ -1,4 +1,6 @@
 export enum Miscellaneous {
+  Name = "Misc",
+
   Min = "p0",
   Max = "p3",
 

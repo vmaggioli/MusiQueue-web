@@ -1,4 +1,6 @@
 export enum Vote {
+  Name = "Vote",
+
   Min = "a0",
   Max = "b4",
 

@@ -1,4 +1,6 @@
 export enum Count {
+  Name = "Count",
+  
   Min = "k0",
   Max = "kd",
 

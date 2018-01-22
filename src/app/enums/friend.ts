@@ -1,4 +1,6 @@
 export enum Friend {
+  Name = "Friend",
+
   Min = "00",
   Max = "0d",
 

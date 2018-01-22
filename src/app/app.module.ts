@@ -19,6 +19,7 @@ import { HubService } from './shared/hub.service';
 import { MedalService } from './shared/medal.service';
 import { environment } from '../environments/environment';
 import { NotifService } from './shared/notif.service';
+import { RankingService } from './shared/ranking.service';
 import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { LoginGuard } from './shared/login-guard.module';
@@ -49,6 +50,7 @@ import { HubProfileFormComponent } from './hub-profile-form/hub-profile-form.com
 import {NgxPaginationModule} from 'ngx-pagination';
 import { MedalsComponent } from './medals/medals.component';
 import { MedalPopup } from './medals/medals.component';
+import { NotifPopup } from './notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -71,8 +73,9 @@ import { MedalPopup } from './medals/medals.component';
     HubProfileFormComponent,
     MedalsComponent,
     MedalPopup,
+    NotifPopup,
   ],
-  entryComponents: [MedalPopup]
+  entryComponents: [MedalPopup, NotifPopup]
   imports: [
     BrowserModule,
     HttpModule,
@@ -109,6 +112,7 @@ import { MedalPopup } from './medals/medals.component';
     AngularFireDatabase,
     NotifService,
     MedalService,
+    RankingService,
   ],
   bootstrap: [AppComponent]
 })

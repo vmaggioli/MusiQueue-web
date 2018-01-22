@@ -1,4 +1,6 @@
 export enum Hub {
+  Name = "Hub",
+
   Min = "50",
   Max = "5k",
 

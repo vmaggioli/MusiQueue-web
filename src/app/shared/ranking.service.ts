@@ -32,9 +32,13 @@ export class RankingService {
     firebase.database().ref("Rankings/Hubs/" + hub).once('value', h => {
       firebase.database().ref("Rankings/Hubs/" + hub).update({
         medal_count: (h.val() == null || h.val().medal_count == undefined) ? 0 : h.val().medal_count,
-        medal_score: (h.val() == null ||  h.val().medal_score == undefined) ? 0 : h.val().medal_score
+        medal_score: (h.val() == null ||  h.val().medal_score == undefined) ? 0 : h.val().medal_score,
       });
     });
+  }
+
+  listenUserScores(user) {
+    return firebase.database().ref("Rankings/Users/" + user).on('value');
   }
 
   getUserScores(user) {

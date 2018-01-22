@@ -6,8 +6,9 @@ export class HubMedal {
   public name: string;
   public achieveDesc: string;
   public regDesc: string;
+  public hub: string;
 
-  constructor(type: MedalE.HubType) {
+  constructor(type: MedalE.HubType, hub: string) {
     this.id = type;
     switch(type) {
       case MedalE.HubType.OwnedOne:
@@ -134,3 +135,8 @@ export class HubMedal {
         break;
     }
   }
+
+  public setHubName(hubName: string) {
+    this.hub = hubName;
+  }
+}

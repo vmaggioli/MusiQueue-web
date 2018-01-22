@@ -14,7 +14,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 })
 export class MedalsComponent implements OnInit {
   allMedals: any;
-  ownedMedals: any;
+  ownedMedals = [];
   friendMedals: any;
   hubMedals: any;
   voteMedals: any;
@@ -39,7 +39,15 @@ export class MedalsComponent implements OnInit {
       this.defaultPic = pic;
     });
 
+    this.ownedMedals = [];
+
     //this.allMedals = this.medalService.getAllMedals();
+    this.medalService.getOwnedMedalArr(this.usersService.currentUser.uid).then(medals => {
+      medals.forEach(medal => {
+        if (medal.key != "total")
+          this.ownedMedals.push(this.medalService.getMedal(medal.key));
+      });
+    });
     this.friendMedals = this.medalService.getFriendMedalArr();
     this.hubMedals = this.medalService.getHubMedalArr();
     this.voteMedals = this.medalService.getVoteMedalArr();
